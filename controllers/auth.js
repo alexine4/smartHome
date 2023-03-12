@@ -20,7 +20,7 @@ if(req.body.login){
 				if (passwordResult){
 					// generate token
 					const token = jwt.sign({
-						idUser: Email.dataValues.idUser,
+						userId: Email.dataValues.userId,
 						userName: Email.dataValues.userName,
 						email: Email.dataValues.email,
 						superUserStatus: Email.dataValues.superUserStatus 
@@ -45,7 +45,7 @@ if(req.body.login){
 		if (passwordResult){
 			// generate token
 			const token = jwt.sign({
-				idUser: Name.dataValues.idUser,
+				userId: Name.dataValues.userId,
 				userName: Name.dataValues.userName,
 				email: Name.dataValues.email,
 				superUserStatus: Name.dataValues.superUserStatus
