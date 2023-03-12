@@ -21,7 +21,7 @@ if(req.body.login){
 					// generate token
 					const token = jwt.sign({
 						idUser: Email.dataValues.idUser,
-						username: Email.dataValues.username,
+						userName: Email.dataValues.userName,
 						email: Email.dataValues.email,
 						superUserStatus: Email.dataValues.superUserStatus 
 					},connectionDB.jwt,{expiresIn: "24h"}
@@ -37,16 +37,16 @@ if(req.body.login){
 				}
 		
 	}else{						
-	const checkUsername=  user.findOne( 'username', req.body.login)
-	checkUsername.then((Name)=>{
+	const checkUserName=  user.findOne( 'userName', req.body.login)
+	checkUserName.then((Name)=>{
 		if(Name !==  true){
-		// Username already exist 
+		// UserName already exist 
 		const passwordResult = bCrypt.compareSync(req.body.password, Name.dataValues.password)
 		if (passwordResult){
 			// generate token
 			const token = jwt.sign({
 				idUser: Name.dataValues.idUser,
-				username: Name.dataValues.username,
+				userName: Name.dataValues.userName,
 				email: Name.dataValues.email,
 				superUserStatus: Name.dataValues.superUserStatus
 			},connectionDB.jwt,{expiresIn: "24h"}
@@ -62,7 +62,7 @@ if(req.body.login){
 		}
 		
 	}else{
-				// username doesn't exist 
+				// userName doesn't exist 
 			res.status(404).json({
 				message: 'Incorrect input data'
 								})
@@ -88,7 +88,7 @@ module.exports.register = async function(req, res){
 				const password = req.body.password
 				  // create new user
 				user.create(
-				req.body.username,
+				req.body.userName,
 				req.body.email,
 				bCrypt.hashSync(password,salt)
 				)
@@ -111,11 +111,11 @@ module.exports.register = async function(req, res){
 module.exports.check = async (req,res)=>{
 	user.initialization()
 
-	if (req.body.username !=='' && req.body.username !== undefined ) {
-	const checkUsername =  user.findOne( 'username' , req.body.username )
-	checkUsername.then((Username)=>{
+	if (req.body.userName !=='' && req.body.userName !== undefined ) {
+	const checkUserName =  user.findOne( 'userName' , req.body.userName )
+	checkUserName.then((UserName)=>{
 		
-		if(Username !==  true){
+		if(UserName !==  true){
 			  // email already exist error
 			res.status(200).json({
 				status:true
@@ -145,9 +145,9 @@ module.exports.check = async (req,res)=>{
 
 
 module.exports.checkPassword = async (req, res)=>{
-	if(req.body.username){
-		const checkUsername=  user.findOne( 'username', req.body.username)
-		checkUsername.then((Name)=>{
+	if(req.body.userName){
+		const checkUserName=  user.findOne( 'userName', req.body.userName)
+		checkUserName.then((Name)=>{
 			if(Name !==  true){
 			// User already exist 
 			const passwordResult = bCrypt.compareSync(req.body.password, Name.dataValues.password)
