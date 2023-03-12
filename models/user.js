@@ -19,7 +19,7 @@ module.exports.initialization = async()=>{
 		
 		await User.init(
 			{
-			idUser: {
+			userId: {
 				type: Sequelize.INTEGER,
 				primaryKey: true,
 				autoIncrement: true
@@ -84,15 +84,15 @@ module.exports.findOne = async function (colomnName , colomnValue){
 	
 }
 // function find one item in User by id
-module.exports.findByIds = async function (idUser){
+module.exports.findByIds = async function (userId){
 	return await User.findOne({
 		where: {
-			idUser
+			userId
 			}
 		})		
 }
 // function update User by id
-module.exports.update = async (idUser,userName,email)=>{
+module.exports.update = async (userId,userName,email)=>{
 	await User.update(
 		{
 			userName: userName,
@@ -101,13 +101,13 @@ module.exports.update = async (idUser,userName,email)=>{
 		{
 			where:
 			{
-				idUser
+				userId
 			}
 		}
 	)
 }
 // function update password User by id
-module.exports.updatePassword = async (idUser,password)=>{
+module.exports.updatePassword = async (userId,password)=>{
 		await User.update(
 		{
 			password
@@ -115,7 +115,7 @@ module.exports.updatePassword = async (idUser,password)=>{
 		{
 			where:
 			{
-				idUser
+				userId
 			}
 		}
 	)
