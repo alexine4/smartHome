@@ -8,3 +8,17 @@ font-weight: 400;
 color: #FCF7F7;
 	margin: 0;
 }
+.container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px;
+}
+.phfont-family{
+	&::placeholder{
+			font-family: 'Aleo';
+		}
+}
+.btn{
+font-family: 'Aleo';
+}
