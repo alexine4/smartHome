@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(https://fonts.googleapis.com/css?family=Aleo:300,regular,700,);
+html,body{ height: 100%; }
+body{
+	font-family: 'Aleo';
+font-style: normal;
+font-weight: 400;
+color: #FCF7F7;
+	margin: 0;
+}
