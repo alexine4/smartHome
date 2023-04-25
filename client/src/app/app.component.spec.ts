@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'smartHome'`, () => {
+  it(`should have as title 'SmartHome'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('smartHome');
+    expect(app.title).toEqual('SmartHome');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('smartHome app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('SmartHome app is running!');
   });
 });
