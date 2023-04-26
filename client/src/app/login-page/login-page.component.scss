@@ -45,6 +45,9 @@ $md4: 425px;
 		&::placeholder {
 			color: #fcf7f7;
 		}
+		&:focus{
+			border: 5px solid #06f7f7;
+		}
 	}
 
 	// .form__btn
