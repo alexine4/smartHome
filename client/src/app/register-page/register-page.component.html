@@ -1,0 +1,17 @@
+<form class="form__container container">
+  <div class="form__title icon-camera">Sign-up new account</div>
+  <div class="form__fields">
+    <input type="text" class="form__field phfont-family" placeholder="Enter email" />
+    <input type="text" class="form__field phfont-family" placeholder="Enter username" />
+    <input type="password" class="form__field phfont-family" placeholder="Enter password" />
+    <input type="password" class="form__field phfont-family" placeholder="Enter password" />
+    <input type="text" class="form__field phfont-family " placeholder="Enter home ip" />
+  </div>
+  <button type="submit" class="form__btn btn btn-blc hover-color">Sign-up new account</button>
+  <div class="form__help-text">
+    You already have account?
+    <a [routerLink]="'/register'" class="form__help-ref">
+      <p>Sign-in now</p>
+    </a>
+  </div>
+</form>
