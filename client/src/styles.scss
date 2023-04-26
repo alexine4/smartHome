@@ -31,7 +31,14 @@ body {
 	}
 }
 .btn {
+
 	font-family: "Aleo";
+}
+.btn-blc {
+	background: #000000;
+}
+.btn-wh {
+	background: #ffffff;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -55,7 +62,7 @@ body {
 	@media (min-width: $md3) {
 		&:hover {
 			background: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
-			border-radius: 50px;
+			border-radius: 25px;
 			cursor: pointer;
 			color: #fff;
 		}
