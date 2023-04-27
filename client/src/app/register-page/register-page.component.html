@@ -1,11 +1,18 @@
-<form class="form__container container">
-  <div class="form__title icon-camera">Sign-up new account</div>
-  <div class="form__fields">
-    <input type="text" class="form__field phfont-family" placeholder="Enter email" />
-    <input type="text" class="form__field phfont-family" placeholder="Enter username" />
-    <input type="password" class="form__field phfont-family" placeholder="Enter password" />
-    <input type="password" class="form__field phfont-family" placeholder="Enter password" />
-    <input type="text" class="form__field phfont-family " placeholder="Enter home ip" />
+<form class="form__container container animation-show" [formGroup]="signUpForm" (ngSubmit)="submitSignUp()">
+  <div class="form__title ">Sign-up new account</div>
+  <div class="form__fields ">
+    <input formControlName="email" type="text" class="form__field phfont-family" placeholder="Enter email" />
+    <input formControlName="userName" type="text" class="form__field phfont-family" placeholder="Enter username" />
+    <div class="form__field-password phfont-family">
+      <input formControlName="password" type="password" id="password" placeholder="Password"
+        class=" form__field phfont-family pos-left" />
+      <button type="button" (click)="showHidePassword();showPassword = !showPassword " class="non-btn-style icon"
+        [ngClass]="showPassword ? 'icon-eye':
+        'icon-eye-blocked'"></button>
+    </div>
+    <input formControlName="passwordConfirm" type="password" id="typePassword" placeholder="Password"
+      class=" form__field phfont-family " />
+    <input formControlName="homeIP" type="text" class="form__field phfont-family " placeholder="Enter home ip" />
   </div>
   <button type="submit" class="form__btn btn btn-blc hover-color">Sign-up new account</button>
   <div class="form__help-text">

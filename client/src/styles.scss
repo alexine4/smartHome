@@ -59,6 +59,7 @@ body {
 }
 
 .hover-color {
+	transition: all 0.8s ease 0s;
 	@media (min-width: $md3) {
 		&:hover {
 			background: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
@@ -80,3 +81,8 @@ body {
 		}
 	}
 }
+
+	.non-btn-style{
+		background: none;
+		border: none;
+	}
