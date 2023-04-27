@@ -8,6 +8,9 @@ $md4: 425px;
 
 	&__container {
 		flex-direction: column;
+		background-color: #7a36d3;
+		border-radius: 50px;
+		padding: 20px;
 	}
 	&__title {
 		font-weight: 700;
@@ -82,6 +85,7 @@ $md4: 425px;
 		font-size: 36px;
 		line-height: 43px;
 		margin: 10px 0;
+		
 	}
 
 	&__help-ref {
@@ -94,7 +98,7 @@ $md4: 425px;
 		transition: all 0.3s ease 0s;
 		@media (min-width: $md3) {
 			&:hover {
-				color: #836ef5;
+				color: #aea2f0;
 			}
 		}
 	}
@@ -115,6 +119,15 @@ $md4: 425px;
 		}
 	}
 }
+
+	.form-error{
+		font-size: 20px;
+		color: rgb(0, 195, 255);
+		
+	}
+	.info{
+max-width: 510px;
+	}
 
 .icon {
 	cursor: pointer;
