@@ -13,6 +13,12 @@
     </p>
 
     <input formControlName="userName" type="text" class="form__field phfont-family" placeholder="Enter username" />
+    <p class="info" *ngIf="this.signUpForm.get('userName')?.invalid &&  this.signUpForm.get('userName')?.touched ">
+      <small *ngIf="this.signUpForm.get('userName')?.value == ''" class=" form-error animation-show">
+        The form must be filled out!!! Please enter your Username
+      </small>
+    </p>
+
     <div class="form__field-password phfont-family">
       <input formControlName="password" type="password" id="password" placeholder="Password"
         class=" form__field phfont-family pos-left" />
@@ -20,9 +26,42 @@
         [ngClass]="showPassword ? 'icon-eye':
         'icon-eye-blocked'"></button>
     </div>
-    <input formControlName="passwordConfirm" type="password" id="typePassword" placeholder="Password"
+    <p class="info" *ngIf="this.signUpForm.get('password')?.invalid &&  this.signUpForm.get('password')?.touched ">
+      <small *ngIf="this.signUpForm.get('password')?.value == ''" class=" form-error animation-show">
+        The form must be filled out!!! Please enter your Password
+      </small>
+      <small *ngIf="this.signUpForm.get('password')?.value !== '' &&  this.signUpForm.get('password')?.invalid"
+        class=" form-error animation-show">
+        Invalid format!! The password must contain minimum eight characters, at least one
+        uppercase letter, one lowercase letter and one number
+      </small>
+    </p>
+
+
+    <input formControlName="passwordConfirm" type="password" id="typePassword" placeholder="Confirm password"
       class=" form__field phfont-family " />
+    <p class="info"
+      *ngIf="this.signUpForm.get('passwordConfirm')?.invalid && this.signUpForm.get('passwordConfirm')?.touched ">
+      <small *ngIf="this.signUpForm.get('passwordConfirm')?.value === ''" class=" form-error animation-show">
+        The form must be filled out!!! Please confirm your Password
+      </small>
+      <small *ngIf="this.signUpForm.get('passwordConfirm')?.value !== '' && this.signUpForm.get('passwordConfirm')?.value !==
+        this.signUpForm.get('password')?.value" class=" form-error animation-show">
+        Passwords do not match!!!
+      </small>
+    </p>
+
     <input formControlName="homeIP" type="text" class="form__field phfont-family " placeholder="Enter home ip" />
+    <p class="info" *ngIf="this.signUpForm.get('homeIP')?.invalid &&  this.signUpForm.get('homeIP')?.touched ">
+      <small *ngIf="this.signUpForm.get('homeIP')?.value == ''" class=" form-error animation-show">
+        The form must be filled out!!! Please enter your homeIP
+      </small>
+      <small *ngIf="this.signUpForm.get('homeIP')?.value !=='' &&  this.signUpForm.get('homeIP')?.invalid"
+        class=" form-error animation-show">
+        Invalid format!! Please enter IP format 15.00.00.00
+      </small>
+    </p>
+
   </div>
   <button type="submit" class="form__btn btn btn-blc hover-color">Sign-up new account</button>
   <div class="form__help-text">

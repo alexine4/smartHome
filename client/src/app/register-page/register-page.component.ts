@@ -19,17 +19,17 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       userName: new FormControl('', [
         Validators.required,
       ]),
-      password: new FormControl(null, [
+      password: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
       ]),
-      passwordConfirm: new FormControl(null, [
+      passwordConfirm: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
       ]),
-      homeIP: new FormControl(null, [
+      homeIP: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^(?=.){8,}$/)
+        Validators.pattern(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)
       ])
     })
 
