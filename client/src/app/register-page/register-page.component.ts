@@ -1,50 +1,104 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmAccessComponent } from './confirm-access/confirm-access.component';
+//import { MaterialService } from '../shared/classes/material.service';
+import { AuthService } from '../shared/services/auth.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss']
+  styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent implements OnInit, OnDestroy {
-  showPassword = true
-  signUpForm!: FormGroup
+  showPassword = true;
+  signUpForm!: FormGroup;
+  authSub!: Subscription
+  dialogSub!: Subscription
+  message!: string
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private toast: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
-      email: new FormControl('', [
+      email: new FormControl('Admin123@admin.com', [
         Validators.required,
-        Validators.email
+        Validators.email,
       ]),
-      userName: new FormControl('', [
+      userName: new FormControl('Admin123', [Validators.required]),
+      password: new FormControl('Admin123', [
         Validators.required,
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
       ]),
-      password: new FormControl('', [
+      passwordConfirm: new FormControl('Admin123', [
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
       ]),
-      passwordConfirm: new FormControl('', [
+      homeIp: new FormControl('15.00.00.00', [
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
+        Validators.pattern(
+          /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+        ),
       ]),
-      homeIP: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)
-      ])
-    })
+    });
 
+    // ending start animation 
     document.querySelector('.animation-show')?.classList.add('show');
+
   }
 
-
-
   submitSignUp() {
-    console.log(this.signUpForm.value);
 
+    const dialogRef = this.dialog.open(ConfirmAccessComponent, {
+      data: {
+        confirmCod: '',
+      },
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
+    });
+    this.dialogSub = dialogRef.afterClosed().subscribe(
+      result => {
+        if (result !== undefined) {
+          this.toast.success('kkmmm')
+        }
+      }
+    )
+
+    const newUser = {
+      userName: this.signUpForm.value.userName,
+      email: this.signUpForm.value.email,
+      password: this.signUpForm.value.password,
+      homeIp: this.signUpForm.value.homeIp
+    }
+    this.authSub = this.authService.register(newUser).subscribe(
+      () => {
+        setTimeout(() => {
+          this.router.navigate(['/login'], {
+            queryParams: {
+              registered: true
+            }
+          })
+        }, 5000);
+      },
+      error => {
+        this.toast.error(error.error.message)
+      },
+      () => {
+        this.toast.success('New user successfully registration')
+      }
+    )
   }
 
   showHidePassword() {
-    const input = document.getElementById('password')
+    const input = document.getElementById('password');
     if (input) {
       if (input.getAttribute('type') === 'password') {
         input.removeAttribute('type');
@@ -57,8 +111,12 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    if (this.authSub) {
+      this.authSub.unsubscribe()
+    }
+    if (this.dialogSub) {
+      this.dialogSub.unsubscribe()
+    }
   }
-
 }
 

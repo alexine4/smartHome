@@ -9,6 +9,8 @@ const Passport = require('./middleware/passport')
 
 const initialilazationAll = require('./controllers/initializationDB')
 
+const authRoutes = require('./routes/auth')
+
 const app = express()
 
 
@@ -28,8 +30,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
-/* app.use('/api/auth',authRoutes)
-app.use('/uploads', express.static('uploads')) */
+app.use('/api/auth',authRoutes)
+//app.use('/uploads', express.static('uploads')) 
 
 
 

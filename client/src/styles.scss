@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(https://fonts.googleapis.com/css?family=Aleo:300,regular,700);
-@import url('../src/app/shared/css styles/style');
+@import url('./app/shared/css styles/style');
+
+@import '../node_modules/ngx-toastr/toastr.css';
+
 // constants
 $md1:1440px;
 $md2:978px;
@@ -87,3 +90,31 @@ body {
 		background: none;
 		border: none;
 	}
+	.mat-dialog-container{
+	background: #08ecec;
+}
+// toast style
+.toast-top-right{
+	top: 30px;
+	right: 50px;
+}
+.toast-container .ngx-toastr{
+	width: 450px;
+	font-family: 'Aleo';
+	font-size: 26px;
+	@media (max-width: $md3){
+		width: 300px;
+	font-size: 22px;
+	}
+	
+}
+.toast-message{
+	line-height: 28px;
+color: #000000;
+@media (max-width: $md3){
+	line-height: 24px;
+}
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

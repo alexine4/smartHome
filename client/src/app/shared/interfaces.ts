@@ -3,5 +3,6 @@ export interface User {
 	userName?: string
 	email: string
 	password: string
+	homeIp: string
 	superUserStatus?: boolean
 }
