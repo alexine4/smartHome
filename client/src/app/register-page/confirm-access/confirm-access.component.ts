@@ -20,11 +20,9 @@ export class ConfirmAccessComponent {
 
   }
   confirmCode(): void {
-    console.log(this.data.confirmPass);
-
-    this.authService.confirmConnectionRes(this.data).subscribe(
+       this.authService.confirmConnectionRes(this.data).subscribe(
       () => {
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       error => {
         this.toast.error(error.error.message)

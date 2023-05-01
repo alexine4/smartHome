@@ -1,12 +1,13 @@
+// imports from node moduele
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmAccessComponent } from './confirm-access/confirm-access.component';
-//import { MaterialService } from '../shared/classes/material.service';
-import { AuthService } from '../shared/services/auth.service';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+//imports components and service
+import { AuthService } from '../shared/services/auth.service';
+import { ConfirmAccessComponent } from './confirm-access/confirm-access.component';
 
 
 @Component({
@@ -19,7 +20,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   signUpForm!: FormGroup;
   regSub$!: Subscription
   checkIPSub$!: Subscription
- 
   dialogSub$!: Subscription
   message!: string
   loading = false
@@ -30,7 +30,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.signUpForm = new FormGroup({
       email: new FormControl('Admin123@admin.com', [
         Validators.required,
@@ -61,15 +61,19 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
   }
 
-  submitSignUp() {
+  public submitSignUp():void {
+    // create new object user
     const newUser = {
       userName: this.signUpForm.value.userName,
       email: this.signUpForm.value.email,
       password: this.signUpForm.value.password,
       homeIp: this.signUpForm.value.homeIp
     }
+    // check ip is exist or not
     this.checkIPSub$ = this.authService.confirmConnectionReq(newUser).subscribe(
       ()=>{
+        // if ip exist open module window
+        // in this window user must been confirmed special code
         const dialogRef = this.dialog.open(ConfirmAccessComponent, {
           data: {
             confirmPass: '',
@@ -79,8 +83,26 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
         });
         this.dialogSub$ = dialogRef.afterClosed().subscribe(
           result => {
+            // check user successufully confirmed code
             if (result !== undefined) {
-              this.toast.success('kkmmm')
+              // register new user
+              this.regSub$ = this.authService.register(newUser).subscribe(
+                () => {
+                  setTimeout(() => {
+                    this.router.navigate(['/login'], {
+                      queryParams: {
+                        registered: true
+                      }
+                    })
+                  }, 5000);
+                },
+                error => {
+                  this.toast.error(error.error.message)
+                },
+                () => {
+                  this.toast.success('New user successfully registration')
+                }
+              )
             }
           }
         )
@@ -95,27 +117,11 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   
       
     
-    /*
-    this.authSub$ = this.authService.register(newUser).subscribe(
-      () => {
-        setTimeout(() => {
-          this.router.navigate(['/login'], {
-            queryParams: {
-              registered: true
-            }
-          })
-        }, 5000);
-      },
-      error => {
-        this.toast.error(error.error.message)
-      },
-      () => {
-        this.toast.success('New user successfully registration')
-      }
-    )*/
+
+   
   }
 
-  showHidePassword() {
+  public showHidePassword():void {
     const input = document.getElementById('password');
     if (input) {
       if (input.getAttribute('type') === 'password') {
@@ -128,13 +134,17 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     if (this.regSub$) {
       this.regSub$.unsubscribe()
     }
     if (this.dialogSub$) {
       this.dialogSub$.unsubscribe()
     }
+    if (this.checkIPSub$) {
+      this.checkIPSub$.unsubscribe()
+    }
+    
   }
 }
 

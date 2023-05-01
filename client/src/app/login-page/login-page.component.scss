@@ -8,6 +8,9 @@ $md4: 425px;
 
 	&__container {
 		flex-direction: column;
+		background-color: #7a36d3;
+		border-radius: 50px;
+		padding: 20px;
 	}
 	&__title {
 		font-weight: 700;
@@ -42,10 +45,32 @@ $md4: 425px;
 		background: none;
 		border: 3px solid #000000;
 		border-radius: 50px;
+		transition: all 0.5s ease 0s;
+		color: #fcf7f7;
 		&::placeholder {
 			color: #fcf7f7;
 		}
-		&:focus{
+		&:focus {
+			border: 5px solid #06f7f7;
+		}
+		@media (min-width: $md3) {
+			&:hover {
+				border-color:  #836ef5;
+			}
+		}
+	}
+
+	&__field-password {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		background: none;
+
+		&::placeholder {
+			color: #fcf7f7;
+		}
+		&:focus {
 			border: 5px solid #06f7f7;
 		}
 	}
@@ -53,15 +78,15 @@ $md4: 425px;
 	// .form__btn
 
 	&__btn {
+		border-radius: 20px;
+		width: 510px;
+		height: 70px;
+		color: #fcf7f7;
+		font-weight: 700;
+		font-size: 36px;
+		line-height: 43px;
+		margin: 10px 0;
 		
-border-radius: 20px;
-width: 510px;
-height: 70px;
-color: #fcf7f7;
-font-weight: 700;
-font-size: 36px;
-line-height: 43px;
-margin: 10px 0;
 	}
 
 	&__help-ref {
@@ -71,14 +96,15 @@ margin: 10px 0;
 		line-height: 29px;
 		text-decoration: none;
 		color: #000000;
+		transition: all 0.3s ease 0s;
 		@media (min-width: $md3) {
 			&:hover {
-				color: #836ef5;
+				color: #aea2f0;
 			}
 		}
 	}
 
-	&__help-text{
+	&__help-text {
 		margin: 10px 0;
 		display: flex;
 		align-items: center;
@@ -86,11 +112,38 @@ margin: 10px 0;
 		flex-direction: row;
 		color: #000000;
 		font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-		a{
-			padding: 0 0 0 10px ;
+		font-size: 24px;
+		line-height: 29px;
+		a {
+			padding: 0 0 0 10px;
 			text-decoration: underline;
+		}
+		p{
+			margin: 0;
 		}
 	}
 }
+
+	.form-error{
+		font-size: 20px;
+		color: rgb(0, 195, 255);
+		
+	}
+	.info{
+max-width: 510px;
+	}
+
+.icon {
+	cursor: pointer;
+	font-size: 40px;
+	position: relative;
+	right: 50px;
+}
+
+.pos-left {
+	position: relative;
+	left: 25px;
+}
+
+
+

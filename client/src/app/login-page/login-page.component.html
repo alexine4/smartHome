@@ -1,4 +1,4 @@
-<form class="form__container container animation-show">
+<form class="form__container container animation-show" *ngIf="loading;else loader">
   <div class="form__title">Sign-in to account</div>
   <div class="form__fields">
     <input type="text" class="form__field phfont-family" placeholder="Email or Username" />
@@ -13,3 +13,9 @@
     </a>
   </div>
 </form>
+
+<ng-template #loader>
+  <div class="loader">
+    <app-loader></app-loader>
+  </div>
+</ng-template>
