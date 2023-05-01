@@ -1,7 +1,8 @@
 <form class="form__container container animation-show" *ngIf="loading;else loader">
   <div class="form__title">Sign-in to account</div>
   <div class="form__fields">
-    <input type="text" class="form__field phfont-family" placeholder="Email or Username" />
+    
+    <input matInput type="text" class="form__field phfont-family" placeholder="Email or Username" />
     <input type="password" class="form__field phfont-family" placeholder="Password" />
   </div>
   <a href="" class="form__help-ref">Forgot password?</a>

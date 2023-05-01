@@ -27,6 +27,7 @@ $md4: 425px;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
+	
 	}
 
 	// .form__field
@@ -58,6 +59,8 @@ $md4: 425px;
 				border-color:  #836ef5;
 			}
 		}
+		
+
 	}
 
 	&__field-password {
@@ -145,5 +148,6 @@ max-width: 510px;
 	left: 25px;
 }
 
-
-
+input:-internal-autofill-selected{
+	background-color: none;
+}
