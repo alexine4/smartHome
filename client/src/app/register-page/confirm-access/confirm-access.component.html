@@ -5,12 +5,12 @@
   <div mat-dialog-content class="menu__content">
     <div class="menu__form" appearance="fill">
       <mat-label class="menu__form-label">Enter unique code</mat-label>
-      <input type="text" class="menu__input" matInput [(ngModel)]="data.confirmCod">
+      <input type="text" class="menu__input" matInput [(ngModel)]="data.confirmPass">
     </div>
 
   </div>
   <div mat-dialog-actions class="menu__buttons">
     <button class="menu__actions-btn non-btn-style hover-color" mat-button (click)="onNoClick()">Cancel</button>
-    <button class="menu__actions-btn non-btn-style hover-color" mat-button
-      [mat-dialog-close]="data.confirmCod">Confirm</button>
+    <button class="menu__actions-btn non-btn-style hover-color" mat-button (click)="confirmCode()"
+      [mat-dialog-close]="true">Confirm</button>
   </div>

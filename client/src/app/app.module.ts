@@ -16,6 +16,7 @@ import { ConfirmAccessComponent } from './register-page/confirm-access/confirm-a
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
+import { LoaderComponent } from './shared/loaders/loader/loader.component';
 
 
 
@@ -27,7 +28,8 @@ import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.co
     LoginPageComponent,
     SiteLayoutComponent,
     RegisterPageComponent,
-    ConfirmAccessComponent
+    ConfirmAccessComponent,
+    LoaderComponent
   ],
   imports: [
     AppRoutingModule,

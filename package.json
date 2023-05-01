@@ -2,7 +2,7 @@
   "name": "Smart Home",
   "version": "1.0.0",
   "description": "backend for smartHome",
-  "main": "index.js", 
+  "main": "index.js",
   "scripts": {
     "start": "node index",
     "server": "nodemon index",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/alexine4/smartHome#readme",
   "dependencies": {
     "@angular/cdk": "^14.2.5",
+    "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",

@@ -60,7 +60,7 @@ module.exports.create = async (userName, email, password, homeIp) => {
 		userName: userName,
 		email: email,
 		password: password,
-		homeIp
+		homeIp: homeIp
 	})
 
 }

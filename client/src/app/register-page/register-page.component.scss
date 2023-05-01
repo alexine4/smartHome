@@ -118,6 +118,9 @@ $md4: 425px;
 			padding: 0 0 0 10px;
 			text-decoration: underline;
 		}
+		p{
+			margin: 0;
+		}
 	}
 }
 
@@ -142,21 +145,5 @@ max-width: 510px;
 	left: 25px;
 }
 
-// animation show 
-.animation-show {
-	opacity: 0;
-	animation: fadeIn 5s ease forwards;
-}
 
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-.show {
-	opacity: 1;
-}
 

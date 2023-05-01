@@ -44,5 +44,11 @@ export class AuthService {
   register(user: User): Observable<User> {
     return this.http.post<User>('/api/auth/register', user)
   }
+  confirmConnectionReq(user: User): Observable<User> {
+    return this.http.post<User>('/api/auth/confirmConnection', user)
+  }
+  confirmConnectionRes(confirmCode: string): Observable<string> {
+    return this.http.post<string>('/api/auth/confirmConnection', confirmCode)
+  }
 
 }

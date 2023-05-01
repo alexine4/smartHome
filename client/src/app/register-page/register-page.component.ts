@@ -17,9 +17,12 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterPageComponent implements OnInit, OnDestroy {
   showPassword = true;
   signUpForm!: FormGroup;
-  authSub!: Subscription
-  dialogSub!: Subscription
+  regSub$!: Subscription
+  checkIPSub$!: Subscription
+ 
+  dialogSub$!: Subscription
   message!: string
+  loading = false
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
@@ -52,33 +55,48 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
     // ending start animation 
     document.querySelector('.animation-show')?.classList.add('show');
+    setTimeout(() => {
+      this.loading = true
+    }, 2500);
 
   }
 
   submitSignUp() {
-
-    const dialogRef = this.dialog.open(ConfirmAccessComponent, {
-      data: {
-        confirmCod: '',
-      },
-      enterAnimationDuration: '1.5s',
-      exitAnimationDuration: '1.5s',
-    });
-    this.dialogSub = dialogRef.afterClosed().subscribe(
-      result => {
-        if (result !== undefined) {
-          this.toast.success('kkmmm')
-        }
-      }
-    )
-
     const newUser = {
       userName: this.signUpForm.value.userName,
       email: this.signUpForm.value.email,
       password: this.signUpForm.value.password,
       homeIp: this.signUpForm.value.homeIp
     }
-    this.authSub = this.authService.register(newUser).subscribe(
+    this.checkIPSub$ = this.authService.confirmConnectionReq(newUser).subscribe(
+      ()=>{
+        const dialogRef = this.dialog.open(ConfirmAccessComponent, {
+          data: {
+            confirmPass: '',
+          },
+          enterAnimationDuration: '1.5s',
+          exitAnimationDuration: '1.5s',
+        });
+        this.dialogSub$ = dialogRef.afterClosed().subscribe(
+          result => {
+            if (result !== undefined) {
+              this.toast.success('kkmmm')
+            }
+          }
+        )
+      },
+      error=>{
+        this.toast.error(error.error.message)
+      },
+      () => {
+        this.toast.success('Device with this IP exist')
+      }
+    )
+  
+      
+    
+    /*
+    this.authSub$ = this.authService.register(newUser).subscribe(
       () => {
         setTimeout(() => {
           this.router.navigate(['/login'], {
@@ -94,7 +112,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       () => {
         this.toast.success('New user successfully registration')
       }
-    )
+    )*/
   }
 
   showHidePassword() {
@@ -111,11 +129,11 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.authSub) {
-      this.authSub.unsubscribe()
+    if (this.regSub$) {
+      this.regSub$.unsubscribe()
     }
-    if (this.dialogSub) {
-      this.dialogSub.unsubscribe()
+    if (this.dialogSub$) {
+      this.dialogSub$.unsubscribe()
     }
   }
 }

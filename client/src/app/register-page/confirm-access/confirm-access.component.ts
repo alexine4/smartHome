@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-confirm-access',
@@ -10,10 +11,14 @@ export class ConfirmAccessComponent {
 
 
   constructor(
+    private authService: AuthService,
     public dialogRef: MatDialogRef<ConfirmAccessComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfCod
+    @Inject(MAT_DIALOG_DATA) public data: confirmCod
   ) {
 
+  }
+  confirmCode():void{
+    this.authService.confirmConnectionRes(this.data.confirmPass)
   }
 
   onNoClick(): void {
@@ -22,6 +27,6 @@ export class ConfirmAccessComponent {
 
 }
 
-export interface ConfCod {
-  confirmCod: string
+export interface confirmCod {
+  confirmPass: string
 }
