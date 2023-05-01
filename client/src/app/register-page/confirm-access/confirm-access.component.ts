@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -12,13 +13,26 @@ export class ConfirmAccessComponent {
 
   constructor(
     private authService: AuthService,
+    private toast: ToastrService,
     public dialogRef: MatDialogRef<ConfirmAccessComponent>,
     @Inject(MAT_DIALOG_DATA) public data: confirmCod
   ) {
 
   }
-  confirmCode():void{
-    this.authService.confirmConnectionRes(this.data.confirmPass)
+  confirmCode(): void {
+    console.log(this.data.confirmPass);
+
+    this.authService.confirmConnectionRes(this.data).subscribe(
+      () => {
+        this.dialogRef.close();
+      },
+      error => {
+        this.toast.error(error.error.message)
+      },
+      () => {
+        this.toast.success('Confirm success')
+      }
+    )
   }
 
   onNoClick(): void {

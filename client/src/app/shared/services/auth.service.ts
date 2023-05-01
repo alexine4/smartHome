@@ -3,6 +3,7 @@ import { User } from "../interfaces";
 import { HttpClient } from '@angular/common/http'
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
+import { confirmCod } from "src/app/register-page/confirm-access/confirm-access.component";
 
 
 @Injectable({ providedIn: 'root' })
@@ -47,8 +48,8 @@ export class AuthService {
   confirmConnectionReq(user: User): Observable<User> {
     return this.http.post<User>('/api/auth/confirmConnection', user)
   }
-  confirmConnectionRes(confirmCode: string): Observable<string> {
-    return this.http.post<string>('/api/auth/confirmConnection', confirmCode)
+  confirmConnectionRes(confirmCode: confirmCod): Observable<confirmCod> {
+    return this.http.post<confirmCod>('/api/auth/connectionCode', confirmCode)
   }
 
 }

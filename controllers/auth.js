@@ -169,7 +169,7 @@ module.exports.confirmConnectionReq = async (req, res) => {
 	const command = {
 		password: PasswordCheck
 	};
-	console.log(PasswordCheck);
+	console.log("Confirm Code: " + PasswordCheck);
 	// Відправлення POST-запиту на сервер
 	axios.post(deviceUrl, command)
 		.then((response) => {
@@ -187,11 +187,16 @@ module.exports.confirmConnectionReq = async (req, res) => {
 		});
 }
 module.exports.confirmConnectionRes = async(req, res)=>{
-	console.log(PasswordCheck);
-	console.log("sdfsdfs" + req.body.confirmCode);
-	res.status(200).json({
-		message: "Confirm success"
-	})
+		if (PasswordCheck ===req.body.confirmPass) {
+		res.status(200).json({
+			message: "Confirm success"
+		})
+	}else{
+		res.status(409).json({
+			message: "Verification codes do not match"
+		})
+	}
+	
 }
 
 function generatePassword(length) {
