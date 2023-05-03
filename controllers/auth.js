@@ -6,7 +6,7 @@ const errorHandler = require("../utils/errorHandler");
 const axios = require('axios');
 const delay = require('delay');
 
-let PasswordCheck;
+let confirmCodeCheck;
 
 module.exports.login = async (req, res) => {
 
@@ -160,13 +160,13 @@ module.exports.confirmConnectionReq = async (req, res) => {
 	//for tests
 	const deviceUrl = 'http://localhost:5000/api/auth/device';
 
-	PasswordCheck = generatePassword(10);
+	confirmCodeCheck = generatePassword(10);
 
 	// Об'єкт з параметрами команди
 	const command = {
-		password: PasswordCheck
+		password: confirmCodeCheck
 	};
-	console.log("Confirm Code: " + PasswordCheck);
+	console.log("Confirm Code: " + confirmCodeCheck);
 	// Відправлення POST-запиту на сервер
 	axios.post(deviceUrl, command)
 		.then((response) => {
@@ -184,7 +184,7 @@ module.exports.confirmConnectionReq = async (req, res) => {
 		});
 }
 module.exports.confirmConnectionRes = async (req, res) => {
-	if (PasswordCheck === req.body.confirmPass) {
+	if (confirmCodeCheck === req.body.confirmPass) {
 		res.status(202).json({
 			message: "Confirm success"
 		})
@@ -226,8 +226,10 @@ module.exports.checkUser = async (req, res) => {
 }
 module.exports.changePassword = async(req,res)=>{
 	await delay (2000)
+	const salt = bCrypt.genSaltSync(10);
+	const password = req.body.password;
 try {
-	await user.updatePassword(req.body.userName,req.body.email,req.body.homeIp,req.body.password)
+	await user.updatePassword(req.body.userName,req.body.email,req.body.homeIp,bCrypt.hashSync(password, salt),)
 	.then(
 		()=>{
 			res.status(200).json({
