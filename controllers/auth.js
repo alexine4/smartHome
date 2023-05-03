@@ -9,11 +9,13 @@ const delay = require('delay');
 let PasswordCheck;
 
 module.exports.login = async (req, res) => {
-	if (req.body.login) {
+
+	const login = req.body.emailOrUsername
+	if (login) {
 		// ckeck login is email or not
-		const checkEmail = user.findOne("email", req.body.login);
+		const checkEmail = user.findOne("email", login);
 		checkEmail.then((Email) => {
-			if (Email !== true) {
+			if (Email !== null) {
 				// email already exist
 				const passwordResult = bCrypt.compareSync(
 					req.body.password,
@@ -23,9 +25,6 @@ module.exports.login = async (req, res) => {
 					// generate token
 					const token = jwt.sign({
 							userId: Email.dataValues.userId,
-							userName: Email.dataValues.userName,
-							email: Email.dataValues.email,
-							homeIp: Email.dataValues.homeIp,
 							superUserStatus: Email.dataValues.superUserStatus,
 						},
 						connectionDB.jwt, {
@@ -41,9 +40,9 @@ module.exports.login = async (req, res) => {
 					});
 				}
 			} else {
-				const checkUserName = user.findOne("userName", req.body.login);
+				const checkUserName = user.findOne("userName", login);
 				checkUserName.then((Name) => {
-					if (Name !== true) {
+					if (Name !== null) {
 						// UserName already exist
 						const passwordResult = bCrypt.compareSync(
 							req.body.password,
@@ -53,9 +52,6 @@ module.exports.login = async (req, res) => {
 							// generate token
 							const token = jwt.sign({
 									userId: Name.dataValues.userId,
-									userName: Name.dataValues.userName,
-									email: Name.dataValues.email,
-									homeIp: Email.dataValues.homeIp,
 									superUserStatus: Name.dataValues.superUserStatus,
 								},
 								connectionDB.jwt, {
