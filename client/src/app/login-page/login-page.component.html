@@ -43,19 +43,9 @@
     </p>
   </div>
   <a (click)="forgotPassword()" class="form__help-ref">Forgot password?</a>
-  <button [disabled]="
-      signInForm.invalid ||
-      signInForm.disabled ||
-      this.signInForm.get('password')?.value !==
-        this.signInForm.get('passwordConfirm')?.value
-    " type="submit" class="form__btn btn btn-blc" [ngClass]="
+  <button [disabled]="signInForm.invalid || signInForm.disabled" type="submit" class="form__btn btn btn-blc" [ngClass]="
       !signInForm.invalid &&
-      !signInForm.disabled &&
-      this.signInForm.get('password')?.value !== '' &&
-      this.signInForm.get('password')?.value ===
-        this.signInForm.get('passwordConfirm')?.value
-        ? 'hover-color'
-        : ''
+      !signInForm.disabled  ? 'hover-color' : ''
     ">
     Sign-In to account
   </button>

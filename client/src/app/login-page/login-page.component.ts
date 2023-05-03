@@ -17,13 +17,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   loading = false
   showPassword = false
 
-  authSub$!:Subscription
+  authSub$!: Subscription
   forgotSub$!: Subscription
   signInForm!: FormGroup
 
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
+    private toast: ToastrService,
     private router: Router
   ) { }
 
@@ -73,10 +74,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public submitSignIn(): void {
     this.signInForm.disable()
 
-    this.authSub$ = this.auth.login(this.signInForm.value).subscribe(
-      () => { this.router.navigate(['/database']) },
+    this.authSub$ = this.authService.login(this.signInForm.value).subscribe(
+      () => {
+        this.router.navigate(['/home'])
+      },
       error => {
-        console.warn(error)
+        this.toast.error(error.error.message)
+        this.signInForm.enable()
+      },
+      ()=>{
         this.signInForm.enable()
       }
     )
