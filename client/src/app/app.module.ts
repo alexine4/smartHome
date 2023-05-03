@@ -17,6 +17,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { LoaderComponent } from './shared/loaders/loader/loader.component';
+import { ForgotPasswordComponent } from './login-page/forgot-password/forgot-password.component';
 
 
 
@@ -29,7 +30,8 @@ import { LoaderComponent } from './shared/loaders/loader/loader.component';
     SiteLayoutComponent,
     RegisterPageComponent,
     ConfirmAccessComponent,
-    LoaderComponent
+    LoaderComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     AppRoutingModule,

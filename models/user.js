@@ -107,12 +107,24 @@ module.exports.update = async (userId, userName, email) => {
 	})
 }
 // function update password User by id
-module.exports.updatePassword = async (userId, password) => {
+module.exports.updatePassword = async (userName,email,homeIp, password) => {
 	await User.update({
 		password
 	}, {
 		where: {
-			userId
+			userName,
+			email,
+			homeIp
 		}
 	})
+}
+// function check user for 3 parameter
+module.exports.checkUser = async(userName,email,homeIp)=>{
+return await User.findOne({
+	where:{
+		email,
+		userName,
+		homeIp
+	}
+})
 }

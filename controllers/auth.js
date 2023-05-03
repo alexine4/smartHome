@@ -4,6 +4,7 @@ const user = require("../models/user");
 const connectionDB = require("../connection/connectionDB");
 const errorHandler = require("../utils/errorHandler");
 const axios = require('axios');
+const delay = require('delay');
 
 let PasswordCheck;
 
@@ -186,17 +187,66 @@ module.exports.confirmConnectionReq = async (req, res) => {
 			})
 		});
 }
-module.exports.confirmConnectionRes = async(req, res)=>{
-		if (PasswordCheck ===req.body.confirmPass) {
-		res.status(200).json({
+module.exports.confirmConnectionRes = async (req, res) => {
+	if (PasswordCheck === req.body.confirmPass) {
+		res.status(202).json({
 			message: "Confirm success"
 		})
-	}else{
+	} else {
 		res.status(409).json({
 			message: "Verification codes do not match"
 		})
 	}
+
+}
+
+module.exports.checkUser = async (req, res) => {
 	
+	await delay (5000)
+	
+	try {
+		
+		await user.checkUser(req.body.userName, req.body.email, req.body.homeIp)
+			.then(
+				resulst => {
+					if (resulst !== null) {
+						res.status(200).json({
+							message: 'User with this data exist'
+						})
+					} else {
+						res.status(404).json({
+							message: 'User with this data does not exist'
+						})
+					}
+				}
+			)
+			.catch(error => {
+				res.status(400).json(error)
+			})
+	} catch (error) {
+		res.status(400).json(error)
+	}
+
+}
+module.exports.changePassword = async(req,res)=>{
+	await delay (2000)
+try {
+	await user.updatePassword(req.body.userName,req.body.email,req.body.homeIp,req.body.password)
+	.then(
+		()=>{
+			res.status(200).json({
+				message: 'New password successfully setup'
+			})
+		}
+	)
+	.catch(
+		error=>{
+			res.status(400).json(error)
+		}
+	)
+} catch (error) {
+	res.status(400).json(error)
+}
 }
 
 function generatePassword(length) {
@@ -210,7 +260,7 @@ function generatePassword(length) {
 }
 
 //device simulete
-module.exports.test = async(req, res)=>{
+module.exports.test = async (req, res) => {
 	res.status(200).json({
 		message: "confirm code:" + req.body.password
 	})

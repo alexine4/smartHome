@@ -62,6 +62,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   }
 
   public submitSignUp():void {
+    this.signUpForm.disable()
     // create new object user
     const newUser = {
       userName: this.signUpForm.value.userName,
@@ -100,6 +101,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
                   this.toast.error(error.error.message)
                 },
                 () => {
+                  this.signUpForm.enable()
                   this.toast.success('New user successfully registration')
                 }
               )
@@ -108,6 +110,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
         )
       },
       error=>{
+        this.signUpForm.enable()
         this.toast.error(error.error.message)
       },
       () => {
@@ -121,7 +124,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
    
   }
 
-  public showHidePassword():void {
+  public  showHidePassword():void {
     const input = document.getElementById('password');
     if (input) {
       if (input.getAttribute('type') === 'password') {

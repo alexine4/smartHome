@@ -45,11 +45,20 @@ export class AuthService {
   register(user: User): Observable<User> {
     return this.http.post<User>('/api/auth/register', user)
   }
+  // check and confirm connection to device
   confirmConnectionReq(user: User): Observable<User> {
     return this.http.post<User>('/api/auth/confirmConnection', user)
   }
   confirmConnectionRes(confirmCode: confirmCod): Observable<confirmCod> {
     return this.http.post<confirmCod>('/api/auth/connectionCode', confirmCode)
   }
+  // check user if fogot password
 
+  checkUser(user: User): Observable<User> {
+    return this.http.post<User>('/api/auth/checkUser', user)
+  }
+  // change password
+  changePassword(user: User): Observable<User> {
+    return this.http.post<User>('/api/auth/changePassword', user)
+  }
 }
