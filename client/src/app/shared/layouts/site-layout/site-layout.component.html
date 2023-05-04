@@ -1,9 +1,23 @@
 <div class="site-layout">
-		<div class="menu">
-		<app-header></app-header>
-	</div>
-	<div class="site-layout__container">
-	  <router-outlet></router-outlet>
-	</div>
- </div>
- 
+  <div class="menu">
+    <app-header></app-header>
+  </div>
+  <div class="site-layout__container">
+    <div class="page__title  " [ngClass]="
+	{ 
+	'icon-home':this.title.getTitle() =='Home',
+	'icon-spoon-knife':this.title.getTitle() =='Kitchen',
+	'icon-lifebuoy':this.title.getTitle() =='Bathroom',
+	'icon-newspaper':this.title.getTitle() =='Living room',
+	'icon-smile':this.title.getTitle() =='Bedroom 1' || this.title.getTitle() =='Bedroom 2',
+	'icon-power':this.title.getTitle() =='Electrisity supply',
+	'icon-droplet':this.title.getTitle() =='Water supply',
+	'icon-fire':this.title.getTitle() =='Gas supply',
+	'icon-sun':this.title.getTitle() =='Heat supply'
+	} 
+	 ">
+      <p>{{this.title.getTitle() | titlecase}}</p>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

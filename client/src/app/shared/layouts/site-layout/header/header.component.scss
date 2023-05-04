@@ -57,6 +57,7 @@ $md4:425px;
     font-family: 'Aleo';
     font-style: normal;
     font-weight: 400;
+    color: #31c5f1;
     @media (min-width: $md01){
       font-size: 45px;
       line-height: 50px;
@@ -89,13 +90,14 @@ $md4:425px;
   // .section__btn
 
   &__btn {
+    
     cursor: pointer;
     font-style: normal;
     font-weight: 400;
     display: flex;
     width: inherit;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     color: #B6B6B6;
     background: none;
     border: none;
@@ -104,7 +106,7 @@ $md4:425px;
     &::before{
       transition: all 1s ease 0s;
       color: #fff;
-      padding: 0 5px 0 0 ;
+      padding:0 5px 0 0 ;
     }
 
     @media (min-width: $md01){
@@ -122,6 +124,13 @@ $md4:425px;
     @media (max-width: $md2){
       font-size: 20px;
       line-height: 26px;
+      }
+      p{
+        display: flex;
+        align-items:center ;
+        justify-content: center;
+        flex: 0 1 100%;
+        margin: 0;
       }
 
   }

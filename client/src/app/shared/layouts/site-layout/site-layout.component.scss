@@ -1,3 +1,11 @@
+// constants
+$md01:2560px;
+$md02:1980px;
+$md1:1440px;
+$md2:978px;
+$md3:770px;
+$md4:425px;
+
 .site-layout {
   font-family: 'Aleo';
   display: flex;
@@ -13,11 +21,70 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    flex-direction: column;
    
 
   }
 }
+
+.page__title{
+  color: #FB7B05;
+  background: url("../../images/home-page-bg.jpg") 100% /100% no-repeat;
+  width: 100%;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  padding: 0px 0 5px 0 ;
+  
+&::before{
+  padding: 0  20px 0 0 ;
+}
+p{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  margin: 0;
+}
+@media (min-width: $md01){
+  font-size: 48px;
+  line-height: 52px;
+  height: 80px;
+  &::before{
+    font-size: 42px;
+  }
+}
+@media (max-width: $md01){
+  font-size: 42px;
+  line-height: 48px;
+  height: 70px;
+  &::before{
+    font-size: 36px;
+  }
+}
+@media (max-width: $md1){
+  font-size: 36px;
+  line-height: 42px;
+  height: 45px;
+  &::before{
+    font-size: 30px;
+  }
+}
+@media (max-width: $md2){
+  font-size: 30px;
+  line-height: 26px;
+  height: 35px;
+  &::before{
+    font-size: 24px;
+  }
+  }
+
+
+}
+
 
 .menu {
 

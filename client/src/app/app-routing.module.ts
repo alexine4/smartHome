@@ -32,8 +32,8 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard],
     children:[
       { path: 'bathroom', component: BathroomComponent, title: 'Bathroom' },
-      { path: 'bedroom1', component: Bedroom1Component, title: 'Bedrooom 1' },
-      { path: 'bedroom2', component: Bedroom2Component, title: 'Bedrooom 2' },
+      { path: 'bedroom1', component: Bedroom1Component, title: 'Bedroom 1' },
+      { path: 'bedroom2', component: Bedroom2Component, title: 'Bedroom 2' },
       { path: 'electrisity', component: ElectricityComponent, title: 'Electrisity supply' },
       { path: 'home', component: HomeComponent, title: 'Home' },
       { path: 'heat', component: HeatComponent, title: 'Heat supply' },
