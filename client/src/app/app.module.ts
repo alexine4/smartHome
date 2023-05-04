@@ -26,6 +26,10 @@ import { KitchenComponent } from './kitchen/kitchen.component';
 import { BathroomComponent } from './bathroom/bathroom.component';
 import { Bedroom1Component } from './bedroom1/bedroom1.component';
 import { Bedroom2Component } from './bedroom2/bedroom2.component';
+import { GasComponent } from './suplays/gas/gas.component';
+import { ElectricityComponent } from './suplays/electricity/electricity.component';
+import { WaterComponent } from './suplays/water/water.component';
+import { HeatComponent } from './suplays/heat/heat.component';
 
 
 
@@ -48,7 +52,11 @@ import { Bedroom2Component } from './bedroom2/bedroom2.component';
     KitchenComponent,
     BathroomComponent,
     Bedroom1Component,
-    Bedroom2Component
+    Bedroom2Component,
+    GasComponent,
+    ElectricityComponent,
+    WaterComponent,
+    HeatComponent
   ],
   imports: [
     AppRoutingModule,

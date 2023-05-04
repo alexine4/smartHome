@@ -125,6 +125,13 @@ $md4:425px;
       }
 
   }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+  }
 }
 
 .icon-home {
