@@ -15,7 +15,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 export class LoginPageComponent implements OnInit, OnDestroy {
 
   loading = false
-  showPassword = false
+  showPassword = true
 
   authSub$!: Subscription
   forgotSub$!: Subscription
