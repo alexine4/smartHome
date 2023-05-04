@@ -1,0 +1,23 @@
+<nav class="menu__container">
+  <ul class="menu__list section">
+    <h2 class="section__title">Homes</h2>
+    <li class="section__link">
+      <button class="section__btn icon-home " [disabled]="currentUrl ==='/home'" (click)="newcurrentUrl('/home')"
+        [routerLink]="['/home']" [ngClass]="currentUrl ==='/home' ? 'active-color' : 'active-btn'">Home</button>
+    </li>
+   </ul>
+
+  <ul class="menu__list section">
+    <h2 class="section__title">Rooms</h2>
+    <li class="section__link">
+      <button class="section__btn icon-home " [disabled]="currentUrl ==='/home'" (click)="newcurrentUrl('/home')"
+        [routerLink]="['/home']" [ngClass]="currentUrl ==='/home' ? 'active-color' : 'active-btn'">Home</button>
+    </li>
+    <li class="section__link">
+      <button class="section__btn icon-home" [disabled]="currentUrl ==='/living-room'"
+        (click)="newcurrentUrl('/living-room')" [routerLink]="['/living-room']"
+        [ngClass]="currentUrl ==='/living-room' ? 'active-color' : 'active-btn'">Living room</button>
+    </li>
+  </ul>
+
+</nav>

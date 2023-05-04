@@ -8,6 +8,8 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { AuthGuard } from './shared/classes/auth.guard';
+import { HomeComponent } from './home/home.component';
+import { LivingRoomComponent } from './living-room/living-room.component';
 
 const routes: Routes = [
   {
@@ -21,7 +23,9 @@ const routes: Routes = [
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard],
     children:[
-      { path: 'home', component: SiteLayoutComponent, title: 'Home' }
+      { path: 'home', component: HomeComponent, title: 'Home' },
+      { path: 'living-room', component: LivingRoomComponent, title: 'Living room' }
+
     ]
   }
 ];

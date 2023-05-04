@@ -1,0 +1,155 @@
+// constants
+$md01:2560px;
+$md02:1980px;
+$md1:1440px;
+$md2:978px;
+$md3:770px;
+$md4:425px;
+
+.menu {
+
+
+  // .menu__container
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    height: auto;
+    @media (min-width: $md01){
+      width: 450px;
+    }
+    @media (min-width: $md02){
+      width: 350px;
+    }
+    @media (max-width: $md1){
+    width: 150px;
+    }
+    @media (max-width: $md2){
+      width: 120px;
+      }
+
+  }
+
+  // .menu__list
+
+  &__list {}
+}
+
+.section {
+  font-family: 'Aleo';
+  display: flex;
+  width: inherit;
+  height: auto;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0 10px;
+
+  // .section__title
+
+  &__title {
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Aleo';
+    font-style: normal;
+    font-weight: 400;
+    @media (min-width: $md01){
+      font-size: 45px;
+      line-height: 50px;
+    }
+    @media (max-width: $md01){
+      font-size: 32px;
+      line-height: 38px;
+    }
+    @media (max-width: $md1){
+      font-size: 28px;
+      line-height: 34px;
+    }
+    @media (max-width: $md2){
+      font-size: 24px;
+      line-height: 26px;
+      }
+  }
+
+  // .section__link
+
+  &__link {
+    margin: 5px 0;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  // .section__btn
+
+  &__btn {
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 400;
+    display: flex;
+    width: inherit;
+    align-items: center;
+    justify-content: center;
+    color: #B6B6B6;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #fff;
+    transition: all 1s ease 0s;
+    &::before{
+      transition: all 1s ease 0s;
+      color: #fff;
+      padding: 0 5px 0 0 ;
+    }
+
+    @media (min-width: $md01){
+      font-size: 42px;
+      line-height: 46px;
+    }
+    @media (max-width: $md01){
+      font-size: 28px;
+      line-height: 32px;
+    }
+    @media (max-width: $md1){
+      font-size: 24px;
+      line-height: 30px;
+    }
+    @media (max-width: $md2){
+      font-size: 20px;
+      line-height: 26px;
+      }
+
+  }
+}
+
+.icon-home {
+  
+  
+}
+
+.active-color{
+  color: #FB7B05;
+  border-bottom: 2px solid #FB7B05;
+  &::before{
+    color: #FB7B05;
+  }
+}
+.active-btn{
+  @media (min-width: $md3){
+    opacity: 0.8;
+  &:hover{
+    opacity: 1;
+    scale: 1.2;
+    color: #c3f803;
+    &::before{
+      color: #c3f803;
+    }
+    border-bottom: 2px solid #c3f803;
+  }
+  }
+}
