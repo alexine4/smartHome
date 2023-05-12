@@ -42,21 +42,34 @@ module.exports.initialization = async () => {
 
 module.exports.create = async (typeId, roomName) => {
 	await Rooms.create({
-		typeId,
-		roomName
-	})
-	return true
+			typeId,
+			roomName
+		}).then(() => {
+			return true
+		})
+		.catch(error => {
+			return error
+		})
 }
 
 module.exports.findOne = async (typeId) => {
-	return await Rooms.findOne({
-		where: {
-			typeId
-		}
-	})
+	try {
+		return await Rooms.findOne({
+			where: {
+				typeId
+			}
+		})
+	} catch (error) {
+		return error
+	}
 }
 module.exports.findAll = async () => {
-	return await Rooms.findAll()
+
+	try {
+		return await Rooms.findAll()
+	} catch (error) {
+		return error
+	}
 }
 
 module.exports.update = async (roomId, typeId, roomName) => {
@@ -70,8 +83,8 @@ module.exports.update = async (roomId, typeId, roomName) => {
 		}).then(() => {
 			return true
 		})
-		.catch(() => {
-			return false
+		.catch(error => {
+			return error
 		})
 }
 module.exports.delete = async (roomId) => {
@@ -82,8 +95,7 @@ module.exports.delete = async (roomId) => {
 		}).then(() => {
 			return true
 		})
-		.catch(() => {
-			return false
+		.catch(error => {
+			return error
 		})
-
 }

@@ -59,7 +59,7 @@ module.exports.update = async (typeId, typeName) => {
 			return error
 		})
 }
-module.exports.remove = async (typeId) => {
+module.exports.delete = async (typeId) => {
 	await Types.destroy({
 			where: {
 				typeId
