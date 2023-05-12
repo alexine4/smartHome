@@ -18,7 +18,7 @@ module.exports.initialization = async () => {
 
 	await User.init({
 		userId: {
-			type: Sequelize.INTEGER,
+			type: Sequelize.BIGINT,
 			primaryKey: true,
 			autoIncrement: true
 		},

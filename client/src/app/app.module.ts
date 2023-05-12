@@ -20,16 +20,8 @@ import { LoaderComponent } from './shared/loaders/loader/loader.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { FooterComponent } from './shared/layouts/site-layout/footer/footer.component';
-import { HomeComponent } from './home/home.component';
-import { LivingRoomComponent } from './living-room/living-room.component';
-import { KitchenComponent } from './kitchen/kitchen.component';
-import { BathroomComponent } from './bathroom/bathroom.component';
-import { Bedroom1Component } from './bedroom1/bedroom1.component';
-import { Bedroom2Component } from './bedroom2/bedroom2.component';
-import { GasComponent } from './suplays/gas/gas.component';
-import { ElectricityComponent } from './suplays/electricity/electricity.component';
-import { WaterComponent } from './suplays/water/water.component';
-import { HeatComponent } from './suplays/heat/heat.component';
+import { RoomComponent } from './room/room.component';
+
 
 
 
@@ -47,16 +39,8 @@ import { HeatComponent } from './suplays/heat/heat.component';
     ForgotPasswordComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
-    LivingRoomComponent,
-    KitchenComponent,
-    BathroomComponent,
-    Bedroom1Component,
-    Bedroom2Component,
-    GasComponent,
-    ElectricityComponent,
-    WaterComponent,
-    HeatComponent
+    RoomComponent,
+   
   ],
   imports: [
     AppRoutingModule,

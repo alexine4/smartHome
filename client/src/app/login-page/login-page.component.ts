@@ -76,7 +76,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     this.authSub$ = this.authService.login(this.signInForm.value).subscribe(
       () => {
-        this.router.navigate(['/home'])
+        this.router.navigate(['/room'])
       },
       error => {
         this.toast.error(error.error.message)
