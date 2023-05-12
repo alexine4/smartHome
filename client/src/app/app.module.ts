@@ -21,6 +21,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { FooterComponent } from './shared/layouts/site-layout/footer/footer.component';
 import { RoomComponent } from './room/room.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -40,6 +41,7 @@ import { RoomComponent } from './room/room.component';
     HeaderComponent,
     FooterComponent,
     RoomComponent,
+    HomeComponent,
    
   ],
   imports: [

@@ -5,10 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 // import components
 import { AuthGuard } from './shared/classes/auth.guard';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
-import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
+import { HomeComponent } from './home/home.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { RoomComponent } from './room/room.component';
+import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard],
     children:[
-      { path: 'room', component: RoomComponent, title: 'Room' },
+      { path: 'home', component: HomeComponent, title: 'Home' },
+      { path: 'room', component: RoomComponent, title: 'Room' }
    
     ]
   }
