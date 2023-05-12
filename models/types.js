@@ -3,9 +3,6 @@ const Sequelize = require('sequelize')
 
 // connect to database
 const connectDB = require('../connection/connectionDB')
-const {
-	error
-} = require('console')
 const sequelize = new Sequelize(
 	connectDB.nameDB,
 	connectDB.loginDB,
