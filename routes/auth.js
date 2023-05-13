@@ -12,6 +12,5 @@ router.post('/checkUser',controller.checkUser)
 router.post('/changePassword',controller.changePassword)
 
 router.post('/device',controller.test)
-//router.post('/check/',controller.check)
-//router.post('/check-password',controller.checkPassword)
+
 module.exports = router

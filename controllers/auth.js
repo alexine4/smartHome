@@ -79,9 +79,7 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.register = async function (req, res) {
-	// initialization
 
-	user.initialization();
 	// password gurd
 	if (req.body.userName && req.body.email && req.body.password) {
 		const salt = bCrypt.genSaltSync(10);

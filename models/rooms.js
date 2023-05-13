@@ -44,8 +44,6 @@ module.exports.create = async (typeId, roomName) => {
 	await Rooms.create({
 			typeId,
 			roomName
-		}).then(() => {
-			return true
 		})
 		.catch(error => {
 			return error
@@ -80,8 +78,6 @@ module.exports.update = async (roomId, typeId, roomName) => {
 			where: {
 				roomId
 			}
-		}).then(() => {
-			return true
 		})
 		.catch(error => {
 			return error
@@ -92,8 +88,6 @@ module.exports.delete = async (roomId) => {
 			where: {
 				roomId
 			}
-		}).then(() => {
-			return true
 		})
 		.catch(error => {
 			return error

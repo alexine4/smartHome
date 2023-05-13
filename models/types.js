@@ -38,8 +38,6 @@ module.exports.initialization = async () => {
 module.exports.create = async (typeName) => {
 	await Types.create({
 			typeName
-		}).then(() => {
-			return true
 		})
 		.catch(error => {
 			return error
@@ -52,8 +50,6 @@ module.exports.update = async (typeId, typeName) => {
 			where: {
 				typeId
 			}
-		}).then(() => {
-			return true
 		})
 		.catch(error => {
 			return error
@@ -64,18 +60,27 @@ module.exports.delete = async (typeId) => {
 			where: {
 				typeId
 			}
-		}).then(() => {
-			return true
 		})
 		.catch(error => {
 			return error
 		})
 }
-module.exports.findOne = async (typeId) => {
+module.exports.findOneById = async (typeId) => {
 	try {
 		return await Types.findOne({
 			where: {
 				typeId
+			}
+		})
+	} catch (error) {
+		return error
+	}
+}
+module.exports.findOneByName = async (typeName) => {
+	try {
+		return await Types.findOne({
+			where: {
+				typeName
 			}
 		})
 	} catch (error) {
