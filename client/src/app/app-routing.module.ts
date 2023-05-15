@@ -24,7 +24,7 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard],
     children:[
       { path: 'home', component: HomeComponent, title: 'Home' },
-      { path: 'room', component: RoomComponent, title: 'Room' }
+      { path: 'room/:roomId', component: RoomComponent, title: 'Room' }
    
     ]
   }

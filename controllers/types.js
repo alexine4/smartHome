@@ -61,7 +61,7 @@ module.exports.updateByID = async (req, res) => {
 	try {
 		await types.update(req.params.typeId, req.body.typeName).then(() => {
 			res.status(200).json({
-				message: 'Type create successfully'
+				message: 'Type updated successfully'
 			})
 		})
 	} catch (error) {
