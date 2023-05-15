@@ -50,11 +50,22 @@ module.exports.create = async (typeId, roomName) => {
 		})
 }
 
-module.exports.findOne = async (typeId) => {
+module.exports.findOneByID = async (roomId) => {
 	try {
 		return await Rooms.findOne({
 			where: {
-				typeId
+				roomId
+			}
+		})
+	} catch (error) {
+		return error
+	}
+}
+module.exports.findOneByName = async (roomName) => {
+	try {
+		return await Rooms.findOne({
+			where: {
+				roomName
 			}
 		})
 	} catch (error) {

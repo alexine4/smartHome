@@ -6,3 +6,9 @@ export interface User {
 	homeIp: string
 	superUserStatus?: boolean
 }
+
+export interface Room{
+	roomId: number
+	typeId: number
+	roomName: string
+}
