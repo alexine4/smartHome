@@ -23,6 +23,10 @@ import { FooterComponent } from './shared/layouts/site-layout/footer/footer.comp
 import { RoomComponent } from './room/room.component';
 import { HomeComponent } from './home/home.component';
 
+//guard components
+import { AuthGuard } from './shared/classes/auth.guard';
+import { TokenInterceptor } from './shared/classes/token.interceptor';
+
 
 
 
@@ -55,7 +59,13 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
