@@ -12,3 +12,8 @@ export interface Room{
 	typeId: number
 	roomName: string
 }
+
+export interface Type{
+typeId: number
+typeName: string
+}

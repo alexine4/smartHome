@@ -19,7 +19,7 @@
         <button class="section__btn " [disabled]="currentUrl ==='/room/'+room.roomId"
           (click)="newcurrentUrl('/room/'+room.roomId)" [routerLink]="['/room',room.roomId]" [ngClass]="{
           'active-color':currentUrl ==='/room/'+room.roomId,
-          'active-btn':currentUrl ==='/room/'+room.roomId, 
+          'active-btn':currentUrl !=='/room/'+room.roomId, 
           'icon-lifebuoy':room.typeId === 1,
           'icon-spoon-knife':room.typeId === 2,
         }">
