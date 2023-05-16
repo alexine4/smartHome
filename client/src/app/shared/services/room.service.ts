@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable} from '@angular/core';
-import { Room, Type } from '../interfaces';
-import { Observable, mergeMap, reduce } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Room, Type, roomAndType,  } from '../interfaces';
+import { Observable, mergeMap, of } from 'rxjs';
+
 
 
 @Injectable({
@@ -11,16 +12,23 @@ export class RoomService {
 
   constructor(private http: HttpClient) { }
 
-  fetch(): Observable<any[]> {
-    const rooms$ =  this.http.get<any[]>(`/api/rooms/getRooms`)
-    const types$ =  this.http.get<any[]>(`/api/types/getTypes`)
-   
-    return rooms$.pipe(
-      mergeMap(arr1 => types$.pipe(
-        reduce((acc, arr2) => [...acc, ...arr2], arr1)
+
+  fetch(): Observable<roomAndType> {
+    const rooms$: Observable<Room[]> = this.http.get<Room[]>(`/api/rooms/getRooms`)
+    const types$: Observable<Type[]> = this.http.get<Type[]>(`/api/types/getTypes`)
+    const result$: Observable<roomAndType> = types$.pipe(
+      mergeMap(types => rooms$.pipe(
+          mergeMap(rooms => of(
+          ...rooms.map(room => ({
+            ...room,
+            typeId: types[types.findIndex(type => room.typeId === type.typeId)!==undefined?types.findIndex(type => room.typeId === type.typeId):0].typeId,
+            typeName: types[types.findIndex(type => room.typeId === type.typeId)!==undefined?types.findIndex(type => room.typeId === type.typeId):0].typeName
+          }))
+        ))
       ))
     )
-    
+    return result$
+
   }
 
 }

@@ -17,3 +17,10 @@ export interface Type{
 typeId: number
 typeName: string
 }
+
+export interface roomAndType{
+	roomId: number
+	roomName: string
+	typeId: number
+	typeName: string
+	}
