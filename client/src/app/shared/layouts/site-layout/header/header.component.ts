@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.roomSub$ = this.roomServise.fetch().subscribe(
+      this.roomSub$ = this.roomServise.fetchWithType().subscribe(
       room => {  
         this.Rooms.push(room)
       },

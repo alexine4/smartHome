@@ -13,7 +13,7 @@ export class RoomService {
   constructor(private http: HttpClient) { }
 
 
-  fetch(): Observable<roomAndType> {
+  fetchWithType(): Observable<roomAndType> {
     const rooms$: Observable<Room[]> = this.http.get<Room[]>(`/api/rooms/getRooms`)
     const types$: Observable<Type[]> = this.http.get<Type[]>(`/api/types/getTypes`)
     const result$: Observable<roomAndType> = types$.pipe(

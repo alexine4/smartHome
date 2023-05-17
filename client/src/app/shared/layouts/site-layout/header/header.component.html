@@ -18,7 +18,7 @@
     <div class="section__list">
       <li *ngFor="let room of Rooms" class="section__link">
         <button class="section__btn " [disabled]="currentUrl ==='/room/'+room.roomId+'/'+room.typeName"
-          (click)="newcurrentUrl('/room/'+room.roomId+'/'+room.typeName,room.roomName+'      '+room.typeName)"
+          (click)="newcurrentUrl('/room/'+room.roomId+'/'+room.typeName,room.roomName)"
           [routerLink]="['/room',room.roomId,room.typeName]" [ngClass]="{
           'active-color':currentUrl ==='/room/'+room.roomId+'/'+room.typeName,
           'active-btn':currentUrl !=='/room/'+room.roomId+'/'+room.typeName, 
@@ -29,6 +29,7 @@
           'icon-bed':room.typeName =='Bedroom',
           'icon-briefcase':room.typeName =='Cabinet',
           'icon-lab':room.typeName =='Basement',
+          'icon-smile':room.typeName =='Holl',
 
         }">
           <p>{{room.roomName}}</p>

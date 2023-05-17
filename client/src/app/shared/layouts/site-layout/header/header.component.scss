@@ -17,18 +17,22 @@ $md4:425px;
     align-items: center;
     width: 250px;
     height: auto;
-    @media (min-width: $md01){
+
+    @media (min-width: $md01) {
       width: 450px;
     }
-    @media (min-width: $md02){
+
+    @media (min-width: $md02) {
       width: 350px;
     }
-    @media (max-width: $md1){
-    width: 150px;
+
+    @media (max-width: $md1) {
+      width: 150px;
     }
-    @media (max-width: $md2){
+
+    @media (max-width: $md2) {
       width: 120px;
-      }
+    }
 
   }
 
@@ -58,22 +62,26 @@ $md4:425px;
     font-style: normal;
     font-weight: 400;
     color: #31c5f1;
-    @media (min-width: $md01){
+
+    @media (min-width: $md01) {
       font-size: 45px;
       line-height: 50px;
     }
-    @media (max-width: $md01){
+
+    @media (max-width: $md01) {
       font-size: 32px;
       line-height: 38px;
     }
-    @media (max-width: $md1){
+
+    @media (max-width: $md1) {
       font-size: 28px;
       line-height: 34px;
     }
-    @media (max-width: $md2){
+
+    @media (max-width: $md2) {
       font-size: 24px;
       line-height: 26px;
-      }
+    }
   }
 
   // .section__link
@@ -84,13 +92,13 @@ $md4:425px;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
   }
 
   // .section__btn
 
   &__btn {
-    
+
     cursor: pointer;
     font-style: normal;
     font-weight: 400;
@@ -103,37 +111,43 @@ $md4:425px;
     border: none;
     border-bottom: 2px solid #fff;
     transition: all 1s ease 0s;
-    &::before{
+
+    &::before {
       transition: all 1s ease 0s;
       color: #fff;
-      padding:0 5px 0 0 ;
+      padding: 0 5px 0 0;
     }
 
-    @media (min-width: $md01){
+    @media (min-width: $md01) {
       font-size: 42px;
       line-height: 46px;
     }
-    @media (max-width: $md01){
+
+    @media (max-width: $md01) {
       font-size: 28px;
       line-height: 32px;
     }
-    @media (max-width: $md1){
+
+    @media (max-width: $md1) {
       font-size: 24px;
       line-height: 30px;
     }
-    @media (max-width: $md2){
+
+    @media (max-width: $md2) {
       font-size: 20px;
       line-height: 26px;
-      }
-      p{
-        display: flex;
-        align-items:center ;
-        justify-content: center;
-        flex: 0 1 100%;
-        margin: 0;
-      }
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 1 100%;
+      margin: 0;
+    }
 
   }
+
   &__list {
     display: flex;
     flex-direction: column;
@@ -143,29 +157,31 @@ $md4:425px;
   }
 }
 
-.icon-home {
-  
-  
-}
+.icon-home {}
 
-.active-color{
+.active-color {
   color: #FB7B05;
   border-bottom: 2px solid #FB7B05;
-  &::before{
+
+  &::before {
     color: #FB7B05;
   }
 }
-.active-btn{
-  @media (min-width: $md3){
+
+.active-btn {
+  @media (min-width: $md3) {
     opacity: 0.8;
-  &:hover{
-    opacity: 1;
-    scale: 1.2;
-    color: #c3f803;
-    &::before{
+
+    &:hover {
+      opacity: 1;
+      scale: 1.2;
       color: #c3f803;
+
+      &::before {
+        color: #c3f803;
+      }
+
+      border-bottom: 2px solid #c3f803;
     }
-    border-bottom: 2px solid #c3f803;
-  }
   }
 }

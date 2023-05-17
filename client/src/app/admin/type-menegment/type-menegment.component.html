@@ -1,0 +1,37 @@
+<div class="container">
+  <section *ngIf="loading else loader" class="form animation-show">
+    <div class="form__title">Type Management</div>
+    <form [formGroup]="typeForm" class="form__fields">
+      <div class="form__field field">
+        <label class="field__title">Type name</label>
+        <input formControlName="typeName" type="text" class="field__input" placeholder="Enter type name"
+          [ngClass]="{'border-red':this.typeForm.get('typeName')?.invalid&&this.typeForm.get('typeName')?.touched}">
+        <p class="form__error"
+          *ngIf="this.typeForm.get('typeName')?.invalid && this.typeForm.get('typeName')?.touched ">
+          <small *ngIf="this.typeForm.get('typeName')?.value ===''" class="form-error animation-show">
+            Form must not been empty!
+          </small>
+          <small *ngIf="this.typeForm.get('typeName')?.invalid" class="form-error animation-show">
+            Min length name 4 symbols
+          </small>
+        </p>
+      </div>
+      <div class="form__field field">
+        <label class="field__title">New type name</label>
+        <input formControlName="newTypeName" type="text" class="field__input" placeholder="Enter new type name">
+      </div>
+    </form>
+    <div class="form__buttons">
+      <button [disabled]="this.typeForm.get('typeName')?.invalid" (click)="createType()"
+        class="form__button non-btn-style "> Create</button>
+      <button class="form__button non-btn-style"> Update</button>
+      <button class="form__button non-btn-style"> Delete</button>
+    </div>
+  </section>
+
+  <ng-template #loader>
+    <div class="loader">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</div>
