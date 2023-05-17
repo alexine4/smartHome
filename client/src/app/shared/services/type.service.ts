@@ -14,6 +14,6 @@ export class TypeService {
     return this.http.post<Message>(`/api/types/addNew`,type)
   }
   delete(typeName: string): Observable<Message>{
-    return this.http.delete<Message>(`/api/types/addNew/${typeName}`)
+    return this.http.delete<Message>(`/api/types/delete/${typeName}`)
   }
 }

@@ -55,7 +55,7 @@ export class TypeMenegmentComponent implements OnInit {
   }
 
   public deleteType():void{
-    this.createSub$ = this.typeService.delete().subscribe(
+    this.createSub$ = this.typeService.delete(this.typeForm.value.typeName).subscribe(
       result=>{
       this.toast.success(result.message)
       },
