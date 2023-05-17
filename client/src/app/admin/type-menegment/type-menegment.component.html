@@ -25,7 +25,7 @@
       <button [disabled]="this.typeForm.get('typeName')?.invalid" (click)="createType()"
         class="form__button non-btn-style "> Create</button>
       <button class="form__button non-btn-style"> Update</button>
-      <button class="form__button non-btn-style"> Delete</button>
+      <button [disabled]="this.typeForm.get('typeName')?.invalid" (click)="deleteType()" class="form__button non-btn-style"> Delete</button>
     </div>
   </section>
 

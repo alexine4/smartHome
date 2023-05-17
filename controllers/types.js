@@ -57,20 +57,29 @@ module.exports.addNew = async (req, res) => {
 		errorHandler(error)
 	}
 }
-module.exports.updateByID = async (req, res) => {
+module.exports.updateByName= async (req, res) => {
 	try {
-		await types.update(req.params.typeId, req.body.typeName).then(() => {
-			res.status(200).json({
-				message: 'Type updated successfully'
-			})
+		await types.findOneByName(req.body.typeName).then(type=>{
+			if (type !==null) {
+				types.update(type.dataValues.typeId, req.body.newTypeName).then(() => {
+					res.status(200).json({
+						message: 'Type updated successfully'
+					})
+				})
+			}else{
+				res.status(404).json({
+					message: 'Type with this name don`t exist'
+				})
+			}
 		})
+		
 	} catch (error) {
 		errorHandler(error)
 	}
 }
-module.exports.deleteByID = async (req, res) => {
+module.exports.deleteByName = async (req, res) => {
 	try {
-		await types.delete(req.params.typeId).then(() => {
+		await types.delete(req.params.typeName).then(() => {
 			res.status(202).json({
 				message: 'Type remove successfully'
 			})

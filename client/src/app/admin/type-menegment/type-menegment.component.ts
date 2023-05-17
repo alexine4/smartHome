@@ -34,7 +34,7 @@ export class TypeMenegmentComponent implements OnInit {
 
   }
 
-  createType(){
+  public createType():void{
     const newType :Type = {
       typeId: 0,
       typeName: this.typeForm.value.typeName
@@ -42,8 +42,6 @@ export class TypeMenegmentComponent implements OnInit {
 
     this.createSub$ = this.typeService.create(newType).subscribe(
     result=>{
-      console.log(result);
-      
     this.toast.success(result.message)
     },
     error=>{
@@ -54,5 +52,20 @@ export class TypeMenegmentComponent implements OnInit {
     this.typeForm.enable()
     }
     )
+  }
+
+  public deleteType():void{
+    this.createSub$ = this.typeService.delete().subscribe(
+      result=>{
+      this.toast.success(result.message)
+      },
+      error=>{
+      this.typeForm.enable()
+       this.toast.error(error.error.message)
+      },
+      ()=>{
+      this.typeForm.enable()
+      }
+      )
   }
 }
