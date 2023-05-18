@@ -22,7 +22,6 @@
           [routerLink]="['/room',room.roomId,room.typeName]" [ngClass]="{
           'active-color':currentUrl ==='/room/'+room.roomId+'/'+room.typeName,
           'active-btn':currentUrl !=='/room/'+room.roomId+'/'+room.typeName, 
-          'icon-home':room.typeName =='Home',
 	        'icon-spoon-knife':room.typeName =='Kitchen',
 	        'icon-lifebuoy':room.typeName =='Bathroom',
 	        'icon-newspaper':room.typeName =='Living room',
