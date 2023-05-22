@@ -1,14 +1,32 @@
 <div class="site-layout">
-  <div class="menu">
+  <div
+    class="menu"
+    [ngClass]="{
+      'menu-not-show': ! this.menuService.menuStatus,
+      '_active':  this.menuService.menuStatus
+    }"
+  >
     <app-header></app-header>
   </div>
-  <div class="site-layout__container">
-    <div class="page__title  " >
-      <p>{{this.title.getTitle() | titlecase}}</p>
+  <div class="site-layout__container" 
+  [ngClass]="{
+    'dn':  this.menuService.menuStatus
+  }"
+  >
+    <div class="page__title">
+      <div
+        class="menu-btn"
+        [ngClass]="{ 'active':  this.menuService.menuStatus }"
+        (click)=" this.menuService.menuStatus = ! this.menuService.menuStatus"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <p>{{ this.title.getTitle() | titlecase }}</p>
     </div>
     <div class="page__content">
       <router-outlet></router-outlet>
     </div>
-    
   </div>
 </div>
