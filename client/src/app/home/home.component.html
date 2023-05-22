@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="navigation__container">
+  <div class="navigation__sections" *ngIf="loading else loader">
+    <section class="navigation__section">
+      <h2 class="navigation__title icon-bed">Living room</h2>
+    </section>
+    <section class="navigation__section">
+      <h2 class="navigation__title">dfgdfgdgdf</h2>
+    </section>
+    <section class="navigation__section">
+      <h2 class="navigation__title">dfgdfgdgdf</h2>
+    </section>
+    <section class="navigation__section">
+      <h2 class="navigation__title">dfgdfgdgdf</h2>
+    </section>
+    <section class="navigation__section">
+      <h2 class="navigation__title">dfgdfgdgdf</h2>
+    </section>
+  </div>
+
+  <ng-template #loader>
+	<app-loader></app-loader>
+  </ng-template>
+</div>

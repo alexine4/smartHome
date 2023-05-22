@@ -1,0 +1,78 @@
+// constants
+$md01:2560px;
+$md02:1980px;
+$md1:1440px;
+$md2:978px;
+$md3:770px;
+$md4:425px;
+
+.navigation {
+
+	// .navigation__container
+
+	&__container {
+		height: 93vh;
+		width: 80vw;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+		@media (max-width: $md2){
+			width: 100vw;
+		}
+	}
+
+	// .navigation__section
+
+	&__sections{
+		width: 100%;
+		height: auto;
+		display: grid;
+		align-items: center;
+		justify-items: center;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		@media (max-width: $md2){
+			grid-template-columns: 1fr 1fr 1fr ;
+		}
+		@media (max-width: $md3){
+			grid-template-columns: 1fr  ;
+		}
+	}
+
+	&__section {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16vw;
+		height: 12vh;
+		margin:  2vw;
+		background: linear-gradient(135deg, #ec004b 0%, #9003d1 100%);
+		border-radius: 25px;
+		@media (max-width: $md2){
+			width: 25vw;
+		}
+		@media (max-width: $md3){
+			width: 60vw;
+		}
+		@media (max-width: $md4){
+			width: 80vw;
+		}
+	}
+
+	// .navigation__title
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 10px;
+		font-family: 'Aleo';
+		font-size: 26px;
+		line-height: 40/32*100%;
+		&::before{
+			padding: 0 20px 0 0 ;
+			font-size: 32px;
+		}
+	}
+}
