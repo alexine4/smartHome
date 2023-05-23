@@ -1,10 +1,4 @@
-// constants
-$md01:2560px;
-$md02:1980px;
-$md1:1440px;
-$md2:978px;
-$md3:770px;
-$md4:425px;
+@import '../../../css styles/scssConstants.scss';
 
 .menu {
 
@@ -90,14 +84,14 @@ $md4:425px;
     }
 
     @media (max-width: $md01) {
-      font-size: 32px;
+      font-size: 24px;
     }
 
     @media (max-width: $md1) {
-      font-size: 24px;
+      font-size: 20px;
     }
     @media (max-width: 1100px) {
-      font-size: 20px;
+      font-size: 16px;
     }
 
     @media (max-width: $md2) {

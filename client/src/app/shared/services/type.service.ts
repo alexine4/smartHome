@@ -11,7 +11,7 @@ export class TypeService {
   constructor(private http: HttpClient) { }
 
   fetchAll(): Observable<Type[]> {
-    return this.http.get<Type[]>('/api/types/getTypes').pipe(delay(2000))
+    return this.http.get<Type[]>('/api/types/getTypes').pipe(delay(4000))
   }
   create(type: Type): Observable<Message> {
     return this.http.post<Message>(`/api/types/addNew`, type).pipe(delay(5000))

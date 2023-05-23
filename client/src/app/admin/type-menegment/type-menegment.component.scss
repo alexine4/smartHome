@@ -1,10 +1,5 @@
-// constants
-$md01: 2560px;
-$md02: 1980px;
-$md1: 1440px;
-$md2: 978px;
-$md3: 770px;
-$md4: 425px;
+@import '../../shared/css styles/scssConstants.scss';
+
 
 .container {
   display: flex;

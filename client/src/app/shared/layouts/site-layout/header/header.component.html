@@ -1,26 +1,27 @@
 <nav id="menu" class="menu__container custom-scrollbar" >
   <div class="overlay"  (click)="this.menuService.menuStatus = false"></div>
     <div class="menu__sections">
+     <!--  homes -->
       <ul class="menu__list section">
         <h2 class="section__title">Homes</h2>
         <div class="section__list">
           <li class="section__link">
             <button class="section__btn icon-home " [disabled]="currentUrl ==='/home'"
-              (click)="newcurrentUrl('/home','Home');this.menuService.menuStatus = !this.menuService.menuStatus" [routerLink]="['/home']"
+              (click)="newcurrentUrl('/home','Home');this.menuService.menuStatus = false" [routerLink]="['/home']"
               [ngClass]="currentUrl ==='/home' ? 'active-color' : 'active-btn'">
               <p>Home</p>
             </button>
           </li>
         </div>
       </ul>
-
+      <!-- rooms -->
       <ul class="menu__list section">
         <h2 class="section__title " [ngClass]="{'arrow-down': !roomsShow}"
           (click)="roomsShow=!roomsShow;checkMenuForScroll(roomsShow)">Rooms</h2>
         <div class="section__list " [ngClass]="{'not-show': !roomsShow}">
           <li *ngFor="let room of Rooms" class="section__link">
             <button class="section__btn " [disabled]="currentUrl ==='/room/'+room.roomId+'/'+room.typeName"
-              (click)="newcurrentUrl('/room/'+room.roomId+'/'+room.typeName,room.roomName);this.menuService.menuStatus = !this.menuService.menuStatus"
+              (click)="newcurrentUrl('/room/'+room.roomId+'/'+room.typeName,room.roomName);this.menuService.menuStatus = false"
               [routerLink]="['/room',room.roomId,room.typeName]" [ngClass]="{
             'active-color':currentUrl ==='/room/'+room.roomId+'/'+room.typeName,
             'active-btn':currentUrl !=='/room/'+room.roomId+'/'+room.typeName, 
@@ -37,7 +38,7 @@
           </li>
         </div>
       </ul>
-
+      <!-- Management -->
       <ul class="menu__list section">
         <h2 class="section__title" [ngClass]="{'arrow-down': !managementShow}"
           (click)="managementShow=!managementShow; checkMenuForScroll(managementShow)">Management</h2>
@@ -68,6 +69,22 @@
               <p>Heat</p>
             </button>
           </li>
+        </div>
+      </ul>
+      <!-- Administration -->
+      <ul class="menu__list section">
+        <h2 class="section__title" [ngClass]="{'arrow-down': !adminShow}"
+          (click)="adminShow=!adminShow; checkMenuForScroll(adminShow)">Administration</h2>
+        <div class="section__list" [ngClass]="{'not-show': !adminShow}">
+
+          <li class="section__link">
+            <button class="section__btn icon-hammer" [disabled]="currentUrl ==='/types'"
+              (click)="newcurrentUrl('/types','')" [routerLink]="['/types']"
+              [ngClass]="currentUrl ==='/types' ? 'active-color' : 'active-btn'">
+              <p>Types</p>
+            </button>
+          </li>
+          
         </div>
       </ul>
 

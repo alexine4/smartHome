@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   windowHeight!: number;
   roomsShow = false
   managementShow = false
-
+  adminShow = true
 
   Rooms: roomAndType[] = []
 

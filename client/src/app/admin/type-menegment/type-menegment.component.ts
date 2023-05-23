@@ -32,16 +32,16 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
       newTypeName: new FormControl('', [Validators.required, Validators.minLength(4)])
     })
 
-  // fetch all types
-  this.fetchTypes()
- this.types$.subscribe(()=>{this.loading= true})
+    // fetch all types
+    this.fetchTypes()
+    this.types$.subscribe(() => { this.loading = true })
   }
   //function fetch all types
-  private fetchTypes():void{
+  private fetchTypes(): void {
     this.types$ = this.typeService.fetchAll()
   }
 
-//function transmit data about type, when need creating to type service 
+  //function transmit data about type, when need creating to type service 
   public createType(): void {
     const newType: Type = {
       typeId: 0,
@@ -62,7 +62,7 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
       }
     )
   }
-//function transmit data about type, when need updating to type service 
+  //function transmit data about type, when need updating to type service 
   public updateType(): void {
     const newType: Type = {
       typeId: 0,
@@ -102,9 +102,9 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
       }
     )
   }
-// function take name type from list
-  public takeName(typeName: string):void{
-    this.typeForm.setValue({typeName, newTypeName: this.typeForm.value.newTypeName})
+  // function take name type from list
+  public takeName(typeName: string): void {
+    this.typeForm.setValue({ typeName, newTypeName: this.typeForm.value.newTypeName })
   }
   //unsubscribe when component destroy
   ngOnDestroy(): void {
