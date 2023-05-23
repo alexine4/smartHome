@@ -55,6 +55,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public newcurrentUrl( newcurrentUrl: string, title: string) {
+    this.menuService.menuStatus = false
     this.currentUrl = newcurrentUrl;
     this.title.setTitle(title)
 

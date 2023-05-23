@@ -12,6 +12,7 @@
           'icon-lab': room.typeName == 'Basement',
           'icon-smile': room.typeName == 'Holl'
         }"
+        [routerLink]="['/room/',room.roomId]"
       >
         {{ room.roomName }}
       </h2>

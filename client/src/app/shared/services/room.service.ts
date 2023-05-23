@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Room, Type, roomAndType,  } from '../interfaces';
+import { Message, Room, Type, roomAndType,  } from '../interfaces';
 import { Observable, delay, mergeMap, of } from 'rxjs';
 
 
@@ -10,12 +10,12 @@ import { Observable, delay, mergeMap, of } from 'rxjs';
 })
 export class RoomService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
 
-  fetchWithType(): Observable<roomAndType> {
-    const rooms$: Observable<Room[]> = this.http.get<Room[]>(`/api/rooms/getRooms`)
-    const types$: Observable<Type[]> = this.http.get<Type[]>(`/api/types/getTypes`)
+  public fetchWithType(): Observable<roomAndType> {
+    const rooms$: Observable<Room[]> = this.httpClient.get<Room[]>(`/api/rooms/getRooms`)
+    const types$: Observable<Type[]> = this.httpClient.get<Type[]>(`/api/types/getTypes`)
     const result$: Observable<roomAndType> = types$.pipe(
       mergeMap(types => rooms$.pipe(
           mergeMap(rooms => of(
@@ -30,6 +30,14 @@ export class RoomService {
     )
     return result$
 
+  }
+
+  public fetchAllRooms():Observable<Room[]>{
+    return this.httpClient.get<Room[]>(`/api/rooms/getRooms`).pipe(delay(4000))
+  }
+
+  public create(room:Room):Observable<Message>{
+    return this.httpClient.post<Message>(`/api/rooms/addNew`,room).pipe(delay(4000))
   }
 
 }

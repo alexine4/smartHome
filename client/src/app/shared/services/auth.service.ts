@@ -10,13 +10,13 @@ import { confirmCod } from "src/app/register-page/confirm-access/confirm-access.
 export class AuthService {
 
   private token = ''
-  constructor(private http: HttpClient) {
+  constructor(private httpClient: HttpClient) {
 
   }
 
   // login 
   login(user: User): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('/api/auth/login', user)
+    return this.httpClient.post<{ token: string }>('/api/auth/login', user)
       .pipe(
         tap(
           ({ token }) => {
@@ -43,22 +43,22 @@ export class AuthService {
   }
 
   register(user: User): Observable<User> {
-    return this.http.post<User>('/api/auth/register', user)
+    return this.httpClient.post<User>('/api/auth/register', user)
   }
   // check and confirm connection to device
   confirmConnectionReq(user: User): Observable<User> {
-    return this.http.post<User>('/api/auth/confirmConnection', user)
+    return this.httpClient.post<User>('/api/auth/confirmConnection', user)
   }
   confirmConnectionRes(confirmCode: confirmCod): Observable<confirmCod> {
-    return this.http.post<confirmCod>('/api/auth/connectionCode', confirmCode)
+    return this.httpClient.post<confirmCod>('/api/auth/connectionCode', confirmCode)
   }
   // check user if fogot password
 
   checkUser(user: User): Observable<User> {
-    return this.http.post<User>('/api/auth/checkUser', user)
+    return this.httpClient.post<User>('/api/auth/checkUser', user)
   }
   // change password
   changePassword(user: User): Observable<User> {
-    return this.http.post<User>('/api/auth/changePassword', user)
+    return this.httpClient.post<User>('/api/auth/changePassword', user)
   }
 }

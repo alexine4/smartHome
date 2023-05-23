@@ -7,7 +7,7 @@
         <div class="section__list">
           <li class="section__link">
             <button class="section__btn icon-home " [disabled]="currentUrl ==='/home'"
-              (click)="newcurrentUrl('/home','Home');this.menuService.menuStatus = false" [routerLink]="['/home']"
+              (click)="newcurrentUrl('/home','Home')" [routerLink]="['/home']"
               [ngClass]="currentUrl ==='/home' ? 'active-color' : 'active-btn'">
               <p>Home</p>
             </button>
@@ -20,11 +20,11 @@
           (click)="roomsShow=!roomsShow;checkMenuForScroll(roomsShow)">Rooms</h2>
         <div class="section__list " [ngClass]="{'not-show': !roomsShow}">
           <li *ngFor="let room of Rooms" class="section__link">
-            <button class="section__btn " [disabled]="currentUrl ==='/room/'+room.roomId+'/'+room.typeName"
-              (click)="newcurrentUrl('/room/'+room.roomId+'/'+room.typeName,room.roomName);this.menuService.menuStatus = false"
-              [routerLink]="['/room',room.roomId,room.typeName]" [ngClass]="{
-            'active-color':currentUrl ==='/room/'+room.roomId+'/'+room.typeName,
-            'active-btn':currentUrl !=='/room/'+room.roomId+'/'+room.typeName, 
+            <button class="section__btn " [disabled]="currentUrl ==='/room/'+room.roomId"
+              (click)="newcurrentUrl('/room/'+room.roomId,room.roomName)"
+              [routerLink]="['/room',room.roomId]" [ngClass]="{
+            'active-color':currentUrl ==='/room/'+room.roomId,
+            'active-btn':currentUrl !=='/room/'+room.roomId, 
             'icon-spoon-knife':room.typeName =='Kitchen',
             'icon-lifebuoy':room.typeName =='Bathroom',
             'icon-newspaper':room.typeName =='Living room',
@@ -82,6 +82,13 @@
               (click)="newcurrentUrl('/types','')" [routerLink]="['/types']"
               [ngClass]="currentUrl ==='/types' ? 'active-color' : 'active-btn'">
               <p>Types</p>
+            </button>
+          </li>
+          <li class="section__link">
+            <button class="section__btn icon-hammer" [disabled]="currentUrl ==='/rooms'"
+              (click)="newcurrentUrl('/rooms','');" [routerLink]="['/rooms']"
+              [ngClass]="currentUrl ==='/rooms' ? 'active-color' : 'active-btn'">
+              <p>Rooms</p>
             </button>
           </li>
           

@@ -1,1 +1,274 @@
-@import url('../type-menegment/type-menegment.component.scss');
+@import "../../shared/css styles/scssConstants.scss";
+
+.container {
+	display: flex;
+	width: 80vw;
+	min-height: 93vh;
+	height: auto;
+	background: linear-gradient(85deg, #fb63f9, #c2e534);
+	@media (max-width: $md2) {
+		width: 100vw;
+	}
+	@media (max-width: $md4) {
+		min-height: 93vh;
+		height: auto;
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: inherit;
+	
+	// .form__title
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 40px;
+		line-height: 46px/40px * 100%;
+		color: #0575f5;
+		@media (max-width: $md4) {
+			display: none;
+		}
+	}
+
+	// .form__fields
+
+	&__fields {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		margin: 20px 0;
+		@media (max-width: $md3) {
+			grid-template-columns: 1fr;
+			margin: 10px;
+		}
+	}
+
+	// .form__field
+
+	&__field {
+	}
+
+	// .form__buttons
+
+	&__buttons {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin: 10px 0;
+		@media (max-width: $md4) {
+			flex-direction: column;
+			margin: 0;
+		}
+	}
+
+	// .form__button
+
+	&__button {
+		font-family: "Aleo";
+		font-size: 30px;
+		line-height: 36px/30px * 100%;
+		background: linear-gradient(45deg, #0831e7, #0e83c7);
+		margin: 0 25px;
+		display: flex;
+		width: 15vw;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		border-radius: 25px;
+		padding: 5px 10px;
+		opacity: 0.7;
+		transition: all 1.5s ease 0s;
+
+		@media (max-width: $md2) {
+			min-height: 50px;
+			height: 4vh;
+			width: 35vw;
+		}
+		@media (max-width: $md3) {
+			width: 50vw;
+		}
+		@media (max-width: $md4) {
+			margin: 3vh 0 0 0;
+		}
+	}
+
+	// .form__list
+
+	&__list {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		width: inherit;
+		overflow: hidden;
+		max-height: 370px;
+		margin: 10px 0 0 0;
+		padding: 0;
+	}
+
+	&__error {
+		display: flex;
+		flex-direction: column;
+		margin: 10px 0 0px 0;
+		color: #f30707;
+	}
+}
+
+.hover-color {
+	@media (min-width: $md3) {
+		&:hover {
+			background: linear-gradient(120deg, #7a3cdf, #e55d34);
+			opacity: 1;
+			scale: 1.15;
+			border-radius: 50px;
+			color: #fff;
+		}
+	}
+}
+
+.field {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin: 15px;
+
+	@media (max-width: $md2) {
+		margin: 10px;
+	}
+
+	width: inherit;
+	// .field__title
+
+	&__title {
+		font-size: 36px;
+		line-height: 42px/36px * 100%;
+		color: #d11111;
+		@media (max-width: $md4){
+		font-size: 24px;
+		}
+	}
+
+	// .field__input
+
+	&__input {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin: 10px 0 0 0;
+		background: none;
+		border: 4px solid #05d9f5;
+		border-radius: 25px;
+		width: 27vw;
+		height: 4vh;
+		font-size: 28px;
+		line-height: 36px/28px * 100%;
+		color: #5e79ee;
+		transition: all 1s ease 0s;
+
+		@media (max-width: $md2) {
+			width: 30vw;
+			font-size: 20px;
+		}
+		@media (max-width: $md3) {
+			width: 70vw;
+			height: 6vh;
+		}
+
+		@media (min-width: $md3) {
+			&:hover {
+				border-color: #f50591;
+			}
+		}
+	}
+	&__input-list{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 15vw;
+		
+	}
+}
+
+.form-error {
+	transition: all 1.5s ease 0s;
+	font-weight: 900;
+	font-size: 18px;
+	line-height: 24px/16px * 100%;
+}
+
+.border-red {
+	border-color: #d11111;
+}
+
+.positions {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.position {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 2px dotted #000;
+	width: 30vw;
+	font-size: 30px;
+	line-height: 46/30 * 100%;
+
+	@media (max-width: $md2) {
+		width: 70vw;
+	}
+	// .position__title
+	&__title {
+		color: #0575f5;
+		margin: 0 15px 0 0px;
+		@media (max-width: $md4){
+		font-size: 22px;
+		}
+	}
+
+	// .position__name
+
+	&__name {
+		padding: 0  0 0 15px ;
+		transition: all 1s ease 0s;
+		color: #df3c9b;
+		cursor: pointer;
+
+		@media (min-width: $md3) {
+			&:hover {
+				color: #0905f5;
+				scale: 1.2;
+			}
+		}
+		@media (max-width: $md4){
+		font-size: 24px;
+		}
+		@media (max-width: $md5){
+			font-size: 18px;
+			}
+	}
+}
+
+.scroll {
+	overflow-y: scroll;
+}
+
+.list-container {
+	display: flex;
+	flex-direction: column;
+	width: 32vw;
+}
+
+.empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 36px;
+	line-height: 46px/36px * 100%;
+}

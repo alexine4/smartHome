@@ -1,60 +1,146 @@
 <div class="container animation-show">
-	<section *ngIf="loading; else loader" class="form animation-show">
-	  <div class="form__title">Rooms Management</div>
-	  <ul class="form__list ">
-		 <div *ngIf="rooms$ | async as rooms; else loader" class="list-container "
-			[ngClass]="{'scroll custom-scrollbar':rooms.length >9}">
-			<li *ngIf="rooms.length > 0; else empty" class="positions ">
-			  <div *ngFor="let room of rooms" class="position">
-				 <label class="position__title">room:</label>
-				 <div class="position__name" (click)="takeName()">{{room.roomName| titlecase}}</div>
-			  </div>
-			</li>
-		 </div>
-	  </ul>
-	  <form [formGroup]="roomForm" class="form__fields">
-		 <div class="form__field field">
-			<label class="field__title">room name</label>
-			<input formControlName="roomName" room="text" class="field__input" placeholder="Enter room name"
-			  [ngClass]="{'border-red':this.roomForm.get('roomName')?.invalid&&this.roomForm.get('roomName')?.touched}">
-			<p class="form__error"
-			  *ngIf="this.roomForm.get('roomName')?.invalid && this.roomForm.get('roomName')?.touched ">
-			  <small *ngIf="this.roomForm.get('roomName')?.value ===''" class="form-error animation-show">
-				 Form must not been empty!
-			  </small>
-			  <small *ngIf="this.roomForm.get('roomName')?.invalid" class="form-error animation-show">
-				 Min length name 4 symbols
-			  </small>
-			</p>
-		 </div>
-		 <div class="form__field field">
-			<label class="field__title">New room name</label>
-			<input formControlName="newroomName" room="text" class="field__input" placeholder="Enter new room name">
-		 </div>
-	  </form>
-	  <div class="form__buttons">
-		 <button [disabled]="this.roomForm.get('roomName')?.invalid && this.roomForm.disabled"
-			[ngClass]="{'hover-color': !this.roomForm.get('roomName')?.invalid  && !this.roomForm.disabled}"
-			(click)="createRoom()" class="form__button non-btn-style "> Create</button>
- 
-		 <button
-			[disabled]="this.roomForm.get('roomName')?.invalid&&this.roomForm.get('newroomName')?.invalid && this.roomForm.disabled"
-			[ngClass]="{'hover-color': !this.roomForm.get('roomName')?.invalid&&!this.roomForm.get('newroomName')?.invalid  && !this.roomForm.disabled}"
-			(click)="updateRoom()" class="form__button non-btn-style "> Update</button>
- 
-		 <button [disabled]="this.roomForm.get('roomName')?.invalid && this.roomForm.disabled"
-			[ngClass]="{'hover-color': !this.roomForm.get('roomName')?.invalid && !this.roomForm.disabled}"
-			(click)="deleteRoom()" class="form__button non-btn-style"> Delete</button>
-	  </div>
-	</section>
- 
-	<ng-template #loader>
-	  <div class="loader">
-		 <app-loader></app-loader>
-	  </div>
-	</ng-template>
-	<ng-template #empty>
-	  <p class="empty">rooms not exist`s</p>
-	</ng-template>
- </div>
- 
+  <section *ngIf="loading; else loader" class="form animation-show">
+    <div class="form__title">Rooms Management</div>
+    <ul class="form__list">
+      <div
+		*ngIf="rooms$ | async as rooms; else loader"
+        class="list-container"
+        [ngClass]="{ 'scroll custom-scrollbar': rooms.length > 9 }"
+      >
+        <li *ngIf="rooms.length > 0; else empty" class="positions">
+          <div *ngFor="let room of rooms" class="position">
+            <label class="position__title">Room:</label>
+            <div
+              class="position__name"
+              (click)="takeRoom(room.roomName,room.typeName)"
+              [ngClass]="{
+                'icon-spoon-knife': room.typeName == 'Kitchen',
+                'icon-lifebuoy': room.typeName == 'Bathroom',
+                'icon-newspaper': room.typeName == 'Living room',
+                'icon-bed': room.typeName == 'Bedroom',
+                'icon-briefcase': room.typeName == 'Cabinet',
+                'icon-lab': room.typeName == 'Basement',
+                'icon-smile': room.typeName == 'Holl'
+              }"
+            >
+              {{ room.roomName | titlecase }}
+            </div>
+          </div>
+        </li>
+      </div>
+    </ul>
+    <form [formGroup]="roomForm" class="form__fields">
+      <div class="form__field field">
+        <label class="field__title">Room name</label>
+        <input
+          formControlName="roomName"
+          type="text"
+          class="field__input"
+          placeholder="Enter room name"
+          [ngClass]="{
+            'border-red':
+              this.roomForm.get('roomName')?.invalid &&
+              this.roomForm.get('roomName')?.touched
+          }"
+        />
+        <p
+          class="form__error"
+          *ngIf="
+            this.roomForm.get('roomName')?.invalid &&
+            this.roomForm.get('roomName')?.touched
+          "
+        >
+          <small
+            *ngIf="this.roomForm.get('roomName')?.value === ''"
+            class="form-error animation-show"
+          >
+            Form must not been empty!
+          </small>
+          <small
+            *ngIf="this.roomForm.get('roomName')?.invalid"
+            class="form-error animation-show"
+          >
+            Min length name 4 symbols
+          </small>
+        </p>
+      </div>
+      <div class="form__field field">
+        <label class="field__title">New room name</label>
+        <input
+          formControlName="newRoomName"
+          type="text"
+          class="field__input"
+          placeholder="Enter new room name"
+        />
+      </div>
+      <div class="form__field field">
+        <label class="field__title">Type</label>
+        <input
+          formControlName="typeName"
+          list="types"
+          class="field__input"
+          placeholder="Enter type"
+        />
+        <datalist *ngIf="types"  id="types" class="field__input-list">
+          <option *ngFor="let type of types" class="option" [value]="type.typeName"></option>
+        </datalist>
+      </div>
+    </form>
+    <div class="form__buttons">
+      <button
+        [disabled]="
+          this.roomForm.get('roomName')?.invalid && this.roomForm.disabled
+        "
+        [ngClass]="{
+          'hover-color':
+            !this.roomForm.get('roomName')?.invalid && !this.roomForm.disabled
+        }"
+        (click)="createRoom()"
+        class="form__button non-btn-style"
+      >
+        Create
+      </button>
+
+      <button
+        [disabled]="
+          this.roomForm.get('roomName')?.invalid &&
+          this.roomForm.get('newroomName')?.invalid &&
+          this.roomForm.disabled
+        "
+        [ngClass]="{
+          'hover-color':
+            !this.roomForm.get('roomName')?.invalid &&
+            !this.roomForm.get('newroomName')?.invalid &&
+            !this.roomForm.disabled
+        }"
+        (click)="updateRoom()"
+        class="form__button non-btn-style"
+      >
+        Update
+      </button>
+
+      <button
+        [disabled]="
+          this.roomForm.get('roomName')?.invalid && this.roomForm.disabled
+        "
+        [ngClass]="{
+          'hover-color':
+            !this.roomForm.get('roomName')?.invalid && !this.roomForm.disabled
+        }"
+        (click)="deleteRoom()"
+        class="form__button non-btn-style"
+      >
+        Delete
+      </button>
+    </div>
+  </section>
+
+  <ng-template #loader>
+    <div class="loader">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+  <ng-template #empty>
+    <p class="empty">rooms not exist`s</p>
+  </ng-template>
+</div>

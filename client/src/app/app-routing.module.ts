@@ -11,6 +11,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { RoomComponent } from './room/room.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.component';
+import { RoomMenegmentComponent } from './admin/room-menegment/room-menegment.component';
 
 const routes: Routes = [
   {
@@ -25,9 +26,9 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard],
     children:[
       { path: 'home', component: HomeComponent, title: 'Home' },
-      { path: 'room/:roomId/:typeRoom', component: RoomComponent },
-      { path: 'types', component: TypeMenegmentComponent,title:'Types manegment' }
-   
+      { path: 'room/:roomId', component: RoomComponent },
+      { path: 'types', component: TypeMenegmentComponent,title:'Types manegment' },
+      { path: 'rooms', component: RoomMenegmentComponent,title:'Rooms manegment' }   
     ]
   }
 ];

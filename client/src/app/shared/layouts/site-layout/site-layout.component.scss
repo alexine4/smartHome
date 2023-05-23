@@ -42,10 +42,6 @@ display: none;
   padding: 10px 0 10px 0;
   line-height: 56px / 48px *100%;
 
-  &::before {
-    padding: 0 20px 0 0;
-  }
-
   p {
     display: flex;
     align-items: center;
@@ -57,9 +53,6 @@ display: none;
   @media (min-width: $md01) {
     font-size: 48px;
 
-    &::before {
-      font-size: 42px;
-    }
   }
 
   @media (max-width: $md01) {
@@ -72,18 +65,13 @@ display: none;
 
   @media (max-width: $md1) {
     font-size: 36px;
-
-    &::before {
-      font-size: 30px;
-    }
   }
 
   @media (max-width: $md2) {
     font-size: 30px;
-
-    &::before {
-      font-size: 24px;
-    }
+  }
+  @media (max-width: $md4){
+  font-size: 24px;
   }
 
 
@@ -94,7 +82,7 @@ display: none;
   align-items: center;
   justify-content: center;
   flex: 0 1 80%;
-  height: 100%;
+  height: auto;
 
 }
 
@@ -159,11 +147,14 @@ display: none;
   @media (min-width: $md2){
   display: none;
   }
+  @media (max-width: $md4){
+  left: 25px;
+  }
 }
 
 .menu-btn span {
   width: inherit;
-  height: 9%;
+  height: 8%;
   position: absolute;
   top: 50%;
   left: 50%;
