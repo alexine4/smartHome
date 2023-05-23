@@ -1,6 +1,6 @@
-<div class="site-layout">
+<div class="site-layout ">
   <div
-    class="menu"
+    class="menu animation-show"
     [ngClass]="{
       'menu-not-show': ! this.menuService.menuStatus,
       '_active':  this.menuService.menuStatus
@@ -13,7 +13,7 @@
     'dn':  this.menuService.menuStatus
   }"
   >
-    <div class="page__title">
+    <div class="page__title animation-show">
       <div
         class="menu-btn"
         [ngClass]="{ 'active':  this.menuService.menuStatus }"
@@ -25,7 +25,7 @@
       </div>
       <p>{{ this.title.getTitle() | titlecase }}</p>
     </div>
-    <div class="page__content">
+    <div class="page__content animation-show">
       <router-outlet></router-outlet>
     </div>
   </div>

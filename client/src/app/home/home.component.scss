@@ -25,6 +25,7 @@ $md4:425px;
 	// .navigation__section
 
 	&__sections{
+		cursor: pointer;
 		width: 100%;
 		height: auto;
 		display: grid;
@@ -48,6 +49,7 @@ $md4:425px;
 		margin:  2vw;
 		background: linear-gradient(135deg, #ec004b 0%, #9003d1 100%);
 		border-radius: 25px;
+		transition: all 2s ease 0s;
 		@media (max-width: $md2){
 			width: 25vw;
 		}
@@ -56,6 +58,11 @@ $md4:425px;
 		}
 		@media (max-width: $md4){
 			width: 80vw;
+		}
+		@media (min-width: $md2){
+		&:hover{
+			background: linear-gradient(135deg, #00d0ec 0%, #03d159 100%);
+		}
 		}
 	}
 
@@ -68,11 +75,34 @@ $md4:425px;
 		text-align: center;
 		padding: 10px;
 		font-family: 'Aleo';
+		width: inherit;
+		height: inherit;
 		font-size: 26px;
 		line-height: 40/32*100%;
+		transition: all 2s ease 0s;
 		&::before{
+			transition: all 2s ease 0s;
 			padding: 0 20px 0 0 ;
-			font-size: 32px;
+			font-size: 56px;
+			color:  #02ccffda ;
+			@media (max-width: $md1){
+				font-size: 40px;
+			}
+			@media (max-width: $md2){
+				font-size: 56px;
+			}
+		}
+		@media (min-width: $md2){
+		&:hover{
+			color: #aa03c0;
+			&::before{
+				color: #f70763;
+			}
+		}
+		}
+
+		@media (max-width: $md4){
+		justify-content: start;
 		}
 	}
 }

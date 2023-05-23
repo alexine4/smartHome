@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Room, Type, roomAndType,  } from '../interfaces';
-import { Observable, mergeMap, of } from 'rxjs';
+import { Observable, delay, mergeMap, of } from 'rxjs';
 
 
 
@@ -24,8 +24,9 @@ export class RoomService {
             typeId: types[types.findIndex(type => room.typeId === type.typeId)!==undefined?types.findIndex(type => room.typeId === type.typeId):0].typeId,
             typeName: types[types.findIndex(type => room.typeId === type.typeId)!==undefined?types.findIndex(type => room.typeId === type.typeId):0].typeName
           }))
-        ))
-      ))
+        )),
+        delay(4000)
+      ))      
     )
     return result$
 

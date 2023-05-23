@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   roomSub$!: Subscription
   rooms: roomAndType[] = []
-  loading = true
+  loading = false
 
   constructor (
     private roomService: RoomService
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.roomSub$ = this.roomService.fetchWithType().subscribe(
       room=>{
         this.rooms.push(room)
-        this.loading = false
+        this.loading = true
       }
     )
 
