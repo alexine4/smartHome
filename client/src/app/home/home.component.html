@@ -13,6 +13,7 @@
           'icon-smile': room.typeName == 'Holl'
         }"
         [routerLink]="['/room/',room.roomId]"
+        (click)="newcurrentUrl('/room/'+room.roomId,room.roomName)"
       >
         {{ room.roomName }}
       </h2>

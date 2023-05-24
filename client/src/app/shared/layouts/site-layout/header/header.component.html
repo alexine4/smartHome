@@ -6,9 +6,9 @@
         <h2 class="section__title">Homes</h2>
         <div class="section__list">
           <li class="section__link">
-            <button class="section__btn icon-home " [disabled]="currentUrl ==='/home'"
+            <button class="section__btn icon-home " [disabled]="this.menuService.currentURL ==='/home'"
               (click)="newcurrentUrl('/home','Home')" [routerLink]="['/home']"
-              [ngClass]="currentUrl ==='/home' ? 'active-color' : 'active-btn'">
+              [ngClass]="this.menuService.currentURL ==='/home' ? 'active-color' : 'active-btn'">
               <p>Home</p>
             </button>
           </li>
@@ -20,11 +20,11 @@
           (click)="roomsShow=!roomsShow;checkMenuForScroll(roomsShow)">Rooms</h2>
         <div class="section__list " [ngClass]="{'not-show': !roomsShow}">
           <li *ngFor="let room of Rooms" class="section__link">
-            <button class="section__btn " [disabled]="currentUrl ==='/room/'+room.roomId"
+            <button class="section__btn " [disabled]="this.menuService.currentURL ==='/room/'+room.roomId"
               (click)="newcurrentUrl('/room/'+room.roomId,room.roomName)"
               [routerLink]="['/room',room.roomId]" [ngClass]="{
-            'active-color':currentUrl ==='/room/'+room.roomId,
-            'active-btn':currentUrl !=='/room/'+room.roomId, 
+            'active-color':this.menuService.currentURL ==='/room/'+room.roomId,
+            'active-btn':this.menuService.currentURL !=='/room/'+room.roomId, 
             'icon-spoon-knife':room.typeName =='Kitchen',
             'icon-lifebuoy':room.typeName =='Bathroom',
             'icon-newspaper':room.typeName =='Living room',
@@ -44,28 +44,28 @@
           (click)="managementShow=!managementShow; checkMenuForScroll(managementShow)">Management</h2>
         <div class="section__list" [ngClass]="{'not-show': !managementShow}">
           <li class="section__link">
-            <button class="section__btn icon-power" [disabled]="currentUrl ==='/electrisity'"
+            <button class="section__btn icon-power" [disabled]="this.menuService.currentURL ==='/electrisity'"
               (click)="newcurrentUrl('/electrisity','')" [routerLink]="['/electrisity']"
-              [ngClass]="currentUrl ==='/electrisity' ? 'active-color' : 'active-btn'">
+              [ngClass]="this.menuService.currentURL ==='/electrisity' ? 'active-color' : 'active-btn'">
               <p>Electrisity</p>
             </button>
           </li>
           <li class="section__link">
-            <button class="section__btn icon-fire" [disabled]="currentUrl ==='/gas'" (click)="newcurrentUrl('/gas','')"
-              [routerLink]="['/gas']" [ngClass]="currentUrl ==='/gas' ? 'active-color' : 'active-btn'">
+            <button class="section__btn icon-fire" [disabled]="this.menuService.currentURL ==='/gas'" (click)="newcurrentUrl('/gas','')"
+              [routerLink]="['/gas']" [ngClass]="this.menuService.currentURL ==='/gas' ? 'active-color' : 'active-btn'">
               <p>Gas</p>
             </button>
           </li>
           <li class="section__link">
-            <button class="section__btn icon-droplet" [disabled]="currentUrl ==='/water'"
+            <button class="section__btn icon-droplet" [disabled]="this.menuService.currentURL ==='/water'"
               (click)="newcurrentUrl('/water','')" [routerLink]="['/water']"
-              [ngClass]="currentUrl ==='/water' ? 'active-color' : 'active-btn'">
+              [ngClass]="this.menuService.currentURL ==='/water' ? 'active-color' : 'active-btn'">
               <p>Water</p>
             </button>
           </li>
           <li class="section__link">
-            <button class="section__btn icon-sun" [disabled]="currentUrl ==='/heat'" (click)="newcurrentUrl('/heat','')"
-              [routerLink]="['/heat']" [ngClass]="currentUrl ==='/heat' ? 'active-color' : 'active-btn'">
+            <button class="section__btn icon-sun" [disabled]="this.menuService.currentURL ==='/heat'" (click)="newcurrentUrl('/heat','')"
+              [routerLink]="['/heat']" [ngClass]="this.menuService.currentURL ==='/heat' ? 'active-color' : 'active-btn'">
               <p>Heat</p>
             </button>
           </li>
@@ -78,16 +78,16 @@
         <div class="section__list" [ngClass]="{'not-show': !adminShow}">
 
           <li class="section__link">
-            <button class="section__btn icon-hammer" [disabled]="currentUrl ==='/types'"
+            <button class="section__btn icon-hammer" [disabled]="this.menuService.currentURL ==='/types'"
               (click)="newcurrentUrl('/types','')" [routerLink]="['/types']"
-              [ngClass]="currentUrl ==='/types' ? 'active-color' : 'active-btn'">
+              [ngClass]="this.menuService.currentURL ==='/types' ? 'active-color' : 'active-btn'">
               <p>Types</p>
             </button>
           </li>
           <li class="section__link">
-            <button class="section__btn icon-hammer" [disabled]="currentUrl ==='/rooms'"
+            <button class="section__btn icon-hammer" [disabled]="this.menuService.currentURL ==='/rooms'"
               (click)="newcurrentUrl('/rooms','');" [routerLink]="['/rooms']"
-              [ngClass]="currentUrl ==='/rooms' ? 'active-color' : 'active-btn'">
+              [ngClass]="this.menuService.currentURL ==='/rooms' ? 'active-color' : 'active-btn'">
               <p>Rooms</p>
             </button>
           </li>

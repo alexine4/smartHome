@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class MenuService {
   public menuStatus!: boolean
+  public currentURL!:string
   constructor() { }
 }

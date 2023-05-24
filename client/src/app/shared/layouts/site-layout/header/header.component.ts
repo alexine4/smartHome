@@ -16,7 +16,6 @@ import { MenuService } from 'src/app/shared/services/menu.service';
 })
 export class HeaderComponent implements OnInit {
 
-  currentUrl!: string
   windowHeight!: number;
   roomsShow = false
   managementShow = false
@@ -33,7 +32,7 @@ export class HeaderComponent implements OnInit {
     private title: Title,
     public menuService: MenuService
   ) {
-    this.currentUrl = this.location.path();
+    this.menuService.currentURL = this.location.path();
   }
 
   ngOnInit(): void {
@@ -56,9 +55,8 @@ export class HeaderComponent implements OnInit {
 
   public newcurrentUrl( newcurrentUrl: string, title: string) {
     this.menuService.menuStatus = false
-    this.currentUrl = newcurrentUrl;
+    this.menuService.currentURL = newcurrentUrl;
     this.title.setTitle(title)
-
   }
 
   public checkMenuForScroll(status: boolean) {
