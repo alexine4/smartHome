@@ -39,5 +39,11 @@ export class RoomService {
   public create(room:Room):Observable<Message>{
     return this.httpClient.post<Message>(`/api/rooms/addNew`,room).pipe(delay(4000))
   }
+  public update(room:Room):Observable<Message>{
+    return this.httpClient.patch<Message>(`/api/rooms/update/${room.roomId}`,room).pipe(delay(4000))
+  }
+  public delete(roomId:number):Observable<Message>{
+    return this.httpClient.delete<Message>(`/api/rooms/delete/${roomId}`).pipe(delay(4000))
+  }
 
 }

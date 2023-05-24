@@ -3,16 +3,16 @@
     <div class="form__title">Rooms Management</div>
     <ul class="form__list">
       <div
-		*ngIf="rooms$ | async as rooms; else loader"
+        *ngIf="rooms; else loader"
         class="list-container"
-        [ngClass]="{ 'scroll custom-scrollbar': rooms.length > 9 }"
+        [ngClass]="{ 'scroll custom-scrollbar': rooms.length > 8}"
       >
-        <li *ngIf="rooms.length > 0; else empty" class="positions">
+        <li *ngIf="rooms.length > 0; else loader" class="positions">
           <div *ngFor="let room of rooms" class="position">
             <label class="position__title">Room:</label>
             <div
               class="position__name"
-              (click)="takeRoom(room.roomName,room.typeName)"
+              (click)="takeRoom(room.roomName, room.typeName)"
               [ngClass]="{
                 'icon-spoon-knife': room.typeName == 'Kitchen',
                 'icon-lifebuoy': room.typeName == 'Bathroom',
@@ -71,7 +71,26 @@
           type="text"
           class="field__input"
           placeholder="Enter new room name"
+          [ngClass]="{
+            'border-red':
+              this.roomForm.get('newRoomName')?.invalid &&
+              this.roomForm.get('newRoomName')?.touched
+          }"
         />
+        <p
+          class="form__error"
+          *ngIf="
+            this.roomForm.get('newRoomName')?.invalid &&
+            this.roomForm.get('newRoomName')?.touched
+          "
+        >
+          <small
+            *ngIf="this.roomForm.get('newRoomName')?.invalid"
+            class="form-error animation-show"
+          >
+            Min length name 4 symbols
+          </small>
+        </p>
       </div>
       <div class="form__field field">
         <label class="field__title">Type</label>
@@ -80,20 +99,47 @@
           list="types"
           class="field__input"
           placeholder="Enter type"
+          [ngClass]="{
+            'border-red':
+              this.roomForm.get('typeName')?.value === '' &&
+              this.roomForm.get('typeName')?.touched
+          }"
         />
-        <datalist *ngIf="types"  id="types" class="field__input-list">
-          <option *ngFor="let type of types" class="option" [value]="type.typeName"></option>
+        <datalist *ngIf="types" id="types" class="field__input-list">
+          <option
+            *ngFor="let type of types"
+            class="option"
+            [value]="type.typeName"
+          ></option>
         </datalist>
+        <p
+          class="form__error"
+          *ngIf="
+            this.roomForm.get('typeName')?.invalid &&
+            this.roomForm.get('typeName')?.touched
+          "
+        >
+          <small
+            *ngIf="this.roomForm.get('typeName')?.value === ''"
+            class="form-error animation-show"
+          >
+            Select one of list
+          </small>
+        </p>
       </div>
     </form>
     <div class="form__buttons">
       <button
         [disabled]="
-          this.roomForm.get('roomName')?.invalid && this.roomForm.disabled
+          this.roomForm.get('roomName')?.invalid ||
+          this.roomForm.disabled ||
+          this.roomForm.get('typeName')?.value === ''
         "
         [ngClass]="{
           'hover-color':
-            !this.roomForm.get('roomName')?.invalid && !this.roomForm.disabled
+            !this.roomForm.get('roomName')?.invalid &&
+            !this.roomForm.disabled &&
+            this.roomForm.get('typeName')?.value !== ''
         }"
         (click)="createRoom()"
         class="form__button non-btn-style"
@@ -103,14 +149,16 @@
 
       <button
         [disabled]="
-          this.roomForm.get('roomName')?.invalid &&
-          this.roomForm.get('newroomName')?.invalid &&
+          this.roomForm.get('roomName')?.invalid ||
+          this.roomForm.get('newRoomName')?.invalid ||
+          this.roomForm.get('typeName')?.value === '' ||
           this.roomForm.disabled
         "
         [ngClass]="{
           'hover-color':
             !this.roomForm.get('roomName')?.invalid &&
-            !this.roomForm.get('newroomName')?.invalid &&
+            !this.roomForm.get('newRoomName')?.invalid &&
+            this.roomForm.get('typeName')?.value !== '' &&
             !this.roomForm.disabled
         }"
         (click)="updateRoom()"
@@ -121,7 +169,7 @@
 
       <button
         [disabled]="
-          this.roomForm.get('roomName')?.invalid && this.roomForm.disabled
+          this.roomForm.get('roomName')?.invalid || this.roomForm.disabled
         "
         [ngClass]="{
           'hover-color':

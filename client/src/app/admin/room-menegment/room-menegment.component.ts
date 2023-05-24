@@ -18,7 +18,7 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
   loadType = false
   types!: Type[]
 
-  rooms$!: Observable<roomAndType[]>
+  rooms: roomAndType[] = []
 
   typeSub$!: Subscription
   createSub$!: Subscription
@@ -42,12 +42,10 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
     //fetch all types
     this.typeSub$ = this.typeService.fetchAll().subscribe(
       Types => {
+        this.roomForm.enable()
         this.types = Types
       },
-      error => this.toast.error(error.error.massege),
-      () => {
-        this.roomForm.enable()
-      }
+      error => this.toast.error(error.error.massege)
     )
     //fetch all rooms
     this.fetchRooms()
@@ -56,39 +54,51 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
   }
   // function fetch rooms with type
   private fetchRooms(): void {
-    
-  
-
-    
+    this.roomService.fetchWithType().subscribe(
+      room => {
+        this.loading = true
+        this.rooms.push(room)
+      },
+      error => this.toast.error(error.error.massege)
+    )
   }
   // function take rooms and type from list 
   public takeRoom(roomName: string, typeName: string): void {
-    this.roomForm.setValue({ roomName, typeName, newRoomName: this.roomForm.value.newRoomName })
+    if (this.roomForm.value.newRoomName !=='') {
+      this.roomForm.setValue({ roomName, typeName, newRoomName: this.roomForm.value.newRoomName })
+    }else{
+      this.roomForm.setValue({ roomName, typeName, newRoomName: roomName })
+    }
   }
   // function create new room
   public createRoom(): void {
     //disable form
     this.roomForm.disable()
-    // take type by name from array
-    const typeId = this.types.find(type => {
-      return type.typeName === this.roomForm.value.typeName
-    })
+    
     // new room
     let newRoom!: Room;
+    let roomPush!: roomAndType;
+    const type = this.takeTypeByName(this.roomForm.value.typeName)
     // check if type exist
-    if (typeId) {
+    if (type) {
       // add new data to variable
       newRoom = {
         roomId: 0,
         roomName: this.roomForm.value.roomName,
-        typeId: typeId.typeId,
+        typeId: type.typeId,
         newRoomName: this.roomForm.value.newRoomName
+      }
+      roomPush = {
+        roomId: 0,
+        roomName: this.roomForm.value.roomName,
+        typeId: newRoom.typeId,
+        typeName: type.typeName
       }
     }
     // create new sub on creating new room
     this.createSub$ = this.roomService.create(newRoom).subscribe(
       answer => {
-        this.fetchRooms()
+        this.rooms.push(roomPush)
         this.toast.success(answer.message)
       },
       error => {
@@ -101,10 +111,84 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
     )
   }
 
-
-  public updateRoom(): void { }
-  public deleteRoom(): void { }
+  // update room
+  public updateRoom(): void {
+    // form disable
+    this.roomForm.disable()
+    // take type by name
+    const type = this.takeTypeByName(this.roomForm.value.typeName)
+    // take room by name
+    const room = this.rooms.find(room => {
+      return room.roomName === this.roomForm.value.roomName
+    })
+    // create new var
+    let newRoom!: Room
+    if(type &&room){
+      newRoom={
+        roomId:room.roomId,
+        roomName: this.roomForm.value.roomName,
+        typeId: type.typeId,
+        newRoomName: this.roomForm.value.newRoomName
+      }
+    } 
+    // update on subsrubing   
+    this.updateSub$ = this.roomService.update(newRoom).subscribe(
+    message=>{
+    //update element into array
+    this.rooms=[]
+    this.fetchRooms()
+    this.toast.success(message.message)
+    },
+    error=>{
+    this.roomForm.enable()
+     this.toast.error(error.error.message)
+    },
+    ()=>{
+    this.roomForm.enable()
+    }
+    )
+  }
+  //delete room
+  public deleteRoom(): void {
+    this.roomForm.disable()
+    const room = this.rooms.find(room => {
+      return room.roomName === this.roomForm.value.roomName
+    })
+    if (room) {
+      this.deleteSub$ = this.roomService.delete(room.roomId).subscribe(
+      message=>{
+        //delete element from array
+      this.rooms = this.rooms.filter(item => item['roomId'] !== room.roomId);
+      this.toast.success(message.message)
+      },
+      error=>{
+      this.roomForm.enable()
+      this.toast.error(error.error.message)
+      },
+      ()=>{
+      this.roomForm.enable()
+      }
+      )
+    }
+    
+  }
+  // take type by name from array
+  private takeTypeByName(typeName: string): Type |undefined {
+    const type = this.types.find(type => {
+      return type.typeName === typeName
+    })
+      return type
+    }
+  //unsubscribing all 
   ngOnDestroy(): void {
-
+    if (this.createSub$) {
+      this.createSub$.unsubscribe()
+    }
+    if(this.typeSub$){
+      this.typeSub$.unsubscribe()
+    }
+    if (this.deleteSub$) {
+      this.deleteSub$.unsubscribe()
+    }
   }
 }
