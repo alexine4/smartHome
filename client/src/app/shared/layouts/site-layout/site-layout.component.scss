@@ -81,9 +81,11 @@ display: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 1 80%;
-  height: auto;
-
+		height: 93vh;
+		width: 80vw;
+    @media (max-width: $md2){
+    width: 100vw;
+    }
 }
 
 

@@ -1,0 +1,234 @@
+/* import constants */
+@import ".././shared/css styles/scssConstants.scss";
+.room {
+	// .room__container
+
+	&__container {
+		display: flex;
+		align-items: start;
+		justify-content: start;
+		height: 93vh;
+		width: 80vw;
+		background: linear-gradient(rgba(70, 224, 199, 0.884), transparent),
+			linear-gradient(90deg, rgb(12, 55, 247), transparent), linear-gradient(-90deg, rgb(248, 72, 8), transparent);
+		@media (max-width: $md2) {
+			width: 100vw;
+		}
+	}
+
+	// .room__sections
+
+	&__sections {
+		display: flex;
+		flex-direction: column;
+		margin: 10px 4vw;
+	}
+
+	// .room__section
+
+	&__section {
+	}
+}
+.section {
+	display: flex;
+	flex-direction: column;
+	margin: 10px 0;
+
+	// .section__title
+
+	&__title {
+		font-family: "Aleo";
+		font-weight: 400;
+		font-size: 32px;
+		line-height: 38/32 * 100%;
+		color: rgb(245, 3, 104);
+		margin: 0 0 10px 0;
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		&::before {
+			padding: 0 15px 0 0;
+		}
+	}
+
+	// .section__actions
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		height: 80px;
+	}
+
+	// .section__text
+
+	&__text {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 700;
+		font-size: 32px;
+		line-height: 38/32 * 100%;
+		height: 80px;
+		width: 80px;
+		border: 3px solid #b500fc;
+		border-radius: 50%;
+		padding: 0 0 0 5px;
+		&::after {
+			padding: 0px 5px;
+			content: "º";
+		}
+		margin: 0 40px 0 0;
+	}
+
+	// .section__buttons
+
+	&__buttons {
+		display: flex;
+		align-items: center;
+		height: inherit;
+	}
+
+	// .section__button
+
+	&__button {
+		cursor: pointer;
+		transition: all 2s ease 0s;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 50px;
+		font-weight: 400;
+		font-size: 28px;
+		line-height: 34/28 * 100%;
+		border-radius: 1000px;
+		padding: 0 2vw;
+		@media (min-width: $md2) {
+			&:hover {
+				scale: 1.2;
+			}
+		}
+	}
+}
+
+.text-red {
+	color: rgb(245, 3, 104);
+	@media (min-width: $md2) {
+		&:hover {
+			color: rgb(248, 74, 147);
+		}
+	}
+}
+.text-blue {
+	color: rgb(3, 47, 245);
+	@media (min-width: $md2) {
+		&:hover {
+			color: rgb(141, 10, 248);
+		}
+	}
+}
+.text-yellow {
+	color: rgb(229, 245, 3);
+	@media (min-width: $md2) {
+		&:hover {
+			color: rgb(248, 224, 10);
+		}
+	}
+}
+.text-oringe {
+	color: rgb(248, 105, 10);
+	@media (min-width: $md2) {
+		&:hover {
+			color: rgb(248, 232, 10);
+		}
+	}
+}
+.text-black {
+	color: #000;
+	@media (min-width: $md2) {
+		&:hover {
+			color: #3b3a3a;
+		}
+	}
+}
+.text-gray {
+	color: gray;
+}
+
+.bg-oringe {
+	background: #ff8902de;
+	@media (min-width: $md2) {
+		&:hover {
+			background: #0729e9de;
+		}
+	}
+}
+.bg-yellow {
+	background: #e6ff02de;
+	@media (min-width: $md2) {
+		&:hover {
+			background: #e9b407de;
+		}
+	}
+}
+.bg-blue {
+	background: #0228ffde;
+	@media (min-width: $md2) {
+		&:hover {
+			background: #3807e9de;
+		}
+	}
+}
+.bg-red {
+	background: #ff0000de;
+	@media (min-width: $md2) {
+		&:hover {
+			background: #e94f07de;
+		}
+	}
+}
+.bg-green {
+	background: #23f14694;
+	@media (min-width: $md2) {
+		&:hover {
+			background: #00ff2ade;
+		}
+	}
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 200px;
+	height: 150px;
+	margin: 100px 0 0 0;
+	border-radius: 25px;
+	opacity: 0.7;
+	@media (min-width: $md2){
+	&:hover{
+	opacity: 1;
+	}
+	}
+	@media (max-width: $md2){
+	opacity: 1;
+	}
+	// .button__text
+
+	&__text {
+		font-weight: 400;
+		font-size: 32px;
+		line-height: 42/32 * 100%;
+		&::before{
+			padding:  0 15px 0 0 ;
+		}
+	}
+
+	// .button__status
+
+	&__status {
+		font-size: 28px;
+		line-height: 36/28*100%;
+	}
+}
