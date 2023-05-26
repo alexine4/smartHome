@@ -13,6 +13,7 @@ const initialilazationAll = require('./controllers/initializationDB')
 // init routes
 const authRoutes = require('./routes/auth')
 const typeRoutes = require('./routes/type')
+const tempRoutes = require('./routes/temperature')
 const roomRoutes = require('./routes/rooms')
 
 const app = express()
@@ -42,6 +43,7 @@ app.use(bodyParser.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/types', typeRoutes)
 app.use('/api/rooms', roomRoutes)
+app.use('/api/temps', tempRoutes)
 //app.use('/uploads', express.static('uploads')) 
 
 
