@@ -15,6 +15,14 @@ export interface roomAndType {
 	typeId: number
 	typeName: string
 }
+export interface ScenarionTemp{
+	scenarioId: number
+	roomId:number
+	minTemp: number
+	maxTemp: number
+	timeStart: string
+	timeStop: string
+}
 
 export interface Temperature{
 	tempId:number
