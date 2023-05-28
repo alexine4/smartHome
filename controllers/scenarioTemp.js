@@ -43,7 +43,7 @@ try {
 //update scenarioTemp by room
 module.exports.updateByRoom = async(req,res)=>{
 try {
-	await scenarioTemp.updateByID(req.params.roomId,req.body).then(
+	await scenarioTemp.updateByRoom(req.params.roomId,req.body).then(
 		()=>{
 			res.status(201).json({
 				message:'Scenario of temperature record successfully updated'
@@ -55,7 +55,7 @@ try {
 }
 }
 //delete scenarioTemp by room
-module.exports.deleteByRoom = async(req,res)=>{
+module.exports.deleteById = async(req,res)=>{
 try {
 	await scenarioTemp.deleteByID(req.params.scenarioId).then(
 		()=>{
