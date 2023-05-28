@@ -43,7 +43,7 @@ try {
 //update temperature by room
 module.exports.updateByRoom = async(req,res)=>{
 try {
-	await temperature.updateByID(req.params.roomId,req.body).then(
+	await temperature.updateByRoom(req.params.roomId,req.body).then(
 		()=>{
 			res.status(201).json({
 				message:'Temperature record successfully updated'
@@ -57,7 +57,7 @@ try {
 //delete temperature by room
 module.exports.deleteByRoom = async(req,res)=>{
 try {
-	await temperature.deleteByID(req.params.roomId).then(
+	await temperature.deleteByRoom(req.params.roomId).then(
 		()=>{
 			res.status(201).json({
 				message:'Temperature record successfully deleted'

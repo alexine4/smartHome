@@ -1,10 +1,10 @@
-const temperature = require("../models/temperature");
+const scenarioTemp = require("../models/scenarioTemp");
 const errorHandler = require("../utils/errorHandler");
 
 //get all scenarios by rooms
 module.exports.getAll = async (req, res) => {
 	try {
-		await temperature.findAll(req.params.roomId).then(
+		await scenarioTemp.findAll(req.params.roomId).then(
 			temps => {
 				res.status(200).json(temps)
 			}
@@ -14,10 +14,10 @@ module.exports.getAll = async (req, res) => {
 	}
 }
 
-// get temperatures by room
+// get scenarioTemps by room
 module.exports.getByRoom = async (req, res) => {
 	try {
-		await temperature.findOneByID(req.params.roomId).then(
+		await scenarioTemp.findOneByRoom(req.params.roomId).then(
 			temp => {
 				res.status(200).json(temp)
 			}
@@ -26,13 +26,13 @@ module.exports.getByRoom = async (req, res) => {
 		errorHandler(error);
 	}
 }
-//create new temperature
+//create new scenarioTemp
 module.exports.addNew = async(req,res)=>{
 try {
-	await temperature.create(req.body).then(
+	await scenarioTemp.create(req.body).then(
 		()=>{
 			res.status(201).json({
-				message:'New temperature record successfully created'
+				message:'New scenario of temperature record successfully created'
 			})
 		}
 	)
@@ -40,13 +40,13 @@ try {
 	errorHandler(error)
 }
 }
-//update temperature by room
+//update scenarioTemp by room
 module.exports.updateByRoom = async(req,res)=>{
 try {
-	await temperature.updateByID(req.params.roomId,req.body).then(
+	await scenarioTemp.updateByID(req.params.roomId,req.body).then(
 		()=>{
 			res.status(201).json({
-				message:'Temperature record successfully updated'
+				message:'Scenario of temperature record successfully updated'
 			})
 		}
 	)
@@ -54,13 +54,13 @@ try {
 	errorHandler(error)
 }
 }
-//delete temperature by room
+//delete scenarioTemp by room
 module.exports.deleteByRoom = async(req,res)=>{
 try {
-	await temperature.deleteByID(req.params.roomId).then(
+	await scenarioTemp.deleteByID(req.params.scenarioId).then(
 		()=>{
 			res.status(201).json({
-				message:'Temperature record successfully deleted'
+				message:'Scenario of temperature record successfully deleted'
 			})
 		}
 	)
