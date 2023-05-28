@@ -64,7 +64,7 @@ module.exports.create = async ({ roomId, minTemp, maxTemp, timeStart, timeStop }
 	})
 }
 //module updating record by room ID at the table
-module.exports.updateByRoom = async (roomId, { minTemp, maxTemp, timeStart, timeStop }) => {
+module.exports.updateById = async (scenarioId, { minTemp, maxTemp, timeStart, timeStop }) => {
 	await ScenarionTemp.update({
 		minTemp,
 		maxTemp,
@@ -72,7 +72,7 @@ module.exports.updateByRoom = async (roomId, { minTemp, maxTemp, timeStart, time
 		timeStop
 	}, {
 		where: {
-			roomId
+			scenarioId
 		}
 	}
 	)

@@ -41,9 +41,9 @@ try {
 }
 }
 //update scenarioTemp by room
-module.exports.updateByRoom = async(req,res)=>{
+module.exports.updateById = async(req,res)=>{
 try {
-	await scenarioTemp.updateByRoom(req.params.roomId,req.body).then(
+	await scenarioTemp.updateById(req.params.scenarioId,req.body).then(
 		()=>{
 			res.status(201).json({
 				message:'Scenario of temperature record successfully updated'
