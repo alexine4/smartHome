@@ -15,9 +15,9 @@ module.exports.getAll = async (req, res) => {
 }
 
 // get scenarioTemps by room
-module.exports.getByRoom = async (req, res) => {
+module.exports.getById = async (req, res) => {
 	try {
-		await scenarioTemp.findOneByRoom(req.params.roomId).then(
+		await scenarioTemp.findOneByID(req.params.scenarioId).then(
 			temp => {
 				res.status(200).json(temp)
 			}
