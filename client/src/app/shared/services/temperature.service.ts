@@ -8,21 +8,21 @@ import { Observable, delay } from 'rxjs';
   providedIn: 'root'
 })
 export class TemperatureService {
-
+  delay = 2000
   constructor(private httpClient: HttpClient) { }
 
-  public fetchById(tempId: number): Observable<Temperature> {
-    return this.httpClient.get<Temperature>(`/api/temps/getTemp/${tempId}`).pipe(delay(1000));
+  public fetchByRoom(roomId: number): Observable<Temperature> {
+    return this.httpClient.get<Temperature>(`/api/temps/getTemp/${roomId}`).pipe(delay(this.delay));
   }
 
   public create(temp:Temperature): Observable<Message>{
-  return this.httpClient.post<Message>(`/api/temps/addNew`,temp).pipe(delay(1000))
+  return this.httpClient.post<Message>(`/api/temps/addNew`,temp).pipe(delay(this.delay))
   }
   public update(temp:Temperature): Observable<Message>{
-  return this.httpClient.patch<Message>(`/api/temps/update/${temp.tempId}`,temp).pipe(delay(1000))
+  return this.httpClient.patch<Message>(`/api/temps/update/${temp.roomId}`,temp).pipe(delay(this.delay))
   }
-  public delete(tempId:number): Observable<Message>{
-  return this.httpClient.delete<Message>(`/api/temps/update/${tempId}`).pipe(delay(1000))
+  public delete(roomId:number): Observable<Message>{
+  return this.httpClient.delete<Message>(`/api/temps/update/${roomId}`).pipe(delay(this.delay))
   }
 
 

@@ -14,10 +14,10 @@ module.exports.getAll = async (req, res) => {
 	}
 }
 
-// get temperatures by id
-module.exports.getByID = async (req, res) => {
+// get temperatures by room
+module.exports.getByRoom = async (req, res) => {
 	try {
-		await temperature.findOneByID(req.params.tempId).then(
+		await temperature.findOneByID(req.params.roomId).then(
 			temp => {
 				res.status(200).json(temp)
 			}
@@ -40,10 +40,10 @@ try {
 	errorHandler(error)
 }
 }
-//update temperature by id
-module.exports.updateByID = async(req,res)=>{
+//update temperature by room
+module.exports.updateByRoom = async(req,res)=>{
 try {
-	await temperature.updateByID(req.params.tempId,req.body).then(
+	await temperature.updateByID(req.params.roomId,req.body).then(
 		()=>{
 			res.status(201).json({
 				message:'Temperature record successfully updated'
@@ -54,10 +54,10 @@ try {
 	errorHandler(error)
 }
 }
-//delete temperature by id
-module.exports.deleteByID = async(req,res)=>{
+//delete temperature by room
+module.exports.deleteByRoom = async(req,res)=>{
 try {
-	await temperature.deleteByID(req.params.tempId).then(
+	await temperature.deleteByID(req.params.roomId).then(
 		()=>{
 			res.status(201).json({
 				message:'Temperature record successfully deleted'

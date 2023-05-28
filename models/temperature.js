@@ -21,6 +21,10 @@ module.exports.initialization = async () => {
 			primaryKey: true,
 			autoIncrement: true
 		},
+		roomId: {
+			type: Sequelize.BIGINT,
+			allowNull:false
+		},
 		actualTemp: {
 			type: Sequelize.FLOAT,
 			allowNull: false
@@ -36,20 +40,21 @@ module.exports.initialization = async () => {
 	return true
 }
 //module creating new record at the table
-module.exports.create = async ({ actualTemp }) => {
+module.exports.create = async ({roomId, actualTemp }) => {
 	await Temperature.create({
+		roomId,
 		actualTemp
 	}).catch(error => {
 		return error
 	})
 }
-//module updating record by ID at the table
-module.exports.updateByID = async (tempId, { actualTemp }) => {
+//module updating record by room ID at the table
+module.exports.updateByRoom = async (roomId, { actualTemp }) => {
 	await Temperature.update({
 		actualTemp
 	}, {
 		where: {
-			tempId
+			roomId
 		}
 	}
 	)
@@ -69,9 +74,25 @@ module.exports.deleteByID = async (tempId) => {
 			return error
 		})
 }
+//module delete record by room from the table
+module.exports.deleteByRoom = async (roomId) => {
+	await Temperature.destroy({
+		where: {
+			roomId
+		}
+	}
+	)
+		.catch(error => {
+			return error
+		})
+}
 // module find one record by ID at the table
 module.exports.findOneByID = async (tempId) => {
 	return await Temperature.findOne({ where: { tempId } })
+}
+// module find one record by room at the table
+module.exports.findOneByRoom = async (roomId) => {
+	return await Temperature.findOne({ where: { roomId } })
 }
 // module find all records by ID at the table
 module.exports.findAll = async () => {

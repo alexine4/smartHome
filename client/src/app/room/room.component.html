@@ -1,15 +1,18 @@
-<div class="room__container animation-show" *ngIf="loading else loader">
-  <div class="room__sections">
+<div class="room__container animation-show" [ngClass]="{'center':!loading}">
+  <div class="room__sections animation-show" *ngIf="loading else loader">
     <!-- temperature -->
     <section class="room__section section">
       <h2 class="section__title icon-sun">Temperature</h2>
-      <div class="section__actions">
+      <div *ngIf="temp !==null; else tempNotExists" class="section__actions">
         <div class="section__text text-red">{{temp.actualTemp}}</div>
         <div class="section__buttons">
           <div class="section__button text-blue bg-yellow">Change</div>
         </div>
       </div>
     </section>
+    <ng-template #tempNotExists >
+      <p class="text-info text-oringe">Temperature controller doesn't exist or not connected at this room</p>
+    </ng-template>
     <!-- scenarios -->
     <section class="room__section section">
       <h2 class="section__title text-yellow icon-pansil">Scenarios</h2>
@@ -32,7 +35,9 @@
       </div>
     </section>
   </div>
+
 </div>
-<ng-template #loader>
+
+<ng-template  #loader>
   <app-loader></app-loader>
 </ng-template>

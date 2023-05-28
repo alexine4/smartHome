@@ -18,6 +18,7 @@ export interface roomAndType {
 
 export interface Temperature{
 	tempId:number
+	roomId:number
 	actualTemp: number
 }
 

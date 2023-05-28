@@ -206,13 +206,13 @@
 	margin: 100px 0 0 0;
 	border-radius: 25px;
 	opacity: 0.7;
-	@media (min-width: $md2){
-	&:hover{
-	opacity: 1;
+	@media (min-width: $md2) {
+		&:hover {
+			opacity: 1;
+		}
 	}
-	}
-	@media (max-width: $md2){
-	opacity: 1;
+	@media (max-width: $md2) {
+		opacity: 1;
 	}
 	// .button__text
 
@@ -220,8 +220,8 @@
 		font-weight: 400;
 		font-size: 32px;
 		line-height: 42/32 * 100%;
-		&::before{
-			padding:  0 15px 0 0 ;
+		&::before {
+			padding: 0 15px 0 0;
 		}
 	}
 
@@ -229,6 +229,19 @@
 
 	&__status {
 		font-size: 28px;
-		line-height: 36/28*100%;
+		line-height: 36/28 * 100%;
 	}
+}
+
+.text-info {
+	font-size: 28px;
+	line-height: 46/36 * 100%;
+	@media (max-width: $md3) {
+		font-size: 18px;
+	}
+}
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
