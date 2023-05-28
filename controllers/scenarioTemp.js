@@ -1,10 +1,10 @@
 const temperature = require("../models/temperature");
 const errorHandler = require("../utils/errorHandler");
 
-//get all temperatures
+//get all scenarios by rooms
 module.exports.getAll = async (req, res) => {
 	try {
-		await temperature.findAll().then(
+		await temperature.findAll(req.params.roomId).then(
 			temps => {
 				res.status(200).json(temps)
 			}
@@ -17,7 +17,7 @@ module.exports.getAll = async (req, res) => {
 // get temperatures by room
 module.exports.getByRoom = async (req, res) => {
 	try {
-		await temperature.findOneByRoom(req.params.roomId).then(
+		await temperature.findOneByID(req.params.roomId).then(
 			temp => {
 				res.status(200).json(temp)
 			}

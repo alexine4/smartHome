@@ -5,6 +5,7 @@ const user = require('../models/user')
 const rooms = require('../models/rooms')
 const types = require('../models/types')
 const temp = require('../models/temperature')
+const scenarioTemp = require('../models/scenarioTemp')
 
 // initialization
 module.exports.initialilazationAll= ()=>{
@@ -12,4 +13,5 @@ module.exports.initialilazationAll= ()=>{
 	rooms.initialization()
 	types.initialization()
 	temp.initialization()
+	scenarioTemp.initialization()
 }
