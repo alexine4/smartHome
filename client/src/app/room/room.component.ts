@@ -14,6 +14,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class RoomComponent implements OnInit, OnDestroy {
 
   loading = false
+  subloading = false
 
   temp$!: Observable<Temperature | null>
   tempSub$!: Subscription
@@ -38,6 +39,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     )
   }
 
+  //get actual temperature by room
   public getTemp(): void {
     
     this.temp$ = this.route.params
@@ -54,6 +56,24 @@ export class RoomComponent implements OnInit, OnDestroy {
         })
       )
   }
+  //get scenarios of temperature by room
+  public getScenarioTemp(): void {
+    
+    this.temp$ = this.route.params
+      .pipe(
+        switchMap((params: Params) => {
+          if (params['roomId']) {
+            if (this.pRoomId !== params['roomId']) {
+              this.loading = false
+            }
+            this.pRoomId = params['roomId']
+            return this.tempService.fetchByRoom(params['roomId'])
+          }
+          return of(null)
+        })
+      )
+  }
+
 
   public ngOnDestroy(): void {
     if (this.tempSub$) {

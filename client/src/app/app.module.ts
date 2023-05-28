@@ -28,6 +28,7 @@ import { AuthGuard } from './shared/classes/auth.guard';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.component';
 import { RoomMenegmentComponent } from './admin/room-menegment/room-menegment.component';
+import { SubLoaderComponent } from './shared/loaders/sub-loader/sub-loader.component';
 
 
 
@@ -50,6 +51,7 @@ import { RoomMenegmentComponent } from './admin/room-menegment/room-menegment.co
     HomeComponent,
     TypeMenegmentComponent,
     RoomMenegmentComponent,
+    SubLoaderComponent,
    
   ],
   imports: [
