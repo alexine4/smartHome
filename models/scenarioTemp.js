@@ -25,6 +25,10 @@ module.exports.initialization = async () => {
 			type: Sequelize.BIGINT,
 			allowNull: false
 		},
+		name: {
+			type: Sequelize.STRING,
+			allowNull: false
+		},
 		minTemp: {
 			type: Sequelize.FLOAT,
 			allowNull: false
@@ -52,9 +56,10 @@ module.exports.initialization = async () => {
 	return true
 }
 //module creating new record at the table
-module.exports.create = async ({ roomId, minTemp, maxTemp, timeStart, timeStop }) => {
+module.exports.create = async ({ roomId,name, minTemp, maxTemp, timeStart, timeStop }) => {
 	await ScenarionTemp.create({
 		roomId,
+		name,
 		minTemp,
 		maxTemp,
 		timeStart,
@@ -64,8 +69,9 @@ module.exports.create = async ({ roomId, minTemp, maxTemp, timeStart, timeStop }
 	})
 }
 //module updating record by room ID at the table
-module.exports.updateById = async (scenarioId, { minTemp, maxTemp, timeStart, timeStop }) => {
+module.exports.updateById = async (scenarioId, {name, minTemp, maxTemp, timeStart, timeStop }) => {
 	await ScenarionTemp.update({
+		name,
 		minTemp,
 		maxTemp,
 		timeStart,

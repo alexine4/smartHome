@@ -18,6 +18,7 @@ export interface roomAndType {
 export interface ScenarionTemp{
 	scenarioId: number
 	roomId:number
+	name:string
 	minTemp: number
 	maxTemp: number
 	timeStart: string
