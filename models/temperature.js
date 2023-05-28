@@ -21,14 +21,6 @@ module.exports.initialization = async () => {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		minTemp: {
-			type: Sequelize.FLOAT,
-			allowNull: false
-		},
-		maxTemp: {
-			type: Sequelize.FLOAT,
-			allowNull: false
-		},
 		actualTemp: {
 			type: Sequelize.FLOAT,
 			allowNull: false
@@ -44,20 +36,16 @@ module.exports.initialization = async () => {
 	return true
 }
 //module creating new record at the table
-module.exports.create = async ( {minTemp, maxTemp, actualTemp}) => {
+module.exports.create = async ({ actualTemp }) => {
 	await Temperature.create({
-		minTemp,
-		maxTemp,
 		actualTemp
 	}).catch(error => {
 		return error
 	})
 }
 //module updating record by ID at the table
-module.exports.updateByID = async (tempId,  {minTemp, maxTemp, actualTemp}) => {
+module.exports.updateByID = async (tempId, { actualTemp }) => {
 	await Temperature.update({
-		minTemp,
-		maxTemp,
 		actualTemp
 	}, {
 		where: {
@@ -65,9 +53,9 @@ module.exports.updateByID = async (tempId,  {minTemp, maxTemp, actualTemp}) => {
 		}
 	}
 	)
-	.catch(error => {
-		return error
-	})
+		.catch(error => {
+			return error
+		})
 }
 //module delete record by ID from the table
 module.exports.deleteByID = async (tempId) => {
@@ -77,15 +65,15 @@ module.exports.deleteByID = async (tempId) => {
 		}
 	}
 	)
-	.catch(error => {
-		return error
-	})
+		.catch(error => {
+			return error
+		})
 }
 // module find one record by ID at the table
-module.exports.findOneByID = async(tempId)=>{
-return await Temperature.findOne({where:{tempId}})
+module.exports.findOneByID = async (tempId) => {
+	return await Temperature.findOne({ where: { tempId } })
 }
 // module find all records by ID at the table
-module.exports.findAll = async()=>{
-return await Temperature.findAll()
+module.exports.findAll = async () => {
+	return await Temperature.findAll()
 }

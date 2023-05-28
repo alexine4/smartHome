@@ -1,10 +1,10 @@
-<div class="room__container">
+<div class="room__container animation-show" *ngIf="loading else loader">
   <div class="room__sections">
     <!-- temperature -->
     <section class="room__section section">
       <h2 class="section__title icon-sun">Temperature</h2>
       <div class="section__actions">
-        <div class="section__text text-red">20</div>
+        <div class="section__text text-red">{{temp.actualTemp}}</div>
         <div class="section__buttons">
           <div class="section__button text-blue bg-yellow">Change</div>
         </div>
@@ -33,3 +33,6 @@
     </section>
   </div>
 </div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

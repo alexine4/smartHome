@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   // login 
-  login(user: User): Observable<{ token: string }> {
+  public login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user)
       .pipe(
         tap(
@@ -26,39 +26,39 @@ export class AuthService {
         )
       )
   }
-  setToken(token: string) {
+  public setToken(token: string) {
     this.token = token
   }
-  getToken(): string {
+  public getToken(): string {
     return this.token
   }
 
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     return !!this.token
   }
 
-  logOut() {
+  public logOut() {
     this.setToken('')
     localStorage.clear()
   }
 
-  register(user: User): Observable<User> {
+  public register(user: User): Observable<User> {
     return this.httpClient.post<User>('/api/auth/register', user)
   }
   // check and confirm connection to device
-  confirmConnectionReq(user: User): Observable<User> {
+  public confirmConnectionReq(user: User): Observable<User> {
     return this.httpClient.post<User>('/api/auth/confirmConnection', user)
   }
-  confirmConnectionRes(confirmCode: confirmCod): Observable<confirmCod> {
+  public confirmConnectionRes(confirmCode: confirmCod): Observable<confirmCod> {
     return this.httpClient.post<confirmCod>('/api/auth/connectionCode', confirmCode)
   }
   // check user if fogot password
 
-  checkUser(user: User): Observable<User> {
+  public checkUser(user: User): Observable<User> {
     return this.httpClient.post<User>('/api/auth/checkUser', user)
   }
   // change password
-  changePassword(user: User): Observable<User> {
+  public changePassword(user: User): Observable<User> {
     return this.httpClient.post<User>('/api/auth/changePassword', user)
   }
 }

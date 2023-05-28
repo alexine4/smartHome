@@ -54,3 +54,17 @@ try {
 	errorHandler(error)
 }
 }
+//delete temperature by id
+module.exports.deleteByID = async(req,res)=>{
+try {
+	await temperature.deleteByID(req.params.tempId).then(
+		()=>{
+			res.status(201).json({
+				message:'Temperature record successfully deleted'
+			})
+		}
+	)
+} catch (error) {
+	errorHandler(error)
+}
+}
