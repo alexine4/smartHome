@@ -4,7 +4,7 @@ const errorHandler = require("../utils/errorHandler");
 //get all scenarios by rooms
 module.exports.getAll = async (req, res) => {
 	try {
-		await scenarioTemp.findAll(req.params.roomId).then(
+		await scenarioTemp.findAllByRoom(req.params.roomId).then(
 			temps => {
 				res.status(200).json(temps)
 			}
