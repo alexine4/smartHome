@@ -1,9 +1,9 @@
 <div
-  class="room__container animation-show"
+  class="room__container custom-scrollbar  animation-show"
   [ngClass]="{ center: !tempLoader || !scenarioTempLoader }"
 >
   <div
-    class="room__sections animation-show"
+    class="room__sections  animation-show"
     *ngIf="tempLoader && scenarioTempLoader; else loader"
   >
     <!-- temperature -->
@@ -12,7 +12,7 @@
       <div *ngIf="temp !== null; else tempNotExists" class="section__actions">
         <div class="section__text text-red">{{ temp.actualTemp }}</div>
         <div class="section__buttons">
-          <div class="section__button text-blue bg-yellow">Change</div>
+          <div class="section__button text-blue bg-yellow" (click)="onChangeTemp()">Change</div>
         </div>
       </div>
     </section>
@@ -27,11 +27,19 @@
       <div class="section__actions">
         <div class="section__buttons">
           <div
-            class="section__button button text-oringe bg-green"
+            class="section__button button "
             *ngFor="let scenarioTemp of scenarioTemps"
             (click)="updateScenarioTemp(scenarioTemp)"
+            [ngClass]="{
+              'text-red bg-green': scenarioTemp.timeStart >='08:00' && scenarioTemp.timeStart <'10:00',
+              'text-blue bg-pink': scenarioTemp.timeStart >='06:00' && scenarioTemp.timeStart <'08:00',
+              'text-viollet bg-red': scenarioTemp.timeStart >='10:00' && scenarioTemp.timeStart <'16:00',
+              'text-yellow bg-grey': scenarioTemp.timeStart >='16:00' && scenarioTemp.timeStart <'20:00',
+              'text-oringe bg-blue': scenarioTemp.timeStart >='20:00' && scenarioTemp.timeStart <'23:59',
+              'text-gray bg-yellow': scenarioTemp.timeStart >='00:00' && scenarioTemp.timeStart <'06:00',
+            }"
           >
-            <p class="button__text">{{ scenarioTemp.name }}</p>
+            <p class="button__text">{{ scenarioTemp.name | titlecase }}</p>
             <p class="button__status text-gray">
               From {{ scenarioTemp.timeStart }}
               <br />
@@ -39,7 +47,7 @@
             </p>
           </div>
           <div
-            class=" button text-gray bg-blue"
+            class="section__button button text-gray bg-blue"
             (click)="addNewScenarioTemp()"
           >
             <p class="button__text icon-plus" >Add new</p>

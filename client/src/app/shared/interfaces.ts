@@ -23,6 +23,7 @@ export interface ScenarionTemp{
 	maxTemp: number
 	timeStart: string
 	timeStop: string
+	active?: boolean
 }
 
 export interface Temperature{

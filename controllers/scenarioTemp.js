@@ -27,44 +27,64 @@ module.exports.getById = async (req, res) => {
 	}
 }
 //create new scenarioTemp
-module.exports.addNew = async(req,res)=>{
-try {
-	await scenarioTemp.create(req.body).then(
-		()=>{
-			res.status(201).json({
-				message:'New scenario of temperature record successfully created'
-			})
-		}
-	)
-} catch (error) {
-	errorHandler(error)
-}
+module.exports.addNew = async (req, res) => {
+	try {
+		await scenarioTemp.create(req.body).then(
+			() => {
+				res.status(201).json({
+					message: 'New scenario of temperature record successfully created'
+				})
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
 }
 //update scenarioTemp by room
-module.exports.updateById = async(req,res)=>{
-try {
-	await scenarioTemp.updateById(req.params.scenarioId,req.body).then(
-		()=>{
-			res.status(201).json({
-				message:'Scenario of temperature record successfully updated'
-			})
-		}
-	)
-} catch (error) {
-	errorHandler(error)
+module.exports.updateById = async (req, res) => {
+	try {
+		await scenarioTemp.updateById(req.params.scenarioId, req.body).then(
+			() => {
+				res.status(201).json({
+					message: 'Scenario of temperature record successfully updated'
+				})
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
 }
+//find active scenarioTemp by room
+module.exports.getActual = async (req, res) => {
+	try {
+		await scenarioTemp.updateStatusTrue(req.body).then(
+			() => {
+				scenarioTemp.updateStatusFalse(req.body).then(
+					() => {
+						scenarioTemp.findActive(true).then(
+							scenario => {
+								res.status(201).json(scenario)
+							}
+						)
+					}
+				)
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
 }
 //delete scenarioTemp by room
-module.exports.deleteById = async(req,res)=>{
-try {
-	await scenarioTemp.deleteByID(req.params.scenarioId).then(
-		()=>{
-			res.status(201).json({
-				message:'Scenario of temperature record successfully deleted'
-			})
-		}
-	)
-} catch (error) {
-	errorHandler(error)
-}
+module.exports.deleteById = async (req, res) => {
+	try {
+		await scenarioTemp.deleteByID(req.params.scenarioId).then(
+			() => {
+				res.status(201).json({
+					message: 'Scenario of temperature record successfully deleted'
+				})
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
 }

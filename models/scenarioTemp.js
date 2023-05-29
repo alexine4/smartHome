@@ -1,6 +1,7 @@
 // In this file you crate and sync model table ScenarionTemp
 
 const Sequelize = require('sequelize')
+const { Op } = require("sequelize");
 // connect to database
 const connectDB = require('../connection/connectionDB')
 const sequelize = new Sequelize(
@@ -44,6 +45,11 @@ module.exports.initialization = async () => {
 		timeStop: {
 			type: Sequelize.TIME,
 			allowNull: false
+		},
+		active: {
+			type: Sequelize.BOOLEAN,
+			allowNull: false,
+			defaultValue: false
 		}
 
 	}, {
@@ -69,16 +75,45 @@ module.exports.create = async ({ roomId,name, minTemp, maxTemp, timeStart, timeS
 	})
 }
 //module updating record by room ID at the table
-module.exports.updateById = async (scenarioId, {name, minTemp, maxTemp, timeStart, timeStop }) => {
+module.exports.updateById = async (scenarioId, {name, minTemp, maxTemp, timeStart, timeStop,active }) => {
 	await ScenarionTemp.update({
 		name,
 		minTemp,
 		maxTemp,
 		timeStart,
-		timeStop
+		timeStop,
+		active
 	}, {
 		where: {
 			scenarioId
+		}
+	}
+	)
+		.catch(error => {
+			return error
+		})
+}
+//module updating status in between at the table
+module.exports.updateStatusTrue= async ( {timeStart, timeStop }) => {
+	await ScenarionTemp.update({
+		active: true
+	}, {
+		where: {
+			[Op.between]: [timeStart,timeStop]
+		}
+	}
+	)
+		.catch(error => {
+			return error
+		})
+}
+//module updating status in between at the table
+module.exports.updateStatusFalse= async ( {timeStart, timeStop }) => {
+	await ScenarionTemp.update({
+		active: false
+	}, {
+		where: {
+			[Op.notBetween]: [timeStart,timeStop]
 		}
 	}
 	)
@@ -117,6 +152,10 @@ module.exports.findOneByID = async (scenarioId) => {
 // module find one record by room at the table
 module.exports.findOneByRoom = async (roomId) => {
 	return await ScenarionTemp.findOne({ where: { roomId } })
+}
+// module find one record by room at the table
+module.exports.findActive = async (active) => {
+	return await ScenarionTemp.findOne({ where: { active } })
 }
 // module find all records by ID at the table
 module.exports.findAllByRoom = async (roomId) => {

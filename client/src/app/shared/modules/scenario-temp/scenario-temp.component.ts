@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./scenario-temp.component.scss']
 })
 export class ScenarioTempComponent implements OnInit, OnDestroy {
-  conditionMode = 'udpate'
+  conditionMode = 'update'
   scenarioForm!: FormGroup
 
   scenarioSub$!: Subscription
@@ -59,7 +59,7 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
       timeStop: this.scenarioForm.value.timeStop
     }
     switch (this.conditionMode) {
-      case 'udpate':        
+      case 'update':        
         this.scenarioSub$ = this.scenarioTempService.update(newScenario).subscribe(
           answer => {
             this.toast.success(answer.message)
@@ -92,6 +92,23 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
     }
     
 
+  }
+
+  public onDelete():void{
+    this.scenarioForm.disable()
+    this.scenarioSub$ = this.scenarioTempService.delete(this.data.scenarioId).subscribe(
+    answer=>{
+    this.toast.success(answer.message)
+    this.dialogRef.close(true)
+    },
+    error=>{
+    this.scenarioForm.enable()
+     this.toast.error(error.error.message)
+    },
+    ()=>{
+    this.scenarioForm.enable()
+    }
+    )
   }
 
 

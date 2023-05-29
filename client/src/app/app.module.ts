@@ -29,6 +29,7 @@ import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.co
 //guard components
 import { AuthGuard } from './shared/classes/auth.guard';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
+import { TemperatureReguletedComponent } from './shared/modules/temperature-reguleted/temperature-reguleted.component';
 
 
 
@@ -53,6 +54,7 @@ import { TokenInterceptor } from './shared/classes/token.interceptor';
     RoomMenegmentComponent,
     SubLoaderComponent,
     ScenarioTempComponent,
+    TemperatureReguletedComponent,
   ],
   imports: [
     AppRoutingModule,

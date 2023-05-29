@@ -8,6 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ScenarioTempService } from '../shared/services/scenario-temp.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ScenarioTempComponent } from '../shared/modules/scenario-temp/scenario-temp.component';
+import { TemperatureReguletedComponent } from '../shared/modules/temperature-reguleted/temperature-reguleted.component';
 
 @Component({
   selector: 'app-room',
@@ -16,19 +17,24 @@ import { ScenarioTempComponent } from '../shared/modules/scenario-temp/scenario-
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
+  // loader var
   tempLoader = false
   scenarioTempLoader = false
 
+  // dialog windows variables
   dialogSub$!: Subscription
 
+  //scenario variables
   scenarioTemp$!: Observable<ScenarionTemp[] | null>
   scenarioTempSub$!: Subscription
   scenarioTemps!: ScenarionTemp[] | null
 
+   //temperature variables
   temp$!: Observable<Temperature | null>
   tempSub$!: Subscription
   temp!: Temperature | null
 
+  //auxiliary variables
   pRoomId!: number
 
   constructor(
@@ -96,7 +102,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       }
     )
   }
-
+  // open dialog window for enter data for create new temperature scenario
   public addNewScenarioTemp(): void {
     const dialogRef = this.dialog.open(ScenarioTempComponent, {
       data: {
@@ -110,18 +116,16 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
     status=>{
     if (status) {
-      
+      this.scenarioTempLoader = false
       this.getScenarioTemp()
     }
     },
     error=>{
      this.toast.error(error.error.message)
-    },
-    ()=>{
-      this.scenarioTempLoader = false
     }
     )
   }
+  // open dialog window for enter data for change or delete temperature scenario
   public updateScenarioTemp(scenarioTemp: ScenarionTemp): void {
     const dialogRef = this.dialog.open(ScenarioTempComponent, {
       data: scenarioTemp,
@@ -131,14 +135,31 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
     status=>{
     if (status) {
+      this.scenarioTempLoader = false
       this.getScenarioTemp()
     }
     },
     error=>{
      this.toast.error(error.error.message)
-    },
-    ()=>{
+    }
+    )
+  }
+  //function hand change temperature
+  public onChangeTemp():void{
+    const dialogRef = this.dialog.open(TemperatureReguletedComponent, {
+      data: {},
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
+    })
+    this.dialogSub$ = dialogRef.afterClosed().subscribe(
+    status=>{
+    if (status) {
       this.scenarioTempLoader = false
+      this.getScenarioTemp()
+    }
+    },
+    error=>{
+     this.toast.error(error.error.message)
     }
     )
   }
