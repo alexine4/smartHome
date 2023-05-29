@@ -29,6 +29,7 @@ import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.component';
 import { RoomMenegmentComponent } from './admin/room-menegment/room-menegment.component';
 import { SubLoaderComponent } from './shared/loaders/sub-loader/sub-loader.component';
+import { ScenarioTempComponent } from './shared/modules/scenario-temp/scenario-temp.component';
 
 
 
@@ -52,6 +53,7 @@ import { SubLoaderComponent } from './shared/loaders/sub-loader/sub-loader.compo
     TypeMenegmentComponent,
     RoomMenegmentComponent,
     SubLoaderComponent,
+    ScenarioTempComponent,
    
   ],
   imports: [

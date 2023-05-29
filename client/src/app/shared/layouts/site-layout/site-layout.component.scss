@@ -1,7 +1,7 @@
-@import '../../css styles/scssConstants.scss';
+@import "../../css styles/scssConstants.scss";
 
 .site-layout {
-  font-family: 'Aleo';
+  font-family: "Aleo";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,17 +21,15 @@
 
     @media (max-width: $md2) {
       flex: 0 1 100%;
-
     }
-
   }
 }
-.dn{
-display: none;
+.dn {
+  display: none;
 }
 
 .page__title {
-  color: #FB7B05;
+  color: #fb7b05;
   background: url("../../images/home-page-bg.jpg") 100% /100% no-repeat;
   width: 100%;
   height: 6vh;
@@ -40,7 +38,7 @@ display: none;
   justify-content: center;
   font-weight: 400;
   padding: 10px 0 10px 0;
-  line-height: 56px / 48px *100%;
+  line-height: 56px / 48px * 100%;
 
   p {
     display: flex;
@@ -52,7 +50,6 @@ display: none;
 
   @media (min-width: $md01) {
     font-size: 48px;
-
   }
 
   @media (max-width: $md01) {
@@ -70,26 +67,25 @@ display: none;
   @media (max-width: $md2) {
     font-size: 30px;
   }
-  @media (max-width: $md4){
-  font-size: 24px;
+  @media (max-width: $md4) {
+    font-size: 24px;
   }
-
-
 }
 
 .page__content {
   display: flex;
-  align-items: center;
   justify-content: center;
-		height: 93vh;
-		width: 80vw;
-    @media (max-width: $md2){
+  height: 93vh;
+  width: 80vw;
+  @media (max-width: $md2) {
     width: 100vw;
-    }
+  }
+  @media (min-width: $md3) {
+    align-items: center;
+  }
 }
 
-
-// menu 
+// menu
 .menu {
   transition: all 2s ease 0s;
   display: flex;
@@ -106,33 +102,33 @@ display: none;
   }
 }
 
-._active{
+._active {
   @media (max-width: $md2) {
-  animation: showMenu 3s ease forwards;
+    animation: showMenu 3s ease forwards;
   }
 }
 
 .menu-not-show {
   @media (max-width: $md2) {
-  transform: translateX(-750px);
-  animation: hideMenu 3s ease forwards;
+    transform: translateX(-750px);
+    animation: hideMenu 3s ease forwards;
   }
 }
 @keyframes showMenu {
-  from{
+  from {
     opacity: 0;
     max-width: 0%;
   }
-  to{
+  to {
     opacity: 1;
     max-width: 100%;
   }
 }
 @keyframes hideMenu {
-  0%{
+  0% {
     max-width: 100%;
   }
- 100%{
+  100% {
     max-width: 0%;
   }
 }
@@ -146,11 +142,11 @@ display: none;
   left: 50px;
   z-index: 2;
   overflow: hidden;
-  @media (min-width: $md2){
-  display: none;
+  @media (min-width: $md2) {
+    display: none;
   }
-  @media (max-width: $md4){
-  left: 25px;
+  @media (max-width: $md4) {
+    left: 25px;
   }
 }
 

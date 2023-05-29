@@ -1,0 +1,19 @@
+<form mat-form class="form">
+<div class="form__container">
+	<h2 class="form__title"></h2>
+	<div class="form__fields">
+		<section class="field">
+			<h3 class="field__text">Min temperature</h3>
+			<input type="text" class="field__input" placeholder="Enter min temperature">
+		</section>
+		<section class="field">
+			<h3 class="field__text">Max temperature</h3>
+			<input type="text" class="field__input" placeholder="Enter max temperature">
+		</section>
+	</div>
+	<div class="form__buttons">
+		<button class="form__button"  mat-button (click)="onNoClick()">Cancel</button>
+		<button class="form__button" mat-button >Confirm</button>
+	</div>
+</div>
+</form>

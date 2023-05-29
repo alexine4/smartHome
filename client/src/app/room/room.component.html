@@ -1,30 +1,56 @@
-<div class="room__container animation-show" [ngClass]="{'center':!loading}">
-  <div class="room__sections animation-show" *ngIf="loading else loader">
+<div
+  class="room__container animation-show"
+  [ngClass]="{ center: !tempLoader || !scenarioTempLoader }"
+>
+  <div
+    class="room__sections animation-show"
+    *ngIf="tempLoader && scenarioTempLoader; else loader"
+  >
     <!-- temperature -->
     <section class="room__section section">
       <h2 class="section__title icon-sun">Temperature</h2>
-      <div *ngIf="temp !==null; else tempNotExists" class="section__actions">
-        <div class="section__text text-red">{{temp.actualTemp}}</div>
+      <div *ngIf="temp !== null; else tempNotExists" class="section__actions">
+        <div class="section__text text-red">{{ temp.actualTemp }}</div>
         <div class="section__buttons">
           <div class="section__button text-blue bg-yellow">Change</div>
         </div>
       </div>
     </section>
-    <ng-template #tempNotExists >
-      <p class="text-info text-oringe">Temperature controller doesn't exist or not connected at this room</p>
+    <ng-template #tempNotExists>
+      <p class="text-info text-oringe">
+        Temperature controller doesn't exist or not connected at this room
+      </p>
     </ng-template>
     <!-- scenarios -->
-    <section class="room__section section"  >
+    <section class="room__section section">
       <h2 class="section__title text-yellow icon-pansil">Scenarios</h2>
-      <div class="section__actions" >
+      <div class="section__actions">
         <div class="section__buttons">
-          <div class="section__button text-blue bg-red">Change</div>
+          <div
+            class="section__button button text-oringe bg-green"
+            *ngFor="let scenarioTemp of scenarioTemps"
+          >
+            <p class="button__text">{{ scenarioTemp.name }}</p>
+            <p class="button__status text-gray">
+              From {{ scenarioTemp.timeStart }}
+              <br />
+              To {{ scenarioTemp.timeStop }}
+            </p>
+          </div>
+          <div
+            class=" button text-gray bg-blue"
+            (click)="addNewScenarioTemp()"
+          >
+            <p class="button__text icon-plus" >Add new</p>
+          </div>
+          
+          
         </div>
       </div>
     </section>
     <!-- Accessories -->
     <section class="room__section section">
-      <h2 class="section__title text-blue icon-magic-wand">Accessories</h2>
+      <h2 class="section__title text-oringe icon-magic-wand">Accessories</h2>
       <div class="section__actions">
         <div class="section__buttons">
           <div class="section__button button text-blue bg-red">
@@ -35,10 +61,8 @@
       </div>
     </section>
   </div>
-
 </div>
 
-<ng-template  #loader>
+<ng-template #loader>
   <app-loader></app-loader>
 </ng-template>
-

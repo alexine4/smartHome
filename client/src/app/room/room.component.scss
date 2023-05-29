@@ -5,7 +5,7 @@
 
 	&__container {
 		display: flex;
-		align-items: start;
+
 		justify-content: start;
 		height: 93vh;
 		width: 80vw;
@@ -13,7 +13,10 @@
 			linear-gradient(90deg, rgb(12, 55, 247), transparent), linear-gradient(-90deg, rgb(248, 72, 8), transparent);
 		@media (max-width: $md2) {
 			width: 100vw;
+			min-height: 93vh;
+			height: auto;
 		}
+		
 	}
 
 	// .room__sections
@@ -32,7 +35,9 @@
 .section {
 	display: flex;
 	flex-direction: column;
-	margin: 10px 0;
+	align-items: start;
+	justify-content: center;
+	margin: 15px 0;
 
 	// .section__title
 
@@ -56,8 +61,14 @@
 	&__actions {
 		display: flex;
 		align-items: center;
+		width: 75vw;
 		flex-direction: row;
-		height: 80px;
+		height: auto;
+		@media (max-width: $md2) {
+			width: 95vw;
+			justify-content: center;
+		}
+	
 	}
 
 	// .section__text
@@ -74,6 +85,9 @@
 		border: 3px solid #b500fc;
 		border-radius: 50%;
 		padding: 0 0 0 5px;
+		@media (max-width: $md4) {
+			height: 55px;
+		}
 		&::after {
 			padding: 0px 5px;
 			content: "º";
@@ -84,8 +98,25 @@
 	// .section__buttons
 
 	&__buttons {
-		display: flex;
-		align-items: center;
+		display: grid;
+		
+		@media (max-width: $md1){
+			grid-template-columns: 1fr 1fr 1fr   ;
+		}
+		@media (max-width: $md3){
+			grid-template-columns: 1fr ;
+		}
+		
+		@media (min-width: $md1){
+		grid-template-columns: 1fr 1fr 1fr 1fr  ;
+		}
+		@media (min-width: $md02){
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr  ;
+		}
+		@media (min-width: $md01){
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr  ;
+		}
+		
 		height: inherit;
 	}
 
@@ -98,6 +129,11 @@
 		align-items: center;
 		justify-content: center;
 		height: 50px;
+		@media (max-width: $md2) {
+			height: 80px;
+			padding: 0 5vw;
+		}
+		
 		font-weight: 400;
 		font-size: 28px;
 		line-height: 34/28 * 100%;
@@ -201,18 +237,32 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	width: 200px;
-	height: 150px;
-	margin: 100px 0 0 0;
+	width: 180px;
+	padding: 0 2vw;
+	
+	height: 180px;
+	margin: 15px 25px 0 0;
 	border-radius: 25px;
 	opacity: 0.7;
 	@media (min-width: $md2) {
 		&:hover {
 			opacity: 1;
+			scale: 1.1;
 		}
 	}
 	@media (max-width: $md2) {
 		opacity: 1;
+	}
+	@media (max-width: $md3){
+		height: 250px;
+		width: 250px;
+		padding: 10px 10vw;
+	}
+	@media (max-width: $md4){
+		
+		height: 150px;
+		width: 150px;
+		padding: 10px 10vw;
 	}
 	// .button__text
 
@@ -223,6 +273,9 @@
 		&::before {
 			padding: 0 15px 0 0;
 		}
+		@media (max-width: $md4){
+			font-size: 28px;
+		}
 	}
 
 	// .button__status
@@ -230,6 +283,9 @@
 	&__status {
 		font-size: 28px;
 		line-height: 36/28 * 100%;
+		@media (max-width: $md4){
+			font-size: 18px;
+			}
 	}
 }
 

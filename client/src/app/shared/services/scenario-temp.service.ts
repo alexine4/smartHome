@@ -8,7 +8,7 @@ import { Message, ScenarionTemp } from '../interfaces';
   providedIn: 'root'
 })
 export class ScenarioTempService {
-  delay = 2000
+  delay = 4000
   constructor(
     private httpClient: HttpClient
   ) { }
