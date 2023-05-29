@@ -59,9 +59,7 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
       timeStop: this.scenarioForm.value.timeStop
     }
     switch (this.conditionMode) {
-      case 'udpate':
-        console.log(newScenario);
-        
+      case 'udpate':        
         this.scenarioSub$ = this.scenarioTempService.update(newScenario).subscribe(
           answer => {
             this.toast.success(answer.message)

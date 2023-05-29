@@ -19,6 +19,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   tempLoader = false
   scenarioTempLoader = false
 
+  dialogSub$!: Subscription
+
   scenarioTemp$!: Observable<ScenarionTemp[] | null>
   scenarioTempSub$!: Subscription
   scenarioTemps!: ScenarionTemp[] | null
@@ -27,7 +29,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   tempSub$!: Subscription
   temp!: Temperature | null
 
-  pRoomId!:number
+  pRoomId!: number
 
   constructor(
     public dialog: MatDialog,
@@ -40,27 +42,17 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-    this.tempSub$= this.temp$.subscribe(
-      Temp=>{
-        this.temp= Temp
-        this.tempLoader = true
-      }
-    )
+
     // getting all scenarios of temperature for active room
     this.getScenarioTemp()
-    this.scenarioTempSub$= this.scenarioTemp$.subscribe(
-      ScenarioTemp=>{
-        this.scenarioTemps= ScenarioTemp
-        this.scenarioTempLoader = true
-      }
-    )
+
     //
 
   }
 
   //get actual temperature by room
   public getTemp(): void {
-    
+
     this.temp$ = this.route.params
       .pipe(
         switchMap((params: Params) => {
@@ -68,12 +60,18 @@ export class RoomComponent implements OnInit, OnDestroy {
             if (this.pRoomId !== params['roomId']) {
               this.tempLoader = false
             }
-            this.pRoomId = params['roomId'] 
+            this.pRoomId = params['roomId']
             return this.tempService.fetchByRoom(params['roomId'])
           }
           return of(null)
         })
       )
+    this.tempSub$ = this.temp$.subscribe(
+      Temp => {
+        this.temp = Temp
+        this.tempLoader = true
+      }
+    )
   }
 
   //get scenarios of temperature by room
@@ -91,9 +89,15 @@ export class RoomComponent implements OnInit, OnDestroy {
           return of(null)
         })
       )
+    this.scenarioTempSub$ = this.scenarioTemp$.subscribe(
+      ScenarioTemp => {
+        this.scenarioTemps = ScenarioTemp
+        this.scenarioTempLoader = true
+      }
+    )
   }
 
-  public addNewScenarioTemp():void{
+  public addNewScenarioTemp(): void {
     const dialogRef = this.dialog.open(ScenarioTempComponent, {
       data: {
         roomId: this.pRoomId,
@@ -102,18 +106,49 @@ export class RoomComponent implements OnInit, OnDestroy {
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })
+
+    this.dialogSub$ = dialogRef.afterClosed().subscribe(
+    status=>{
+    if (status) {
+      
+      this.getScenarioTemp()
+    }
+    },
+    error=>{
+     this.toast.error(error.error.message)
+    },
+    ()=>{
+      this.scenarioTempLoader = false
+    }
+    )
   }
-  public updateScenarioTemp(scenarioTemp: ScenarionTemp):void{
+  public updateScenarioTemp(scenarioTemp: ScenarionTemp): void {
     const dialogRef = this.dialog.open(ScenarioTempComponent, {
       data: scenarioTemp,
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })
+    this.dialogSub$ = dialogRef.afterClosed().subscribe(
+    status=>{
+    if (status) {
+      this.getScenarioTemp()
+    }
+    },
+    error=>{
+     this.toast.error(error.error.message)
+    },
+    ()=>{
+      this.scenarioTempLoader = false
+    }
+    )
   }
 
   public ngOnDestroy(): void {
     if (this.tempSub$) {
       this.tempSub$.unsubscribe()
+    }
+    if (this.dialogSub$) {
+      this.dialogSub$.unsubscribe()
     }
   }
 }
