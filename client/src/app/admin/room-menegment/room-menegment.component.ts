@@ -1,10 +1,9 @@
 import { RoomService } from 'src/app/shared/services/room.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject, Subscription, concatMap, of, toArray } from 'rxjs';
+import {  Subscription, } from 'rxjs';
 import { Room, Type, roomAndType } from 'src/app/shared/interfaces';
 import { ToastrService } from 'ngx-toastr';
-import { minNumber } from 'src/app/shared/validators/minNumber-validator';
 import { TypeService } from 'src/app/shared/services/type.service';
 
 @Component({

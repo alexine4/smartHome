@@ -1,19 +1,204 @@
-<form mat-form class="form">
-<div class="form__container">
-	<h2 class="form__title"></h2>
-	<div class="form__fields">
-		<section class="field">
-			<h3 class="field__text">Min temperature</h3>
-			<input type="text" class="field__input" placeholder="Enter min temperature">
-		</section>
-		<section class="field">
-			<h3 class="field__text">Max temperature</h3>
-			<input type="text" class="field__input" placeholder="Enter max temperature">
-		</section>
-	</div>
-	<div class="form__buttons">
-		<button class="form__button"  mat-button (click)="onNoClick()">Cancel</button>
-		<button class="form__button" mat-button >Confirm</button>
-	</div>
-</div>
+<form [formGroup]="scenarioForm" (ngSubmit)="onSubmit()" class="form animation-show">
+  <div class="form__container">
+    <h2 class="form__title">{{ conditionMode ==='udpate' ? 'Update ':'Add new ' }} scenario of temperature</h2>
+    <div class="form__fields">
+      <!-- Name -->
+      <section class="field">
+        <label class="field__text">Name</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="field__input"
+          placeholder="Enter here"
+          autofocus="off"
+        />
+        <p
+          class="form__error"
+          *ngIf="
+            this.scenarioForm.get('name')?.invalid &&
+            this.scenarioForm.get('name')?.touched
+          "
+        >
+          <small
+            *ngIf="this.scenarioForm.get('name')?.value === ''"
+            class="form-error animation-show"
+          >
+            Field must not been empty!
+          </small>
+          <small
+            *ngIf="this.scenarioForm.get('name')?.invalid"
+            class="form-error animation-show"
+          >
+            Min length name 3 symbols
+          </small>
+        </p>
+      </section>
+      <!-- Min temperature -->
+      <section class="field">
+        <label class="field__text">Min temperature</label>
+        <input
+          formControlName="minTemp"
+          type="number"
+          class="field__input"
+          placeholder="Enter here"
+        />
+        <p
+          class="form__error"
+          *ngIf="
+            this.scenarioForm.get('minTemp')?.invalid &&
+            this.scenarioForm.get('minTemp')?.touched
+          "
+        >
+          <small
+            *ngIf="this.scenarioForm.get('minTemp')?.value === ''"
+            class="form-error animation-show"
+          >
+            Field must not been empty!
+          </small>
+          <small
+            *ngIf="this.scenarioForm.get('minTemp')?.invalid"
+            class="form-error animation-show"
+          >
+            The temperature cannot be lower than 5 and higher than 30
+          </small>
+        </p>
+      </section>
+      <!-- Max temperature -->
+      <section class="field">
+        <label class="field__text">Max temperature</label>
+        <input
+          formControlName="maxTemp"
+          type="number"
+          class="field__input"
+          placeholder="Enter here"
+        />
+        <p
+          class="form__error"
+          *ngIf="
+            (this.scenarioForm.get('maxTemp')?.invalid &&
+              this.scenarioForm.get('maxTemp')?.touched) ||
+            this.scenarioForm.get('maxTemp')?.value <
+              this.scenarioForm.get('minTemp')?.value
+          "
+        >
+          <small
+            *ngIf="this.scenarioForm.get('maxTemp')?.value === ''"
+            class="form-error animation-show"
+          >
+            Field must not been empty!
+          </small>
+          <small
+            *ngIf="this.scenarioForm.get('maxTemp')?.invalid"
+            class="form-error animation-show"
+          >
+            The temperature cannot be lower than 5 and higher than 30
+          </small>
+          <small
+            *ngIf="
+              this.scenarioForm.get('maxTemp')?.value <
+              this.scenarioForm.get('minTemp')?.value
+            "
+            class="form-error animation-show"
+          >
+            The temperature cannot be lower than minimal
+          </small>
+        </p>
+      </section>
+      <!-- Time start -->
+      <section class="field">
+        <label class="field__text">Time start</label>
+        <input
+          formControlName="timeStart"
+          type="time"
+          class="field__input"
+          placeholder="Enter here"
+        />
+        <p
+          class="form__error"
+          *ngIf="
+            this.scenarioForm.get('timeStart')?.invalid &&
+            this.scenarioForm.get('timeStart')?.touched
+          "
+        >
+          <small
+            *ngIf="this.scenarioForm.get('timeStart')?.value === ''"
+            class="form-error animation-show"
+          >
+            Field must not been empty!
+          </small>
+         
+        </p>
+      </section>
+      <!-- Time stop -->
+      <section class="field">
+        <label class="field__text">Time stop</label>
+        <input
+          formControlName="timeStop"
+          type="time"
+          class="field__input"
+          placeholder="Enter here"
+        />
+        <p
+          class="form__error"
+          *ngIf="
+            this.scenarioForm.get('timeStop')?.invalid &&
+            this.scenarioForm.get('timeStop')?.touched
+          "
+        >
+          <small
+            *ngIf="this.scenarioForm.get('timeStop')?.value === ''"
+            class="form-error animation-show"
+          >
+            Field must not been empty!
+          </small>
+          
+        </p>
+      </section>
+    </div>
+    <div class="form__buttons">
+      <button
+        class="form__button non-btn-style "
+        mat-button
+		  [ngClass]="{'hover-color':!scenarioForm.disabled}"
+        (click)="onNoClick()"
+		  [disabled]="scenarioForm.disabled"
+      >
+        Cancel
+      </button>
+      <button
+        class="form__button non-btn-style"
+        mat-button
+        [disabled]="
+          scenarioForm.disabled ||
+          this.scenarioForm.get('name')?.invalid ||
+          this.scenarioForm.get('name')?.value === '' ||
+          this.scenarioForm.get('minTemp')?.invalid ||
+          this.scenarioForm.get('minTemp')?.value === '' ||
+          this.scenarioForm.get('maxTemp')?.invalid ||
+          this.scenarioForm.get('maxTemp')?.value === '' ||
+          this.scenarioForm.get('timeStart')?.invalid ||
+          this.scenarioForm.get('timeStart')?.value === '' ||
+          this.scenarioForm.get('timeStop')?.invalid ||
+          this.scenarioForm.get('timeStop')?.value === ''
+        "
+        [ngClass]="{
+          'hover-color':
+            !scenarioForm.disabled &&
+            !this.scenarioForm.get('name')?.invalid &&
+            this.scenarioForm.get('name')?.value !== '' &&
+            !this.scenarioForm.get('minTemp')?.invalid &&
+            this.scenarioForm.get('minTemp')?.value !== '' &&
+            !this.scenarioForm.get('maxTemp')?.invalid &&
+            this.scenarioForm.get('maxTemp')?.value !== '' &&
+            !this.scenarioForm.get('timeStart')?.invalid &&
+            this.scenarioForm.get('timeStart')?.value !== '' &&
+            !this.scenarioForm.get('timeStop')?.invalid &&
+            this.scenarioForm.get('timeStop')?.value !== ''
+        }"
+        type="submit"
+      >
+		{{ conditionMode ==='udpate' ? 'Update' :'Create'}}
+      </button>
+    </div>
+  </div>
 </form>

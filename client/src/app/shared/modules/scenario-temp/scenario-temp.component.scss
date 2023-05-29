@@ -1,0 +1,152 @@
+@import '../../css styles/scssConstants.scss';
+
+.form {
+	display: flex;
+	background: linear-gradient(45deg, #555, #3603f1, #d41555, #9900ff);
+	border-radius: 25px;
+	// .form__container
+
+	&__container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		text-align: center;
+		@media (min-width: $md2){
+		padding: 15px 50px;
+		}
+		padding: 15px 30px;
+		width: 450px;
+		@media (max-width: $md2){
+			width: 40vw;
+		}
+		@media (max-width: $md3){
+			width: 60vw;
+		}
+		@media (max-width: $md4){
+			width: 40vw;
+		}
+	}
+
+	// .form__title
+
+	&__title {
+		font-family: "Aleo";
+		font-size: 28px;
+		line-height: 36/28 * 100%;
+		padding: 10px 0;
+		@media (max-width: $md3){
+			font-size:18px;
+		}
+		
+	}
+
+	// .form__fields
+
+	&__fields {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		width: inherit;
+		margin: 0 0 10px 0;
+	}
+
+	// .form__buttons
+
+	&__buttons {
+		width: inherit;
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+		@media (max-width: $md4){
+		flex-direction: column-reverse;
+		}
+		
+	}
+
+	// .form__button
+
+	&__button {
+		
+		transition: all 1.5s ease 0s;
+		margin: 20px 10px;
+		flex: 0 1 40%;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		line-height: 32/24*100%;
+		border: 2px solid #fbff00;
+		border-radius: 25px;
+		color: #ff0062;
+		height: 40px;
+		scale: 1;
+		@media (max-width: $md4){
+			flex-direction: column-reverse;
+			margin: 10px 10px
+			}
+	}
+}
+.hover-color{
+	@media (min-width: $md2){
+		&:hover{
+			cursor: pointer;
+		background: linear-gradient(30deg, #fbff00,#3603f1);
+		color: #fff;
+		scale: 1.1;
+		}
+		}
+}
+.field {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	
+	width: inherit;
+	// .field__text
+
+	&__text {
+		font-size: 22px;
+		margin: 10px 0 5px;
+		line-height: 28/22*100%;
+		@media (max-width: $md3){
+		font-size: 16px;
+		}
+	}
+
+	// .field__input
+
+	&__input {
+		transition: all 1.5s ease 0s;
+		background: none;
+		border: 3px solid #a200ff;
+		border-radius: 15px;
+		height: 40px;
+		width: inherit;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		font-size: 22px;
+		padding: 0 10px ;
+		@media (min-width: $md2){
+		&:hover{
+		border-color: 	#ff0062;
+		}
+		}
+		
+
+	}
+}
+.form__error{
+	margin: 15px 0 0 0 ;
+}
+.form-error{
+	margin: 10px 0 0 0;
+	color: #d1d415;
+	font-size: 20px;
+	@media (max-width: $md4){
+	font-size: 14px;
+	}
+}
+

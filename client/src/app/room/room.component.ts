@@ -55,7 +55,6 @@ export class RoomComponent implements OnInit, OnDestroy {
       }
     )
     //
-    this.addNewScenarioTemp()
 
   }
 
@@ -97,8 +96,18 @@ export class RoomComponent implements OnInit, OnDestroy {
   public addNewScenarioTemp():void{
     const dialogRef = this.dialog.open(ScenarioTempComponent, {
       data: {
-        roomId: this.pRoomId
-      }
+        roomId: this.pRoomId,
+        name: ''
+      },
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
+    })
+  }
+  public updateScenarioTemp(scenarioTemp: ScenarionTemp):void{
+    const dialogRef = this.dialog.open(ScenarioTempComponent, {
+      data: scenarioTemp,
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
     })
   }
 

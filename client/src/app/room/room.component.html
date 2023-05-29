@@ -29,6 +29,7 @@
           <div
             class="section__button button text-oringe bg-green"
             *ngFor="let scenarioTemp of scenarioTemps"
+            (click)="updateScenarioTemp(scenarioTemp)"
           >
             <p class="button__text">{{ scenarioTemp.name }}</p>
             <p class="button__status text-gray">

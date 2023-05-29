@@ -23,7 +23,6 @@ export interface ScenarionTemp{
 	maxTemp: number
 	timeStart: string
 	timeStop: string
-	condition?:string
 }
 
 export interface Temperature{

@@ -14,22 +14,21 @@ import { AppComponent } from './app.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { ConfirmAccessComponent } from './register-page/confirm-access/confirm-access.component';
 import { HeaderComponent } from './shared/layouts/site-layout/header/header.component';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './shared/layouts/site-layout/footer/footer.component';
 import { ForgotPasswordComponent } from './login-page/forgot-password/forgot-password.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoaderComponent } from './shared/loaders/loader/loader.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
-import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
-import { FooterComponent } from './shared/layouts/site-layout/footer/footer.component';
 import { RoomComponent } from './room/room.component';
-import { HomeComponent } from './home/home.component';
-
+import { RoomMenegmentComponent } from './admin/room-menegment/room-menegment.component';
+import { ScenarioTempComponent } from './shared/modules/scenario-temp/scenario-temp.component';
+import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
+import { SubLoaderComponent } from './shared/loaders/sub-loader/sub-loader.component';
+import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.component';
 //guard components
 import { AuthGuard } from './shared/classes/auth.guard';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
-import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.component';
-import { RoomMenegmentComponent } from './admin/room-menegment/room-menegment.component';
-import { SubLoaderComponent } from './shared/loaders/sub-loader/sub-loader.component';
-import { ScenarioTempComponent } from './shared/modules/scenario-temp/scenario-temp.component';
 
 
 
@@ -54,7 +53,6 @@ import { ScenarioTempComponent } from './shared/modules/scenario-temp/scenario-t
     RoomMenegmentComponent,
     SubLoaderComponent,
     ScenarioTempComponent,
-   
   ],
   imports: [
     AppRoutingModule,

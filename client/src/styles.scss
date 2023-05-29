@@ -11,13 +11,14 @@ html,
 body {
 	height: 100%;
 }
-body {
+body,h1,h2,h3,h4, label,input,button,p,small {
 	font-family: "Aleo";
 	font-style: normal;
 	font-weight: 400;
 	color: #fcf7f7;
 	margin: 0;
 }
+
 .container {
 	display: flex;
 	align-items: center;
