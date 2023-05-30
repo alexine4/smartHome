@@ -34,13 +34,13 @@ module.exports.initialization = async () => {
 			type: Sequelize.STRING,
 			allowNull: false
 		},
-		homeId: {
+		houseId: {
 			type: Sequelize.BIGINT,
 			allowNull: false
 		},
 		superUserStatus: {
-			type: Sequelize.BOOLEAN,
-			defaultValue: false,
+			type: Sequelize.INTEGER,
+			defaultValue: 0,
 			allowNull: false
 		},
 	}, {
@@ -54,12 +54,12 @@ module.exports.initialization = async () => {
 }
 
 // function create new item in Users
-module.exports.create = async (userName, email, password, homeId) => {
+module.exports.create = async (userName, email, password, houseId) => {
 	await User.create({
 		userName: userName,
 		email: email,
 		password: password,
-		homeId: homeId
+		houseId: houseId
 	})
 
 }
@@ -106,24 +106,24 @@ module.exports.update = async ({userId, userName, email}) => {
 	})
 }
 // function update password User by id
-module.exports.updatePassword = async ({userName,email,homeId, password}) => {
+module.exports.updatePassword = async ({userName,email,houseId, password}) => {
 	await User.update({
 		password
 	}, {
 		where: {
 			userName,
 			email,
-			homeId
+			houseId
 		}
 	})
 }
 // function check user for 3 parameter
-module.exports.checkUser = async({userName,email,homeId})=>{
+module.exports.checkUser = async({userName,email,houseId})=>{
 return await User.findOne({
 	where:{
 		email,
 		userName,
-		homeId
+		houseId
 	}
 })
 }

@@ -26,7 +26,7 @@ module.exports.login = async (req, res) => {
 					// generate token
 					const token = jwt.sign({
 						userId: Email.dataValues.userId,
-						homeId: Email.dataValues.homeId,
+						houseId: Email.dataValues.houseId,
 						superUserStatus: Email.dataValues.superUserStatus,
 					},
 						connectionDB.jwt, {
@@ -54,7 +54,7 @@ module.exports.login = async (req, res) => {
 							// generate token
 							const token = jwt.sign({
 								userId: Name.dataValues.userId,
-								homeId: Name.dataValues.homeId,
+								houseId: Name.dataValues.houseId,
 								superUserStatus: Name.dataValues.superUserStatus,
 							},
 								connectionDB.jwt, {
@@ -93,30 +93,49 @@ module.exports.register = async function (req, res) {
 					user.findOne("email", req.body.email).then((emailExist) => {
 						if (emailExist === null) {
 							// create new user
-							house.create(req.body.homeIp).then(
-								() => {
-									house.findByIp(req.body.homeIp).then(
-										House => {
-											if (House !== null) {
-												user.create(
-													req.body.userName,
-													 req.body.email, 
-													 bCrypt.hashSync(password, salt), 
-													 House.homeIp
-												
-												).then(
-													() => {
-														res.status(201).json({
-															message: "New user created",
-														});
+							house.findByIp(req.body.homeIp).then(
+								CheckHause => {
+									if (CheckHause === null) {
+										house.create(req.body.homeIp).then(
+											() => {
+												house.findByIp(req.body.homeIp).then(
+													House => {
+														if (House !== null) {
+															user.create(
+																req.body.userName,
+																req.body.email,
+																bCrypt.hashSync(password, salt),
+																House.houseId
+															).then(
+																() => {
+																	res.status(201).json({
+																		message: "New user created",
+																	});
+																}
+															)
+														}
 													}
 												)
-											}
-										}
-									)
 
+											}
+										)
+									}else{
+										user.create(
+											req.body.userName,
+											req.body.email,
+											bCrypt.hashSync(password, salt),
+											CheckHause.houseId
+										).then(
+											() => {
+												res.status(201).json({
+													message: "New user created",
+												});
+											}
+										)
+									}
 								}
 							)
+
 
 						} else {
 							res.status(404).json({

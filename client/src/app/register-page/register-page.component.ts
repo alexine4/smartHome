@@ -98,6 +98,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
                   }, 5000);
                 },
                 error => {
+                  this.signUpForm.enable()
                   this.toast.error(error.error.message)
                 },
                 () => {

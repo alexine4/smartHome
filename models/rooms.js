@@ -21,6 +21,10 @@ module.exports.initialization = async () => {
 			primaryKey: true,
 			autoIncrement: true
 		},
+		houseId: {
+			type: Sequelize.BIGINT,
+			allowNull: false
+		},
 		typeId: {
 			type: Sequelize.BIGINT,
 			allowNull: false
