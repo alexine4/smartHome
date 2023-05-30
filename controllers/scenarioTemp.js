@@ -1,3 +1,5 @@
+
+// import modules
 const scenarioTemp = require("../models/scenarioTemp");
 const errorHandler = require("../utils/errorHandler");
 
@@ -57,15 +59,14 @@ module.exports.updateById = async (req, res) => {
 //find active scenarioTemp by room
 module.exports.getActual = async (req, res) => {
 	try {
-		await scenarioTemp.updateStatusTrue(req.body).then(
+		await scenarioTemp.updateStatusFalse(req.body).then(
 			() => {
-				scenarioTemp.updateStatusFalse(req.body).then(
-					() => {
-						scenarioTemp.findActive(true).then(
-							scenario => {
-								res.status(201).json(scenario)
-							}
-						)
+				scenarioTemp.findActive(getTime()).then(
+					scenario => {
+						/* scenario.active = true
+						console.log(scenario);
+						scenarioTemp.updateById(scenario.scenarioId,scenario) */
+						res.status(201).json(scenario)
 					}
 				)
 			}
@@ -87,4 +88,12 @@ module.exports.deleteById = async (req, res) => {
 	} catch (error) {
 		errorHandler(error)
 	}
+}
+
+function getTime(){
+	const currentTime = new Date();
+	const hours = currentTime.getHours().toString().padStart(2, '0');
+	const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+	const timeString = `${hours}:${minutes}`;
+	return timeString
 }

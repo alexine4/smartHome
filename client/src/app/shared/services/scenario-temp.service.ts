@@ -19,6 +19,9 @@ export class ScenarioTempService {
   public fetchById(scenarioId:number):Observable<ScenarionTemp>{
     return this.httpClient.get<ScenarionTemp>(`/api/scenarioTemp/getScenario/${scenarioId}`).pipe(delay(this.delay))
   }
+  public fetchActual(scenarioId:number):Observable<ScenarionTemp>{
+    return this.httpClient.get<ScenarionTemp>(`/api/scenarioTemp/getScenario/${scenarioId}`).pipe(delay(this.delay))
+  }
   public create(scenarioTemp:ScenarionTemp):Observable<Message>{
     return this.httpClient.post<Message>(`/api/scenarioTemp/addNew`,scenarioTemp).pipe(delay(this.delay))
   }

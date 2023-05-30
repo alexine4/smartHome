@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/getScenarios/:roomId', passport.authenticate('jwt', { session: false }), controller.getAll)
 router.get('/getScenario/:scenarioId', passport.authenticate('jwt', { session: false }), controller.getById)
-router.get('/getActualScenario', passport.authenticate('jwt', { session: false }), controller.getActual)
+router.get('/getActualScenario',/*  passport.authenticate('jwt', { session: false }), */ controller.getActual)
 router.post('/addNew', passport.authenticate('jwt', { session: false }), controller.addNew)
 router.patch('/update/:scenarioId', passport.authenticate('jwt', { session: false }), controller.updateById)
 router.delete('/delete/:scenarioId', passport.authenticate('jwt', { session: false }), controller.deleteById)

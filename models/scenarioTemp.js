@@ -62,7 +62,7 @@ module.exports.initialization = async () => {
 	return true
 }
 //module creating new record at the table
-module.exports.create = async ({ roomId,name, minTemp, maxTemp, timeStart, timeStop }) => {
+module.exports.create = async ({ roomId, name, minTemp, maxTemp, timeStart, timeStop }) => {
 	await ScenarionTemp.create({
 		roomId,
 		name,
@@ -75,7 +75,7 @@ module.exports.create = async ({ roomId,name, minTemp, maxTemp, timeStart, timeS
 	})
 }
 //module updating record by room ID at the table
-module.exports.updateById = async (scenarioId, {name, minTemp, maxTemp, timeStart, timeStop,active }) => {
+module.exports.updateById = async (scenarioId, { name, minTemp, maxTemp, timeStart, timeStop, active }) => {
 	await ScenarionTemp.update({
 		name,
 		minTemp,
@@ -94,26 +94,12 @@ module.exports.updateById = async (scenarioId, {name, minTemp, maxTemp, timeStar
 		})
 }
 //module updating status in between at the table
-module.exports.updateStatusTrue= async ( {timeStart, timeStop }) => {
-	await ScenarionTemp.update({
-		active: true
-	}, {
-		where: {
-			[Op.between]: [timeStart,timeStop]
-		}
-	}
-	)
-		.catch(error => {
-			return error
-		})
-}
-//module updating status in between at the table
-module.exports.updateStatusFalse= async ( {timeStart, timeStop }) => {
+module.exports.updateStatusFalse = async ({ roomId }) => {
 	await ScenarionTemp.update({
 		active: false
 	}, {
 		where: {
-			[Op.notBetween]: [timeStart,timeStop]
+			roomId
 		}
 	}
 	)
@@ -154,10 +140,10 @@ module.exports.findOneByRoom = async (roomId) => {
 	return await ScenarionTemp.findOne({ where: { roomId } })
 }
 // module find one record by room at the table
-module.exports.findActive = async (active) => {
-	return await ScenarionTemp.findOne({ where: { active } })
+module.exports.findActive = async (timeStart) => {
+	return await ScenarionTemp.findOne({ where: { [Op.and]:[{timeStart: { [Op.lte]: timeStart }},{timeStop: { [Op.gt]: timeStart }}]  } })
 }
 // module find all records by ID at the table
 module.exports.findAllByRoom = async (roomId) => {
-	return await ScenarionTemp.findAll({where:{roomId}})
+	return await ScenarionTemp.findAll({ where: { roomId } })
 }
