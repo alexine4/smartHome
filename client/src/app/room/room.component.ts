@@ -29,15 +29,15 @@ export class RoomComponent implements OnInit, OnDestroy {
   scenarioTemp$!: Observable<ScenarionTemp[] | null>
   scenarioTempSub$!: Subscription
   scenarioTemps!: ScenarionTemp[] | null
+  scenarioActualTemp$!: Observable<ScenarionTemp | null>
   actualScenario!: ScenarionTemp | null
-  
-   //temperature variables
+
+  //temperature variables
   temp$!: Observable<Temperature | null>
   tempSub$!: Subscription
   temp!: Temperature | null
-
-  //auxiliary variables
   pRoomId!: number
+
 
   constructor(
     public dialog: MatDialog,
@@ -50,12 +50,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-
-    // getting all scenarios of temperature for active room
-    this.getScenarioTemp()
-
-    //
-
   }
 
   //get actual temperature by room
@@ -65,9 +59,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((params: Params) => {
           if (params['roomId']) {
-            if (this.pRoomId !== params['roomId']) {
-              this.tempLoader = false
-            }
+            this.tempLoader = false
             this.pRoomId = params['roomId']
             return this.tempService.fetchByRoom(params['roomId'])
           }
@@ -78,35 +70,36 @@ export class RoomComponent implements OnInit, OnDestroy {
       Temp => {
         this.temp = Temp
         this.tempLoader = true
+        //loaders to false for working of change room 
+        this.tempScenarioLoader = false
+        this.scenarioTempLoader = false
+        // getting all scenarios of temperature for active room
+        this.getScenarioTemp()
+        // getting active scenario of temperature for active room
+        this.getActualScenario()
       }
     )
   }
 
   //get scenarios of temperature by room
-  public getScenarioTemp(): void {
-    this.scenarioTemp$ = this.route.params
-      .pipe(
-        switchMap((params: Params) => {
-          if (params['roomId']) {
-            if (this.pRoomId !== params['roomId']) {
-              this.scenarioTempLoader = false
-            }
-            this.pRoomId = params['roomId']
-            this.scenarioTempService.fetchActual(params['roomId']).subscribe(
-              actual=>{
-                this.actualScenario =actual
-                this.tempScenarioLoader = true
-              }
-            )
-            return this.scenarioTempService.fetchByRoom(params['roomId'])
-          }
-          return of(null)
-        })
-      )
+  private getScenarioTemp(): void {
+    this.scenarioTemp$ = this.scenarioTempService.fetchByRoom(this.pRoomId)
     this.scenarioTempSub$ = this.scenarioTemp$.subscribe(
       ScenarioTemp => {
         this.scenarioTemps = ScenarioTemp
         this.scenarioTempLoader = true
+      }
+    )
+
+  }
+  //get active scenario of temperature by room
+  private getActualScenario(): void {
+    this.scenarioActualTemp$ = this.scenarioTempService.fetchActual(this.pRoomId)
+    this.scenarioActualTemp$.subscribe(
+      actual => {
+        this.actualScenario = actual
+        this.tempScenarioLoader = true
+
       }
     )
   }
@@ -122,15 +115,15 @@ export class RoomComponent implements OnInit, OnDestroy {
     })
 
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
-    status=>{
-    if (status) {
-      this.scenarioTempLoader = false
-      this.getScenarioTemp()
-    }
-    },
-    error=>{
-     this.toast.error(error.error.message)
-    }
+      status => {
+        if (status) {
+          this.scenarioTempLoader = false
+          this.getScenarioTemp()
+        }
+      },
+      error => {
+        this.toast.error(error.error.message)
+      }
     )
   }
   // open dialog window for enter data for change or delete temperature scenario
@@ -141,34 +134,34 @@ export class RoomComponent implements OnInit, OnDestroy {
       exitAnimationDuration: '1.5s',
     })
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
-    status=>{
-    if (status) {
-      this.scenarioTempLoader = false
-      this.getScenarioTemp()
-    }
-    },
-    error=>{
-     this.toast.error(error.error.message)
-    }
+      status => {
+        if (status) {
+          this.scenarioTempLoader = false
+          this.getScenarioTemp()
+        }
+      },
+      error => {
+        this.toast.error(error.error.message)
+      }
     )
   }
   //function hand change temperature
-  public onChangeTemp():void{
+  public onChangeTemp(): void {
     const dialogRef = this.dialog.open(TemperatureReguletedComponent, {
       data: {},
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
-    status=>{
-    if (status) {
-      this.scenarioTempLoader = false
-      this.getScenarioTemp()
-    }
-    },
-    error=>{
-     this.toast.error(error.error.message)
-    }
+      status => {
+        if (status) {
+          this.scenarioTempLoader = false
+          this.getScenarioTemp()
+        }
+      },
+      error => {
+        this.toast.error(error.error.message)
+      }
     )
   }
 
