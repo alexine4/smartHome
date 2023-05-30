@@ -1,6 +1,13 @@
-<form [formGroup]="scenarioForm" (ngSubmit)="onSubmit()" class="form animation-show">
+<form
+  [formGroup]="scenarioForm"
+  (ngSubmit)="onSubmit()"
+  class="form animation-show"
+>
   <div class="form__container">
-    <h2 class="form__title">{{ conditionMode ==='update' ? 'Update ':'Add new ' }} scenario of temperature</h2>
+    <h2 class="form__title">
+      {{ conditionMode === "update" ? "Update " : "Add new " }} scenario of
+      temperature
+    </h2>
     <div class="form__fields">
       <!-- Name -->
       <section class="field">
@@ -126,7 +133,6 @@
           >
             Field must not been empty!
           </small>
-         
         </p>
       </section>
       <!-- Time stop -->
@@ -142,7 +148,9 @@
           class="form__error"
           *ngIf="
             this.scenarioForm.get('timeStop')?.invalid &&
-            this.scenarioForm.get('timeStop')?.touched
+            this.scenarioForm.get('timeStop')?.touched ||
+            this.scenarioForm.get('timeStop')?.value <
+              this.scenarioForm.get('timeStart')?.value
           "
         >
           <small
@@ -151,27 +159,35 @@
           >
             Field must not been empty!
           </small>
-          
+          <small
+            *ngIf="
+              this.scenarioForm.get('timeStop')?.value <
+              this.scenarioForm.get('timeStart')?.value
+            "
+            class="form-error animation-show"
+          >
+            The end time must be greater than the start time
+          </small>
         </p>
       </section>
     </div>
     <div class="form__buttons">
       <button
-        class="form__button non-btn-style "
+        class="form__button non-btn-style"
         mat-button
-		  [ngClass]="{'hover-color':!scenarioForm.disabled}"
+        [ngClass]="{ 'hover-color': !scenarioForm.disabled }"
         (click)="onNoClick()"
-		  [disabled]="scenarioForm.disabled"
+        [disabled]="scenarioForm.disabled"
       >
         Cancel
       </button>
       <button
-      *ngIf="conditionMode ==='update'"
-        class="form__button non-btn-style "
+        *ngIf="conditionMode === 'update'"
+        class="form__button non-btn-style"
         mat-button
-		  [ngClass]="{'hover-color':!scenarioForm.disabled}"
+        [ngClass]="{ 'hover-color': !scenarioForm.disabled }"
         (click)="onDelete()"
-		  [disabled]="scenarioForm.disabled"
+        [disabled]="scenarioForm.disabled"
       >
         Delete
       </button>
@@ -189,7 +205,8 @@
           this.scenarioForm.get('timeStart')?.invalid ||
           this.scenarioForm.get('timeStart')?.value === '' ||
           this.scenarioForm.get('timeStop')?.invalid ||
-          this.scenarioForm.get('timeStop')?.value === ''
+          this.scenarioForm.get('timeStop')?.value === ''||
+          this.scenarioForm.get('timeStop')?.value < this.scenarioForm.get('timeStart')?.value
         "
         [ngClass]="{
           'hover-color':
@@ -203,11 +220,12 @@
             !this.scenarioForm.get('timeStart')?.invalid &&
             this.scenarioForm.get('timeStart')?.value !== '' &&
             !this.scenarioForm.get('timeStop')?.invalid &&
-            this.scenarioForm.get('timeStop')?.value !== ''
+            this.scenarioForm.get('timeStop')?.value !== ''&&
+            this.scenarioForm.get('timeStop')?.value > this.scenarioForm.get('timeStart')?.value
         }"
         type="submit"
       >
-		{{ conditionMode ==='update' ? 'Update' :'Create'}}
+        {{ conditionMode === "update" ? "Update" : "Create" }}
       </button>
     </div>
   </div>
