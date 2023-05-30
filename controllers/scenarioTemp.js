@@ -31,11 +31,22 @@ module.exports.getById = async (req, res) => {
 //create new scenarioTemp
 module.exports.addNew = async (req, res) => {
 	try {
-		await scenarioTemp.create(req.body).then(
-			() => {
-				res.status(201).json({
-					message: 'New scenario of temperature record successfully created'
-				})
+		await scenarioTemp.findByTime(req.body).then(
+			Scenario => {
+				if (Scenario === null) {
+					scenarioTemp.create(req.body).then(
+						() => {
+							res.status(201).json({
+								message: 'New scenario of temperature record successfully created'
+							})
+						}
+					)
+				}
+				else {
+					res.status(409).json({
+						message: 'Scenario with this time interval already exist'
+					})
+				}
 			}
 		)
 	} catch (error) {
@@ -45,12 +56,24 @@ module.exports.addNew = async (req, res) => {
 //update scenarioTemp by room
 module.exports.updateById = async (req, res) => {
 	try {
-		await scenarioTemp.updateById(req.params.scenarioId, req.body).then(
-			() => {
-				res.status(201).json({
-					message: 'Scenario of temperature record successfully updated'
-				})
+		await scenarioTemp.findByTime(req.body).then(
+			Scenario => {
+				if (Scenario === null) {
+					scenarioTemp.updateById(req.params.scenarioId, req.body).then(
+						() => {
+							res.status(201).json({
+								message: 'Scenario of temperature record successfully updated'
+							})
+						}
+					)
+				}
+				else {
+					res.status(409).json({
+						message: 'Scenario with this time interval already exist'
+					})
+				}
 			}
+
 		)
 	} catch (error) {
 		errorHandler(error)
@@ -90,7 +113,7 @@ module.exports.deleteById = async (req, res) => {
 	}
 }
 
-function getTime(){
+function getTime() {
 	const currentTime = new Date();
 	const hours = currentTime.getHours().toString().padStart(2, '0');
 	const minutes = currentTime.getMinutes().toString().padStart(2, '0');

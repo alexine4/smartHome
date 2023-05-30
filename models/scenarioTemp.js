@@ -141,7 +141,24 @@ module.exports.findOneByRoom = async (roomId) => {
 }
 // module find one record by room at the table
 module.exports.findActive = async (timeStart) => {
-	return await ScenarionTemp.findOne({ where: { [Op.and]:[{timeStart: { [Op.lte]: timeStart }},{timeStop: { [Op.gt]: timeStart }}]  } })
+	return await ScenarionTemp.findOne({ where: { [Op.and]: [{ timeStart: { [Op.lte]: timeStart } }, { timeStop: { [Op.gt]: timeStart } }] } })
+}
+// module find one record by room at the table
+module.exports.findByTime = async ({ timeStart, timeStop }) => {
+
+	return await ScenarionTemp.findOne({
+		where: {
+			[Op.and]:[{
+				timeStart:{
+					[Op.lte]:timeStop
+				}},{
+				timeStart:{
+					[Op.gte]:timeStart
+				}} 
+			]
+			
+		}
+	})
 }
 // module find all records by ID at the table
 module.exports.findAllByRoom = async (roomId) => {
