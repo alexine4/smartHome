@@ -44,9 +44,10 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async (typeId, roomName) => {
+module.exports.create = async (typeId, houseId, roomName) => {
 	await Rooms.create({
 			typeId,
+			houseId,
 			roomName
 		})
 		.catch(error => {

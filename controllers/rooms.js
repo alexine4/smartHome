@@ -36,7 +36,7 @@ module.exports.addNew = async (req, res) => {
 	try {
 		await rooms.findOneByName(req.body.roomName).then((result) => {
 			if (result === null) {
-				rooms.create(req.body.typeId, req.body.roomName).then(() => {
+				rooms.create(req.body.typeId,req.user.houseId, req.body.roomName).then(() => {
 					res.status(201).json({
 						message: "Room create successfully",
 					});
