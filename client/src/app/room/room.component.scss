@@ -60,14 +60,26 @@
 	// .section__actions
 
 	&__actions {
-		display: flex;
+		display: grid;
+		justify-items: start;
 		align-items: center;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
 		width: 75vw;
 		flex-direction: row;
 		height: auto;
 		@media (max-width: $md2) {
 			width: 95vw;
 			justify-content: center;
+		}
+		@media (max-width: $md1){
+			grid-template-columns: 1fr 1fr ;
+		}
+		@media (max-width: $md2){
+			justify-items: center;
+		}
+		@media (max-width: $md4){
+			grid-template-columns: 1fr ;
+			
 		}
 	
 	}
@@ -82,20 +94,39 @@
 		font-size: 32px;
 		line-height: 38/32 * 100%;
 		height: 80px;
-		width: 80px;
-		border: 3px solid #b500fc;
-		border-radius: 50%;
+
 		padding: 0 0 0 5px;
 		@media (max-width: $md4) {
 			height: 55px;
 		}
+		@media (max-width: $md1){
+		margin:  10px 10px 30px 0;
+		}
+		@media (max-width: $md4){
+		font-size: 20px;
+		}
+		
+		
+		margin: 0 40px 0 0;
+	}
+	// .section__temp
+	&__temp {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 38/32 * 100%;
+		height: inherit;
+		width: 80px;
+		border: 3px solid #b500fc;
+		border-radius: 50%;
+		padding: 0 0 0 5px;
+		
 		&::after {
 			padding: 0px 5px;
 			content: "º";
 		}
-		margin: 0 40px 0 0;
+		margin: 0 0 0 20px ;
 	}
-
 	// .section__buttons
 
 	&__buttons {
@@ -106,6 +137,7 @@
 		}
 		@media (max-width: $md3){
 			grid-template-columns: 1fr ;
+			justify-items:center ;
 		}
 		
 		@media (min-width: $md1){
@@ -325,4 +357,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.active{
+	border: 4px solid #07ffff;
+	opacity: 1;
 }

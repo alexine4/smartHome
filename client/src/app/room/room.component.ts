@@ -19,6 +19,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   // loader var
   tempLoader = false
+  tempScenarioLoader = false
   scenarioTempLoader = false
 
   // dialog windows variables
@@ -28,7 +29,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   scenarioTemp$!: Observable<ScenarionTemp[] | null>
   scenarioTempSub$!: Subscription
   scenarioTemps!: ScenarionTemp[] | null
-
+  actualScenario!: ScenarionTemp | null
+  
    //temperature variables
   temp$!: Observable<Temperature | null>
   tempSub$!: Subscription
@@ -90,6 +92,12 @@ export class RoomComponent implements OnInit, OnDestroy {
               this.scenarioTempLoader = false
             }
             this.pRoomId = params['roomId']
+            this.scenarioTempService.fetchActual(params['roomId']).subscribe(
+              actual=>{
+                this.actualScenario =actual
+                this.tempScenarioLoader = true
+              }
+            )
             return this.scenarioTempService.fetchByRoom(params['roomId'])
           }
           return of(null)

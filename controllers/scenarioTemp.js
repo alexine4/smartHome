@@ -84,12 +84,16 @@ module.exports.getActual = async (req, res) => {
 	try {
 		await scenarioTemp.updateStatusFalse(req.body).then(
 			() => {
-				scenarioTemp.findActive(getTime()).then(
+				scenarioTemp.findActive(req.params.roomId,getTime()).then(
 					scenario => {
-						/* scenario.active = true
-						console.log(scenario);
-						scenarioTemp.updateById(scenario.scenarioId,scenario) */
+						if (scenario !==null) {
+						scenario.active = true
+						scenarioTemp.updateById(scenario.scenarioId,scenario) 
 						res.status(201).json(scenario)
+						}else{
+							res.status(201).json(null)
+						}
+						 
 					}
 				)
 			}
