@@ -34,9 +34,8 @@ module.exports.initialization = async () => {
 			type: Sequelize.STRING,
 			allowNull: false
 		},
-		homeIp: {
-			type: Sequelize.STRING,
-			defaultValue: false,
+		homeId: {
+			type: Sequelize.BIGINT,
 			allowNull: false
 		},
 		superUserStatus: {
@@ -55,12 +54,12 @@ module.exports.initialization = async () => {
 }
 
 // function create new item in Users
-module.exports.create = async (userName, email, password, homeIp) => {
+module.exports.create = async (userName, email, password, homeId) => {
 	await User.create({
 		userName: userName,
 		email: email,
 		password: password,
-		homeIp: homeIp
+		homeId: homeId
 	})
 
 }
@@ -96,7 +95,7 @@ module.exports.findByIds = async function (userId) {
 	})
 }
 // function update User by id
-module.exports.update = async (userId, userName, email) => {
+module.exports.update = async ({userId, userName, email}) => {
 	await User.update({
 		userName: userName,
 		email: email
@@ -107,24 +106,24 @@ module.exports.update = async (userId, userName, email) => {
 	})
 }
 // function update password User by id
-module.exports.updatePassword = async (userName,email,homeIp, password) => {
+module.exports.updatePassword = async ({userName,email,homeId, password}) => {
 	await User.update({
 		password
 	}, {
 		where: {
 			userName,
 			email,
-			homeIp
+			homeId
 		}
 	})
 }
 // function check user for 3 parameter
-module.exports.checkUser = async(userName,email,homeIp)=>{
+module.exports.checkUser = async({userName,email,homeId})=>{
 return await User.findOne({
 	where:{
 		email,
 		userName,
-		homeIp
+		homeId
 	}
 })
 }

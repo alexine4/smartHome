@@ -1,6 +1,7 @@
 const bCrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
+const house = require("../models/house");
 const connectionDB = require("../connection/connectionDB");
 const errorHandler = require("../utils/errorHandler");
 const axios = require('axios');
@@ -24,12 +25,13 @@ module.exports.login = async (req, res) => {
 				if (passwordResult) {
 					// generate token
 					const token = jwt.sign({
-							userId: Email.dataValues.userId,
-							superUserStatus: Email.dataValues.superUserStatus,
-						},
+						userId: Email.dataValues.userId,
+						homeId: Email.dataValues.homeId,
+						superUserStatus: Email.dataValues.superUserStatus,
+					},
 						connectionDB.jwt, {
-							expiresIn: "24h"
-						}
+						expiresIn: "24h"
+					}
 					);
 					res.status(200).json({
 						token: `Bearer ${token}`,
@@ -51,12 +53,13 @@ module.exports.login = async (req, res) => {
 						if (passwordResult) {
 							// generate token
 							const token = jwt.sign({
-									userId: Name.dataValues.userId,
-									superUserStatus: Name.dataValues.superUserStatus,
-								},
+								userId: Name.dataValues.userId,
+								homeId: Name.dataValues.homeId,
+								superUserStatus: Name.dataValues.superUserStatus,
+							},
 								connectionDB.jwt, {
-									expiresIn: "24h"
-								}
+								expiresIn: "24h"
+							}
 							);
 							res.status(200).json({
 								token: `Bearer ${token}`,
@@ -79,50 +82,63 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.register = async function (req, res) {
+	try {
+		// password gurd
+		if (req.body.userName && req.body.email && req.body.password) {
+			const salt = bCrypt.genSaltSync(10);
+			const password = req.body.password;
 
-	// password gurd
-	if (req.body.userName && req.body.email && req.body.password) {
-		const salt = bCrypt.genSaltSync(10);
-		const password = req.body.password;
+			user.findOne("userName", req.body.userName).then((userNameExist) => {
+				if (userNameExist === null) {
+					user.findOne("email", req.body.email).then((emailExist) => {
+						if (emailExist === null) {
+							// create new user
+							house.create(req.body.homeIp).then(
+								() => {
+									house.findByIp(req.body.homeIp).then(
+										House => {
+											if (House !== null) {
+												user.create(
+													req.body.userName,
+													 req.body.email, 
+													 bCrypt.hashSync(password, salt), 
+													 House.homeIp
+												
+												).then(
+													() => {
+														res.status(201).json({
+															message: "New user created",
+														});
+													}
+												)
+											}
+										}
+									)
 
-		user.findOne("userName", req.body.userName).then((userNameExist) => {
-			if (userNameExist === null) {
-				user.findOne("email", req.body.email).then((emailExist) => {
-					if (emailExist === null) {
-						// create new user
-						user.create(
-							req.body.userName,
-							req.body.email,
-							bCrypt.hashSync(password, salt),
-							req.body.homeIp
-						)
-						try {
-							connectionDB.sequelize.sync({
-								alter: true
+								}
+							)
+
+						} else {
+							res.status(404).json({
+								message: "User with this email already exists",
 							});
-							res.status(201).json({
-								message: "New user created",
-							});
-						} catch (e) {
-							errorHandler(res, e);
 						}
-					} else {
-						res.status(404).json({
-							message: "User with this email already exists",
-						});
-					}
-				})
-			} else {
-				res.status(404).json({
-					message: "User with this uesrname already exists",
-				});
-			}
-		});
-	} else {
-		res.status(404).json({
-			message: "The password field cannot be empty",
-		});
+					})
+				} else {
+					res.status(404).json({
+						message: "User with this uesrname already exists",
+					});
+				}
+			});
+		} else {
+			res.status(404).json({
+				message: "The password field cannot be empty",
+			});
+		}
+	} catch (error) {
+		errorHandler(error)
 	}
+
 };
 
 
@@ -195,11 +211,11 @@ module.exports.confirmConnectionRes = async (req, res) => {
 }
 
 module.exports.checkUser = async (req, res) => {
-	
-	await delay (5000)
-	
+
+	await delay(5000)
+
 	try {
-		
+
 		await user.checkUser(req.body.userName, req.body.email, req.body.homeIp)
 			.then(
 				resulst => {
@@ -222,27 +238,27 @@ module.exports.checkUser = async (req, res) => {
 	}
 
 }
-module.exports.changePassword = async(req,res)=>{
-	await delay (2000)
+module.exports.changePassword = async (req, res) => {
+	await delay(2000)
 	const salt = bCrypt.genSaltSync(10);
 	const password = req.body.password;
-try {
-	await user.updatePassword(req.body.userName,req.body.email,req.body.homeIp,bCrypt.hashSync(password, salt),)
-	.then(
-		()=>{
-			res.status(200).json({
-				message: 'New password successfully setup'
-			})
-		}
-	)
-	.catch(
-		error=>{
-			res.status(400).json(error)
-		}
-	)
-} catch (error) {
-	res.status(400).json(error)
-}
+	try {
+		await user.updatePassword(req.body.userName, req.body.email, req.body.homeIp, bCrypt.hashSync(password, salt),)
+			.then(
+				() => {
+					res.status(200).json({
+						message: 'New password successfully setup'
+					})
+				}
+			)
+			.catch(
+				error => {
+					res.status(400).json(error)
+				}
+			)
+	} catch (error) {
+		res.status(400).json(error)
+	}
 }
 
 function generatePassword(length) {

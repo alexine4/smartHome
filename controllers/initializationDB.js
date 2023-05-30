@@ -1,17 +1,19 @@
 // in this fille initialization all models
 
 //import models
-const user = require('../models/user')
+const houses = require('../models/house')
 const rooms = require('../models/rooms')
-const types = require('../models/types')
-const temp = require('../models/temperature')
 const scenarioTemp = require('../models/scenarioTemp')
+const temp = require('../models/temperature')
+const types = require('../models/types')
+const user = require('../models/user')
 
 // initialization
 module.exports.initialilazationAll= ()=>{
-	user.initialization()
+	houses.initialization()
 	rooms.initialization()
+	scenarioTemp.initialization()
 	types.initialization()
 	temp.initialization()
-	scenarioTemp.initialization()
+	user.initialization()
 }
