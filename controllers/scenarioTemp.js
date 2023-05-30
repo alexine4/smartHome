@@ -58,7 +58,7 @@ module.exports.updateById = async (req, res) => {
 	try {
 		await scenarioTemp.findByTime(req.body).then(
 			Scenario => {
-				if (Scenario === null) {
+				if (Scenario === null || Scenario.dataValues.scenarioId == req.params.scenarioId) {
 					scenarioTemp.updateById(req.params.scenarioId, req.body).then(
 						() => {
 							res.status(201).json({
