@@ -195,13 +195,13 @@ module.exports.confirmConnectionReq = async (req, res) => {
 
 	confirmCodeCheck = generatePassword(10);
 
-	// Об'єкт з параметрами команди
-	const command = {
+	// Object with parametres
+	const data = {
 		password: confirmCodeCheck
 	};
 	console.log("Confirm Code: " + confirmCodeCheck);
 	// Відправлення POST-запиту на сервер
-	axios.post(deviceUrl, command)
+	axios.post(deviceUrl, data)
 		.then((response) => {
 			console.log('The command was successfully sent to the device.');
 			res.status(200).json({
@@ -209,7 +209,7 @@ module.exports.confirmConnectionReq = async (req, res) => {
 			})
 		})
 		.catch((error) => {
-			console.log('An error occurred while sending the command.');
+			console.log('An error occurred while sending the data.');
 			console.error(error);
 			res.status(404).json({
 				message: "Device with this ID does not exist"
