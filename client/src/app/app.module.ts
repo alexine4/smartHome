@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ToastrModule } from 'ngx-toastr';
 
 //componentes
@@ -64,8 +65,9 @@ import { TemperatureReguletedComponent } from './shared/modules/temperature-regu
     FormsModule,
     MatDialogModule,
     MatInputModule,
+    NgxSliderModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthGuard,

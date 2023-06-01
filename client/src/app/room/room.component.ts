@@ -50,6 +50,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
+    // on change
+    this.onChangeTemp()
   }
 
   //get actual temperature by room
