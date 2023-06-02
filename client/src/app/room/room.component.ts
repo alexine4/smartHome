@@ -18,9 +18,9 @@ import { TemperatureReguletedComponent } from '../shared/modules/temperature-reg
 export class RoomComponent implements OnInit, OnDestroy {
 
   // loader var
-  tempLoader = false
-  tempScenarioLoader = false
-  scenarioTempLoader = false
+  tempLoader:boolean = false
+  tempScenarioLoader:boolean = false
+  scenarioTempLoader:boolean = false
 
   // dialog windows variables
   dialogSub$!: Subscription
@@ -50,8 +50,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-    // on change
-    this.onChangeTemp()
+   
   }
 
   //get actual temperature by room
@@ -150,7 +149,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   //function hand change temperature
   public onChangeTemp(): void {
     const dialogRef = this.dialog.open(TemperatureReguletedComponent, {
-      data: {},
+      data:this.actualScenario,
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })
@@ -159,7 +158,7 @@ export class RoomComponent implements OnInit, OnDestroy {
         if (status) {
           this.scenarioTempLoader = false
           this.getScenarioTemp()
-        }
+        } 
       },
       error => {
         this.toast.error(error.error.message)
