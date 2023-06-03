@@ -81,9 +81,15 @@
       <h2 class="section__title text-oringe icon-magic-wand">Accessories</h2>
       <div class="section__actions">
         <div class="section__buttons">
-          <div class="section__button button text-blue bg-red">
+          <div class="section__button button text-blue bg-red accesories">
             <p class="button__text icon-tv">tv</p>
             <p class="button__status text-gray">enable</p>
+          </div>
+          <div
+            class="section__button button text-oringe bg-green"
+            (click)="addNewAccessory()"
+          >
+            <p class="button__text icon-plus">Add new</p>
           </div>
         </div>
       </div>

@@ -31,6 +31,7 @@ import { TypeMenegmentComponent } from './admin/type-menegment/type-menegment.co
 import { AuthGuard } from './shared/classes/auth.guard';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { TemperatureReguletedComponent } from './shared/modules/temperature-reguleted/temperature-reguleted.component';
+import { AccessoryManegmentComponent } from './shared/modules/accessory-manegment/accessory-manegment.component';
 
 
 
@@ -56,6 +57,7 @@ import { TemperatureReguletedComponent } from './shared/modules/temperature-regu
     SubLoaderComponent,
     ScenarioTempComponent,
     TemperatureReguletedComponent,
+    AccessoryManegmentComponent,
   ],
   imports: [
     AppRoutingModule,

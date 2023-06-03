@@ -9,6 +9,7 @@ import { ScenarioTempService } from '../shared/services/scenario-temp.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ScenarioTempComponent } from '../shared/modules/scenario-temp/scenario-temp.component';
 import { TemperatureReguletedComponent } from '../shared/modules/temperature-reguleted/temperature-reguleted.component';
+import { AccessoryManegmentComponent } from '../shared/modules/accessory-manegment/accessory-manegment.component';
 
 @Component({
   selector: 'app-room',
@@ -50,7 +51,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-   
+   //
+   this.addNewAccessory()
   }
 
   //get actual temperature by room
@@ -164,6 +166,15 @@ export class RoomComponent implements OnInit, OnDestroy {
         this.toast.error(error.error.message)
       }
     )
+  }
+
+  // function open dialog window with parameters to add new accessory
+  public addNewAccessory():void{
+    const dialogRef = this.dialog.open(AccessoryManegmentComponent, {
+      data:{},
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
+    })
   }
 
   public ngOnDestroy(): void {

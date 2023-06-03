@@ -1,0 +1,18 @@
+
+<form class="form__container">
+	<h2 class="form__title">Add new acceessory</h2>
+	<ul class="form__fields">
+		<section class="form__field field">
+			<label class="field__label">Name</label>
+			<input type="text" class="field__input"  placeholder="Name">
+		</section>
+		<section class="form__field field">
+			<label class="field__label">type</label>
+			<input type="text" class="field__input"  placeholder="type">
+		</section>
+	</ul>
+	<div class="form__buttons">
+		<div class="form__button" (click)="dialogRef.close(false)">Cancel</div>
+		<div class="form__button">Add New</div>
+	</div>
+</form>
