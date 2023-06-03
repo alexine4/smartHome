@@ -16,10 +16,10 @@ class Limits extends Sequelize.Model {}
 module.exports.initialization = async () => {
 
 	await Limits.init({
-		limitId: {
+		sypplyId: {
 			type: Sequelize.BIGINT,
 			primaryKey: true,
-			autoIncrement: true
+			autoIncrement: false
 		},
 		perDay: {
 			type: Sequelize.INTEGER,
@@ -40,8 +40,9 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async({perDay,perMonth})=>{
+module.exports.create = async({sypplyId,perDay,perMonth})=>{
 await Limits.create({
+	sypplyId,
 	perDay,
 	perMonth
 })

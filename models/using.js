@@ -16,10 +16,10 @@ class Using extends Sequelize.Model {}
 module.exports.initialization = async () => {
 
 	await Using.init({
-		usingId: {
+		sypplyId: {
 			type: Sequelize.BIGINT,
 			primaryKey: true,
-			autoIncrement: true
+			autoIncrement: false
 		},
 		amount: {
 			type: Sequelize.INTEGER,

@@ -2,7 +2,6 @@
 
 //import models
 const accesories = require('../models/accesories')
-const accessoryType = require('../models/accesoriesTypes')
 const calculations = require('../models/calculations')
 const houses = require('../models/house')
 const limits = require('../models/limits')
@@ -18,7 +17,6 @@ const using = require('../models/using')
 // initialization
 module.exports.initialilazationAll= ()=>{
 	accesories.initialization()
-	accessoryType.initialization()
 	calculations.initialization()
 	properties.initialization()
 	houses.initialization()

@@ -16,10 +16,10 @@ class Calculations extends Sequelize.Model {}
 module.exports.initialization = async () => {
 
 	await Calculations.init({
-		calcId: {
+		sypplyId: {
 			type: Sequelize.BIGINT,
 			primaryKey: true,
-			autoIncrement: true
+			autoIncrement: false
 		},
 		amount: {
 			type: Sequelize.INTEGER,
@@ -39,8 +39,9 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async({amount,cost})=>{
+module.exports.create = async({sypplyId,amount,cost})=>{
 await Calculations.create({
+	sypplyId,
 	amount,
 	cost
 })

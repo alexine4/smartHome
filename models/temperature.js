@@ -16,14 +16,10 @@ class Temperature extends Sequelize.Model { }
 module.exports.initialization = async () => {
 
 	await Temperature.init({
-		tempId: {
-			type: Sequelize.BIGINT,
-			primaryKey: true,
-			autoIncrement: true
-		},
 		roomId: {
 			type: Sequelize.BIGINT,
-			allowNull:false
+			primaryKey: true,
+			autoIncrement: false
 		},
 		actualTemp: {
 			type: Sequelize.FLOAT,
@@ -63,10 +59,10 @@ module.exports.updateByRoom = async (roomId, { actualTemp }) => {
 		})
 }
 //module delete record by ID from the table
-module.exports.deleteByID = async (tempId) => {
+module.exports.deleteByID = async (roomId) => {
 	await Temperature.destroy({
 		where: {
-			tempId
+			roomId
 		}
 	}
 	)
@@ -86,10 +82,7 @@ module.exports.deleteByRoom = async (roomId) => {
 			return error
 		})
 }
-// module find one record by ID at the table
-module.exports.findOneByID = async (tempId) => {
-	return await Temperature.findOne({ where: { tempId } })
-}
+
 // module find one record by room at the table
 module.exports.findOneByRoom = async (roomId) => {
 	return await Temperature.findOne({ where: { roomId } })

@@ -7,10 +7,10 @@ const sequelize = new Sequelize(
 	connectDB.nameDB,
 	connectDB.loginDB,
 	connectDB.passwordDB, {
-		dialect: connectDB.typeDB,
-	}
+	dialect: connectDB.typeDB,
+}
 )
-class Accesories extends Sequelize.Model {}
+class Accesories extends Sequelize.Model { }
 
 
 module.exports.initialization = async () => {
@@ -25,11 +25,11 @@ module.exports.initialization = async () => {
 			type: Sequelize.BIGINT,
 			allowNull: false
 		},
-		accessoryTypeId: {
-			type: Sequelize.BIGINT,
+		accessoryName: {
+			type: Sequelize.STRING,
 			allowNull: false
 		},
-		accessoryName: {
+		accessoryType: {
 			type: Sequelize.STRING,
 			allowNull: false
 		}
@@ -43,14 +43,43 @@ module.exports.initialization = async () => {
 	})
 	return true
 }
+// create new record
+module.exports.create = async ({ roomId, accessoryName, accessoryType }) => {
+	await Accesories.create({
+		roomId,
+		accessoryName,
+		accessoryType
+	})
+		.catch(error => {
+			return error
+		})
+}
+// update record by id accessory
+module.exports.update = async ({ accessoryId, roomId, accessoryName, accessoryType }) => {
+	await Accesories.update({
+		roomId,
+		accessoryName,
+		accessoryType
+	}, {
+		where: { accessoryId }
+	})
+		.catch(error => {
+			return error
+		})
+}
+// delete record from table by id
+module.exports.delete = async (accessoryId) => {
+	await Accesories.destroy({ where: { accessoryId } })
+		.catch(error => {
+			return error
+		})
+}
+// return all record by one room
+module.exports.findByRoom = async (roomId) => {
+	return await Accesories.findAll({ where: { roomId } })
+}
 
-module.exports.create = async({roomId,accessoryTypeId,accessoryName})=>{
-await Accesories.create({
-	roomId,
-	accessoryTypeId,
-	accessoryName
-})
-.catch(error => {
-	return error
-})
+// return one by id
+module.exports.findOneByID = async (accessoryId) => {
+	return await Accesories.findOne({ where: { accessoryId } })
 }
