@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./temperature-reguleted.component.scss']
 })
 export class TemperatureReguletedComponent implements OnDestroy {
-
+  disable:boolean =false
   changeTempSub$!: Subscription
 constructor(
   private scenarioTempService: ScenarioTempService,
@@ -42,6 +42,7 @@ constructor(
   
 
   onChangeTemp():void{
+    this.disable =true
     //record new valus into data
     this.data.minTemp = this.minValue
     this.data.maxTemp = this.maxValue

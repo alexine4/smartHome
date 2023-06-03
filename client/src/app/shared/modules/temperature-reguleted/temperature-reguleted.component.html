@@ -4,7 +4,7 @@
 	<ngx-slider class="my-slider" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
 	</div>
 <div class="buttons">
-	<button class="button" (click)="dialogRef.close(false)">Cancel</button>
-	<button class="button" (click)="onChangeTemp()">Confirm</button>
+	<button class="button" [disabled]="disable" [ngClass]="{'hover-color': !disable}" (click)="dialogRef.close(false)">Cancel</button>
+	<button class="button" [disabled]="disable" [ngClass]="{'hover-color': !disable}" (click)="onChangeTemp()">Confirm</button>
 </div>
 </div>
