@@ -46,3 +46,18 @@ export interface User {
 	homeIp: string
 	superUserStatus?: boolean
 }
+
+export interface Accessory{
+	accessoryId: number
+	roomId:number
+	accessoryName: string
+	accessoryType: string
+}
+
+export interface Properties{
+	accessoryId: number
+	status:boolean
+	brightnessLevel?: number
+	volume?:number
+	ventilationRate?:number
+}
