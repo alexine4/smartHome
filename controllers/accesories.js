@@ -35,7 +35,7 @@ module.exports.getByRoom = async (req, res) => {
 	try {
 		await accessory.findByRoom(req.params.roomId).then(
 			Accessory => {
-				if (Accessory !==null) {
+				if (Accessory.length >1) {
 					//fast way
 					// not right method because we have many query to DB we must using query with join into model
 					for (let index = 0; index < Accessory.length; index++) {
@@ -52,7 +52,7 @@ module.exports.getByRoom = async (req, res) => {
 						)
 					}
 				}else{
-					res.status(200).json(Accessory)
+					res.status(200).json(null)
 				}
 			}
 		)

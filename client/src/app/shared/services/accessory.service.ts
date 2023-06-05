@@ -21,6 +21,6 @@ export class AccessoryService {
     return this.httpClient.delete<Message>(`/api/accesories/delete/${accessoryId}`).pipe(delay(this.delay))
   }
   public fetchAllByRoom(roomId: number):Observable<Accessory[]>{
-    return this.httpClient.get<Accessory[]>(`/api/accesories/${roomId}`).pipe(delay(this.delay))
+    return this.httpClient.get<Accessory[]>(`/api/accesories/getAccessory/${roomId}`).pipe(delay(this.delay))
   }
 }

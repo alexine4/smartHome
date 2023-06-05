@@ -23,7 +23,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   tempLoader: boolean = false
   tempScenarioLoader: boolean = false
   scenarioTempLoader: boolean = false
-  accessoryTempLoader: boolean = false
+  accessoryLoader: boolean = false
 
   // dialog windows variables
   dialogSub$!: Subscription
@@ -80,13 +80,16 @@ export class RoomComponent implements OnInit, OnDestroy {
         this.tempLoader = true
         //loaders to false for working of change room 
         this.tempScenarioLoader = false
-        this.scenarioTempLoader = false
-        this.accessoryTempLoader = false
+      
+       
         // getting all scenarios of temperature for active room
         this.getScenarioTemp()
         // getting active scenario of temperature for active room
+        this.scenarioTempLoader = false
         this.getActualScenario()
+        
         // getting all accesories for active room
+        this.accessoryLoader = false
         this.getAllAccesories()
       }
     )
@@ -110,7 +113,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       actual => {
         this.actualScenario = actual
         this.tempScenarioLoader = true
-
+      
       }
     )
   }
@@ -119,8 +122,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.accessorySub$ = this.accessoryService.fetchAllByRoom(this.pRoomId)
       .subscribe(
         Accesories => {
-          this.accesories = Accesories
-          this.accessoryTempLoader = true
+          this.accessoryLoader = true
+          if (Accesories !== null) {
+            this.accesories = Accesories
+          }
         }
       )
   }
@@ -194,7 +199,7 @@ export class RoomComponent implements OnInit, OnDestroy {
         roomId: this.pRoomId,
         status: '',
         brightnessLevel: null,
-        volume:null,
+        volume: null,
         ventilationRate: null
       },
       enterAnimationDuration: '1.5s',
@@ -203,7 +208,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
       status => {
         if (status) {
-          this.accessoryTempLoader = false
+          this.accessoryLoader = false
           this.getAllAccesories()
         }
       },
@@ -222,7 +227,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
       status => {
         if (status) {
-          this.accessoryTempLoader = false
+          this.accessoryLoader = false
           this.getAllAccesories()
         }
       },
@@ -235,6 +240,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     if (this.tempSub$) {
       this.tempSub$.unsubscribe()
+    }
+    if (this.accessorySub$) {
+      this.accessorySub$.unsubscribe()
     }
     if (this.dialogSub$) {
       this.dialogSub$.unsubscribe()
