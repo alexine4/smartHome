@@ -3,13 +3,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of, switchMap } from 'rxjs';
 import { TemperatureService } from '../shared/services/temperature.service';
-import { ScenarionTemp, Temperature } from '../shared/interfaces';
+import { Accessory, ScenarionTemp, Temperature } from '../shared/interfaces';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ScenarioTempService } from '../shared/services/scenario-temp.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ScenarioTempComponent } from '../shared/modules/scenario-temp/scenario-temp.component';
 import { TemperatureReguletedComponent } from '../shared/modules/temperature-reguleted/temperature-reguleted.component';
 import { AccessoryManegmentComponent } from '../shared/modules/accessory-manegment/accessory-manegment.component';
+import { AccessoryService } from '../shared/services/accessory.service';
 
 @Component({
   selector: 'app-room',
@@ -19,12 +20,16 @@ import { AccessoryManegmentComponent } from '../shared/modules/accessory-manegme
 export class RoomComponent implements OnInit, OnDestroy {
 
   // loader var
-  tempLoader:boolean = false
-  tempScenarioLoader:boolean = false
-  scenarioTempLoader:boolean = false
+  tempLoader: boolean = false
+  tempScenarioLoader: boolean = false
+  scenarioTempLoader: boolean = false
+  accessoryTempLoader: boolean = false
 
   // dialog windows variables
   dialogSub$!: Subscription
+
+  //accessory variables
+  accessory$!: Observable<Accessory[] | null>
 
   //scenario variables
   scenarioTemp$!: Observable<ScenarionTemp[] | null>
@@ -41,6 +46,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private accessoryService: AccessoryService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private scenarioTempService: ScenarioTempService,
@@ -51,8 +57,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-   //
-   this.addNewAccessory()
+   
   }
 
   //get actual temperature by room
@@ -76,10 +81,13 @@ export class RoomComponent implements OnInit, OnDestroy {
         //loaders to false for working of change room 
         this.tempScenarioLoader = false
         this.scenarioTempLoader = false
+        this.accessoryTempLoader = false
         // getting all scenarios of temperature for active room
         this.getScenarioTemp()
         // getting active scenario of temperature for active room
         this.getActualScenario()
+        // getting all accesories for active room
+        this.getAllAccesories()
       }
     )
   }
@@ -102,6 +110,16 @@ export class RoomComponent implements OnInit, OnDestroy {
       actual => {
         this.actualScenario = actual
         this.tempScenarioLoader = true
+
+      }
+    )
+  }
+  //get all accesories by room
+  private getAllAccesories(): void {
+    this.accessory$ = this.accessoryService.fetchAllByRoom(this.pRoomId)
+    this.accessory$.subscribe(
+      () => {
+        this.accessoryTempLoader = true
 
       }
     )
@@ -151,7 +169,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   //function hand change temperature
   public onChangeTemp(): void {
     const dialogRef = this.dialog.open(TemperatureReguletedComponent, {
-      data:this.actualScenario,
+      data: this.actualScenario,
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })
@@ -160,7 +178,7 @@ export class RoomComponent implements OnInit, OnDestroy {
         if (status) {
           this.scenarioTempLoader = false
           this.getScenarioTemp()
-        } 
+        }
       },
       error => {
         this.toast.error(error.error.message)
@@ -169,15 +187,26 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   // function open dialog window with parameters to add new accessory
-  public addNewAccessory():void{
+  public addNewAccessory(): void {
     const dialogRef = this.dialog.open(AccessoryManegmentComponent, {
-      data:{
+      data: {
         accessoryId: 0,
-        roomId:this.pRoomId
+        roomId: this.pRoomId
       },
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })
+    this.dialogSub$ = dialogRef.afterClosed().subscribe(
+      status => {
+        if (status) {
+          /* this.scenarioTempLoader = false
+          this.getScenarioTemp() */
+        }
+      },
+      error => {
+        this.toast.error(error.error.message)
+      }
+    )
   }
 
   public ngOnDestroy(): void {

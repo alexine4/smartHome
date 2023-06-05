@@ -78,6 +78,8 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
 
     }
   }
+
+  // function create/update accessory
   public OnSubmit(): void {
     //disable form
     this.accesoryForm.disable()
@@ -94,6 +96,7 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
     // create subsription to create new accessory
     this.accessorySub$ = this.accessoryService.create(newAccessory).subscribe(
       answer => {
+        this.dialogRef.close(true)
         this.toast.success(answer.message)
       },
       error => {
