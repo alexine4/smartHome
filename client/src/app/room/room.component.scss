@@ -339,8 +339,8 @@
 	// .button__status
 
 	&__status {
-		font-size: 28px;
-		line-height: 36/28 * 100%;
+		font-size: 22px;
+		line-height: 28/22 * 100%;
 		@media (max-width: $md4){
 			font-size: 18px;
 			}
@@ -363,6 +363,4 @@
 	border: 4px solid #07ffff;
 	opacity: 1;
 }
-.accesories{
-	opacity: 1;
-}
+

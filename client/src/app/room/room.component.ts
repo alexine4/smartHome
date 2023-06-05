@@ -29,7 +29,8 @@ export class RoomComponent implements OnInit, OnDestroy {
   dialogSub$!: Subscription
 
   //accessory variables
-  accessory$!: Observable<Accessory[] | null>
+  accesories!: Accessory[]
+  accessorySub$!: Subscription
 
   //scenario variables
   scenarioTemp$!: Observable<ScenarionTemp[] | null>
@@ -62,7 +63,6 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   //get actual temperature by room
   public getTemp(): void {
-
     this.temp$ = this.route.params
       .pipe(
         switchMap((params: Params) => {
@@ -116,11 +116,11 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
   //get all accesories by room
   private getAllAccesories(): void {
-    this.accessory$ = this.accessoryService.fetchAllByRoom(this.pRoomId)
-    this.accessory$.subscribe(
-      () => {
+    this.accessorySub$ = this.accessoryService.fetchAllByRoom(this.pRoomId)
+    .subscribe(
+      Accesories => { 
+        this.accesories = Accesories
         this.accessoryTempLoader = true
-
       }
     )
   }
@@ -199,8 +199,8 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
       status => {
         if (status) {
-          /* this.scenarioTempLoader = false
-          this.getScenarioTemp() */
+          this.accessoryTempLoader = false
+          this.getAllAccesories() 
         }
       },
       error => {

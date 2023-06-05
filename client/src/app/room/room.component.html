@@ -1,10 +1,22 @@
 <div
-  class="room__container custom-scrollbar "
-  [ngClass]="{ center: !tempLoader || !scenarioTempLoader ||!tempScenarioLoader }"
+  class="room__container custom-scrollbar"
+  [ngClass]="{
+    center:
+      !tempLoader ||
+      !scenarioTempLoader ||
+      !tempScenarioLoader ||
+      !accessoryTempLoader
+  }"
 >
   <div
     class="room__sections animation-show"
-    *ngIf="tempLoader && scenarioTempLoader && tempScenarioLoader; else loader"
+    *ngIf="
+      tempLoader &&
+        scenarioTempLoader &&
+        tempScenarioLoader &&
+        accessoryTempLoader;
+      else loader
+    "
   >
     <!-- temperature -->
     <section class="room__section section">
@@ -43,7 +55,7 @@
     </ng-template>
     <!-- scenarios -->
     <section class="room__section section">
-      <h2 class="section__title text-yellow icon-pansil">Scenarios</h2>
+      <h2 class="section__title text-yellow icon-alarm">Scenarios</h2>
       <div class="section__actions">
         <div class="section__buttons">
           <div
@@ -51,13 +63,25 @@
             *ngFor="let scenarioTemp of scenarioTemps"
             (click)="updateScenarioTemp(scenarioTemp)"
             [ngClass]="{
-              'text-red bg-green': scenarioTemp.timeStart >='08:00' && scenarioTemp.timeStart <'10:00',
-              'text-blue bg-pink': scenarioTemp.timeStart >='06:00' && scenarioTemp.timeStart <'08:00',
-              'text-viollet bg-red': scenarioTemp.timeStart >='10:00' && scenarioTemp.timeStart <'16:00',
-              'text-yellow bg-grey': scenarioTemp.timeStart >='16:00' && scenarioTemp.timeStart <'20:00',
-              'text-oringe bg-blue': scenarioTemp.timeStart >='20:00' && scenarioTemp.timeStart <'23:59',
-              'text-gray bg-yellow': scenarioTemp.timeStart >='00:00' && scenarioTemp.timeStart <'06:00',
-              'active': scenarioTemp.scenarioId === actualScenario?.scenarioId
+              'text-red bg-green':
+                scenarioTemp.timeStart >= '08:00' &&
+                scenarioTemp.timeStart < '10:00',
+              'text-blue bg-pink':
+                scenarioTemp.timeStart >= '06:00' &&
+                scenarioTemp.timeStart < '08:00',
+              'text-viollet bg-red':
+                scenarioTemp.timeStart >= '10:00' &&
+                scenarioTemp.timeStart < '16:00',
+              'text-yellow bg-grey':
+                scenarioTemp.timeStart >= '16:00' &&
+                scenarioTemp.timeStart < '20:00',
+              'text-oringe bg-blue':
+                scenarioTemp.timeStart >= '20:00' &&
+                scenarioTemp.timeStart < '23:59',
+              'text-gray bg-yellow':
+                scenarioTemp.timeStart >= '00:00' &&
+                scenarioTemp.timeStart < '06:00',
+              active: scenarioTemp.scenarioId === actualScenario?.scenarioId
             }"
           >
             <p class="button__text">{{ scenarioTemp.name | titlecase }}</p>
@@ -81,10 +105,51 @@
       <h2 class="section__title text-oringe icon-magic-wand">Accessories</h2>
       <div class="section__actions">
         <div class="section__buttons">
-          <div class="section__button button text-blue bg-red accesories">
-            <p class="button__text icon-tv">tv</p>
-            <p class="button__status text-gray">enable</p>
+          <div
+            *ngFor="let accessory of accesories"
+            class="section__button button "
+            [ngClass]="{
+              'bg-pink text-yellow': accessory.accessoryType === 'Tv',
+              ' bg-yellow text-viollet':
+                accessory.accessoryType === 'Lamp' ||
+                accessory.accessoryType === 'Lighting',
+              ' bg-green text-oringe':
+                accessory.accessoryType === 'Fan' ||
+                accessory.accessoryType === 'Extract',
+              ' bg-red text-blue': accessory.accessoryType === 'Socket',
+              'active': accessory.status
+            }"
+          >
+            <p
+              class="button__text"
+              [ngClass]="{
+                'icon-tv': accessory.accessoryType === 'Tv',
+                'icon-sun ':
+                  accessory.accessoryType === 'Lamp' ||
+                  accessory.accessoryType === 'Lighting',
+                'icon-loop2 ':
+                  accessory.accessoryType === 'Fan' ||
+                  accessory.accessoryType === 'Extract',
+                'icon-power ': accessory.accessoryType === 'Socket'
+              }"
+            >
+              {{ accessory.accessoryName }}
+            </p>
+            <p
+              class="button__status"
+              [ngClass]="{
+                'text-blue': accessory.status,
+                'text-red': !accessory.status
+              }"
+            >
+              {{ accessory.status ? "Enable" : "Disable" }}
+              <br>
+              {{ accessory.brightnessLevel !==null ? "Brightness level: "+ accessory.brightnessLevel : "" }}
+              {{ accessory.volume !==null ? "Volume: "+ accessory.volume : "" }}
+              {{ accessory.ventilationRate !==null ? "Ventilation rate: "+ accessory.ventilationRate : "" }}
+            </p>
           </div>
+          <!-- add new -->
           <div
             class="section__button button text-oringe bg-green"
             (click)="addNewAccessory()"
