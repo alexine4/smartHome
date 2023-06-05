@@ -52,10 +52,6 @@ export interface Accessory{
 	roomId:number
 	accessoryName: string
 	accessoryType: string
-}
-
-export interface Properties{
-	accessoryId: number
 	status:boolean
 	brightnessLevel?: number
 	volume?:number

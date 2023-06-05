@@ -137,7 +137,21 @@
     </section>
   </ul>
   <div class="form__buttons">
-    <div class="form__button" (click)="dialogRef.close(false)">Cancel</div>
-    <div class="form__button" (click)="OnSubmit()">Add New</div>
+    <button
+      class="form__button non-btn-style"
+      [disabled]="accesoryForm.disabled"
+      (click)="dialogRef.close(false)"
+      [ngClass]="{ 'hover-color': !accesoryForm.disabled }"
+    >
+      Cancel
+    </button>
+    <button
+      class="form__button non-btn-style"
+      [disabled]="accesoryForm.disabled "
+      (click)="OnSubmit()"
+      [ngClass]="{ 'hover-color': !accesoryForm.disabled }"
+    >
+      Add New
+    </button>
   </div>
 </form>

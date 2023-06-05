@@ -67,12 +67,15 @@
 		font-size: 20px;
 		line-height: 28/20 * 100%;
 		font-weight: 700;
-		@media (min-width: $md3) {
-			&:hover {
-				opacity: 1;
-				scale: 1.1;
-				animation: btnAnimation 1.5s ease forwards;
-			}
+		
+	}
+}
+.hover-color{
+	@media (min-width: $md3) {
+		&:hover {
+			opacity: 1;
+			scale: 1.1;
+			animation: btnAnimation 1.5s ease forwards;
 		}
 	}
 }
