@@ -11,6 +11,7 @@ const Passport = require('./middleware/passport')
 const initialilazationAll = require('./controllers/initializationDB')
 
 // init routes
+const accessoryRoutes = require('./routes/accessory')
 const authRoutes = require('./routes/auth')
 const typeRoutes = require('./routes/type')
 const tempRoutes = require('./routes/temperature')
@@ -41,6 +42,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 // write path of route and meneger route file
+app.use('/api/accesories', accessoryRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/types', typeRoutes)
 app.use('/api/rooms', roomRoutes)
