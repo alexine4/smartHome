@@ -171,7 +171,10 @@ export class RoomComponent implements OnInit, OnDestroy {
   // function open dialog window with parameters to add new accessory
   public addNewAccessory():void{
     const dialogRef = this.dialog.open(AccessoryManegmentComponent, {
-      data:{roomId:this.pRoomId},
+      data:{
+        accessoryId: 0,
+        roomId:this.pRoomId
+      },
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
     })

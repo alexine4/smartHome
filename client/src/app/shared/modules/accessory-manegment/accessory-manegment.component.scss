@@ -107,6 +107,7 @@
 		height: 45px;
 		width: 250px;
 		background: none;
+		color: #fff;
 		border: 4px solid #2bff00;
 		border-radius: 1000px;
 		font-size: 20px;
@@ -118,3 +119,57 @@
 		}
 	}
 }
+.form__error{
+	margin: 15px 0 0 0 ;
+
+}
+.form-error{
+	margin: 10px 0 0 0;
+	color: #d4c115;
+	font-size: 20px;
+	@media (max-width: $md4){
+	font-size: 14px;
+	}
+}
+// We need to use ::ng-deep to overcome view encapsulation
+.my-slider{
+margin: 40px 0;
+}
+::ng-deep {
+	.field .ngx-slider .ngx-slider-bar {
+		
+	  background: linear-gradient(90deg,blue,green,yellow,orange,red);
+	  height: 30px;
+	  border-radius: 25px;
+	}
+	.field .ngx-slider .ngx-slider-selection {
+	  background: transparent;
+	}
+ 
+	.field .ngx-slider .ngx-slider-pointer {
+	  width: 30px;
+	  height: 30px;
+	  top:0px; /* to remove the default positioning */
+	  bottom: 0;
+	 
+	  background-color: #18f310;
+	  border: 1px solid #000;
+	 border-radius: 50%;
+	 @media (min-width: $md2){
+	 &:hover{
+	 scale: 1.2;
+	 }
+	 }
+	}
+ 
+	.field .ngx-slider .ngx-slider-pointer:after {
+	  display: none;
+	}
+	.field .ngx-slider .ngx-slider-bubble.ngx-slider-limit{
+		color: #7df1ec;
+	}
+	.field .ngx-slider .ngx-slider-bubble{
+		color: #fff;
+	}
+ 
+ }

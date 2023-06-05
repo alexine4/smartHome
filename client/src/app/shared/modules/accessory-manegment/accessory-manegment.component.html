@@ -1,18 +1,143 @@
-
-<form class="form__container">
-	<h2 class="form__title">Add new acceessory</h2>
-	<ul class="form__fields">
-		<section class="form__field field">
-			<label class="field__label">Name</label>
-			<input type="text" class="field__input"  placeholder="Name">
-		</section>
-		<section class="form__field field">
-			<label class="field__label">type</label>
-			<input type="text" class="field__input"  placeholder="type">
-		</section>
-	</ul>
-	<div class="form__buttons">
-		<div class="form__button" (click)="dialogRef.close(false)">Cancel</div>
-		<div class="form__button">Add New</div>
-	</div>
+<form [formGroup]="accesoryForm" class="form__container">
+  <h2 class="form__title">
+    {{ conditionMode === "update" ? "Update " : "Add new " }} acceessory
+  </h2>
+  <ul class="form__fields">
+    <!-- Name -->
+    <section class="form__field field">
+      <label class="field__label">Name</label>
+      <input
+        formControlName="accessoryName"
+        type="text"
+        class="field__input"
+        placeholder="Name"
+      />
+      <p
+        class="form__error"
+        *ngIf="
+          this.accesoryForm.get('accessoryName')?.invalid &&
+          this.accesoryForm.get('accessoryName')?.touched
+        "
+      >
+        <small
+          *ngIf="this.accesoryForm.get('accessoryName')?.value === ''"
+          class="form-error animation-show"
+        >
+          Field must not been empty!
+        </small>
+        <small
+          *ngIf="this.accesoryForm.get('accessoryName')?.invalid"
+          class="form-error animation-show"
+        >
+          Min length name 2 symbols
+        </small>
+      </p>
+    </section>
+    <!--  Type -->
+    <section class="form__field field">
+      <label class="field__label">Type</label>
+      <input
+        formControlName="accessoryType"
+        list="types"
+        class="field__input"
+        placeholder="Type"
+      />
+      <datalist id="types" class="field__input-list">
+        <option class="option" value="Tv"></option>
+        <option class="option" value="Fan"></option>
+        <option class="option" value="Lamp"></option>
+        <option class="option" value="Extract"></option>
+        <option class="option" value="Lighting"></option>
+        <option class="option" value="Socket"></option>
+      </datalist>
+      <p
+        class="form__error"
+        *ngIf="
+          this.accesoryForm.get('accessoryType')?.invalid &&
+          this.accesoryForm.get('accessoryType')?.touched
+        "
+      >
+        <small
+          *ngIf="this.accesoryForm.get('accessoryType')?.value === ''"
+          class="form-error animation-show"
+        >
+          Field must not been empty!
+        </small>
+      </p>
+    </section>
+    <!-- Status -->
+    <section class="form__field field">
+      <label class="field__label">Status</label>
+      <input
+        formControlName="status"
+        list="Status"
+        class="field__input"
+        placeholder="Status"
+      />
+      <datalist id="Status" class="field__input-list">
+        <option class="option" value="Disable"></option>
+        <option class="option" value="Enable"></option>
+      </datalist>
+      <p
+        class="form__error"
+        *ngIf="
+          this.accesoryForm.get('status')?.invalid &&
+          this.accesoryForm.get('status')?.touched
+        "
+      >
+        <small
+          *ngIf="this.accesoryForm.get('status')?.value === ''"
+          class="form-error animation-show"
+        >
+          Field must not been empty!
+        </small>
+      </p>
+    </section>
+    <!--  Brightness Level -->
+    <section
+      *ngIf="
+        this.accesoryForm.get('accessoryType')?.value === 'Lamp' ||
+        this.accesoryForm.get('accessoryType')?.value === 'Lighting'
+      "
+      class="form__field field animation-show"
+    >
+      <label class="field__label">Brightness Level</label>
+      <ngx-slider
+        class="my-slider"
+        formControlName="brightnessLevel"
+        [options]="options1"
+      ></ngx-slider>
+    </section>
+    <!-- Volume -->
+    <section
+      *ngIf="this.accesoryForm.get('accessoryType')?.value === 'Tv'"
+      class="form__field field animation-show"
+    >
+      <label class="field__label">Volume</label>
+      <ngx-slider
+        class="my-slider"
+        formControlName="volume"
+        [options]="options"
+      ></ngx-slider>
+    </section>
+    <!-- Ventilation Rate -->
+    <section
+      *ngIf="
+        this.accesoryForm.get('accessoryType')?.value === 'Fan' ||
+        this.accesoryForm.get('accessoryType')?.value === 'Extract'
+      "
+      class="form__field field animation-show"
+    >
+      <label class="field__label">Ventilation Rate</label>
+      <ngx-slider
+        class="my-slider"
+        formControlName="ventilationRate"
+        [options]="options1"
+      ></ngx-slider>
+    </section>
+  </ul>
+  <div class="form__buttons">
+    <div class="form__button" (click)="dialogRef.close(false)">Cancel</div>
+    <div class="form__button" (click)="OnSubmit()">Add New</div>
+  </div>
 </form>
