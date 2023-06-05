@@ -48,8 +48,9 @@ module.exports.initialization = async () => {
 	return true
 }
 // create new record
-module.exports.create = async ({ status, brightnessLevel, volume, ventilationRate }) => {
+module.exports.create = async ({accessoryId, status, brightnessLevel, volume, ventilationRate }) => {
 	await Properties.create({
+		accessoryId,
 		status,
 		brightnessLevel,
 		volume,

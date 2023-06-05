@@ -86,7 +86,7 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
       roomId: this.data.roomId,
       accessoryName: this.accesoryForm.value.accessoryName,
       accessoryType: this.accesoryForm.value.accessoryType,
-      status: this.accesoryForm.value.status,
+      status: this.accesoryForm.value.status ==='Enable'? true:false,
       brightnessLevel: this.accesoryForm.value.brightnessLevel,
       volume: this.accesoryForm.value.volume,
       ventilationRate: this.accesoryForm.value.ventilationRate
