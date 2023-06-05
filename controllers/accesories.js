@@ -60,3 +60,34 @@ module.exports.getByRoom = async (req, res) => {
 		errorHandler(error)
 	}
 }
+
+module.exports.updateByID = async(req,res)=>{
+try {
+	await accessory.update(req.params.accessoryId,req.body).then(
+		()=>{
+			properties.update(req.body).then(
+				()=>{
+					res.status(202).json({message:'Accessory updated successfully'})
+				}
+			)
+		}
+	)
+} catch (error) {
+	errorHandler(error)
+}
+}
+module.exports.deleteByID = async(req,res)=>{
+try {
+	await accessory.delete(req.params.accessoryId).then(
+		()=>{
+			properties.deleteByAccessory(req.params.accessoryId).then(
+				()=>{
+					res.status(200).json({message:'Accessory deleted successfully'})
+				}
+			)
+		}
+	)
+} catch (error) {
+	errorHandler(error)
+}
+}

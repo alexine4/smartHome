@@ -55,7 +55,7 @@ module.exports.create = async ({ roomId, accessoryName, accessoryType }) => {
 		})
 }
 // update record by id accessory
-module.exports.update = async ({ accessoryId, roomId, accessoryName, accessoryType }) => {
+module.exports.update = async (accessoryId,{  roomId, accessoryName, accessoryType }) => {
 	await Accesories.update({
 		roomId,
 		accessoryName,

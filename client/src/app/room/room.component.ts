@@ -58,7 +58,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-   
+
   }
 
   //get actual temperature by room
@@ -117,12 +117,12 @@ export class RoomComponent implements OnInit, OnDestroy {
   //get all accesories by room
   private getAllAccesories(): void {
     this.accessorySub$ = this.accessoryService.fetchAllByRoom(this.pRoomId)
-    .subscribe(
-      Accesories => { 
-        this.accesories = Accesories
-        this.accessoryTempLoader = true
-      }
-    )
+      .subscribe(
+        Accesories => {
+          this.accesories = Accesories
+          this.accessoryTempLoader = true
+        }
+      )
   }
   // open dialog window for enter data for create new temperature scenario
   public addNewScenarioTemp(): void {
@@ -191,7 +191,11 @@ export class RoomComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AccessoryManegmentComponent, {
       data: {
         accessoryId: 0,
-        roomId: this.pRoomId
+        roomId: this.pRoomId,
+        status: '',
+        brightnessLevel: null,
+        volume:null,
+        ventilationRate: null
       },
       enterAnimationDuration: '1.5s',
       exitAnimationDuration: '1.5s',
@@ -200,7 +204,26 @@ export class RoomComponent implements OnInit, OnDestroy {
       status => {
         if (status) {
           this.accessoryTempLoader = false
-          this.getAllAccesories() 
+          this.getAllAccesories()
+        }
+      },
+      error => {
+        this.toast.error(error.error.message)
+      }
+    )
+  }
+  // function open dialog window with parameters to updade/delete accessory by id
+  public onUpdateAccessory(accessory: Accessory): void {
+    const dialogRef = this.dialog.open(AccessoryManegmentComponent, {
+      data: accessory,
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
+    })
+    this.dialogSub$ = dialogRef.afterClosed().subscribe(
+      status => {
+        if (status) {
+          this.accessoryTempLoader = false
+          this.getAllAccesories()
         }
       },
       error => {

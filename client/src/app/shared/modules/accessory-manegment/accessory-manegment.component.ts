@@ -59,13 +59,14 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
+
     this.accesoryForm = new FormGroup({
-      accessoryName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      accessoryType: new FormControl('', [Validators.required, Validators.minLength(1)]),
-      status: new FormControl('', [Validators.required]),
-      brightnessLevel: new FormControl(null, [Validators.required, Validators.max(5), Validators.min(0)]),
-      volume: new FormControl(null, [Validators.required, Validators.max(100), Validators.min(0)]),
-      ventilationRate: new FormControl(null, [Validators.required, Validators.max(5), Validators.min(0)])
+      accessoryName: new FormControl(this.data.accessoryName, [Validators.required, Validators.minLength(2)]),
+      accessoryType: new FormControl(this.data.accessoryType, [Validators.required, Validators.minLength(1)]),
+      status: new FormControl(this.data.status ? 'Enable' : 'Disable', [Validators.required]),
+      brightnessLevel: new FormControl(this.data.brightnessLevel, [Validators.required, Validators.max(5), Validators.min(0)]),
+      volume: new FormControl(this.data.volume, [Validators.required, Validators.max(100), Validators.min(0)]),
+      ventilationRate: new FormControl(this.data.ventilationRate, [Validators.required, Validators.max(5), Validators.min(0)])
     })
     // check what mode need using and change active mode
     switch (this.data.accessoryId) {
@@ -88,27 +89,64 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
       roomId: this.data.roomId,
       accessoryName: this.accesoryForm.value.accessoryName,
       accessoryType: this.accesoryForm.value.accessoryType,
-      status: this.accesoryForm.value.status ==='Enable'? true:false,
+      status: this.accesoryForm.value.status === 'Enable' ? true : false,
       brightnessLevel: this.accesoryForm.value.brightnessLevel,
       volume: this.accesoryForm.value.volume,
       ventilationRate: this.accesoryForm.value.ventilationRate
     }
-    // create subsription to create new accessory
-    this.accessorySub$ = this.accessoryService.create(newAccessory).subscribe(
-      answer => {
-        this.dialogRef.close(true)
-        this.toast.success(answer.message)
-      },
-      error => {
-        this.accesoryForm.enable()
-        this.toast.error(error.error.message)
-      },
-      () => {
-        this.accesoryForm.enable()
-      }
-    )
+    switch (this.conditionMode) {
+      case 'create':
+        // create subsription to create new accessory
+        this.accessorySub$ = this.accessoryService.create(newAccessory).subscribe(
+          answer => {
+            this.dialogRef.close(true)
+            this.toast.success(answer.message)
+          },
+          error => {
+            this.accesoryForm.enable()
+            this.toast.error(error.error.message)
+          },
+          () => {
+            this.accesoryForm.enable()
+          }
+        )
+        break;
+        case 'update':
+          // create subsription to update accessory
+        this.accessorySub$ = this.accessoryService.update(newAccessory).subscribe(
+          answer => {
+            this.dialogRef.close(true)
+            this.toast.success(answer.message)
+          },
+          error => {
+            this.accesoryForm.enable()
+            this.toast.error(error.error.message)
+          },
+          () => {
+            this.accesoryForm.enable()
+          }
+        )
+          break;
+    }
+
   }
 
+  public OnDelete(): void {
+    this.accesoryForm.disable()
+    this.accessorySub$ = this.accessoryService.delete(this.data.accessoryId).subscribe(
+    answer=>{
+      this.toast.success(answer.message)
+      this.dialogRef.close(true)
+    },
+    error=>{
+    this.accesoryForm.enable()
+     this.toast.error(error.error.message)
+    },
+    ()=>{
+    this.accesoryForm.enable()
+    }
+    )
+  }
   public ngOnDestroy(): void {
     if (this.accessorySub$) {
       this.accessorySub$.unsubscribe()

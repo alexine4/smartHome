@@ -146,12 +146,21 @@
       Cancel
     </button>
     <button
+    *ngIf="conditionMode === 'update'"
+      class="form__button non-btn-style"
+      [disabled]="accesoryForm.disabled "
+      (click)="OnDelete()"
+      [ngClass]="{ 'hover-color': !accesoryForm.disabled }"
+    >
+      Delete
+    </button>
+    <button
       class="form__button non-btn-style"
       [disabled]="accesoryForm.disabled "
       (click)="OnSubmit()"
       [ngClass]="{ 'hover-color': !accesoryForm.disabled }"
     >
-      Add New
+    {{ conditionMode === "update" ? "Update " : "Add new " }}
     </button>
   </div>
 </form>

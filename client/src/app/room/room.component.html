@@ -108,6 +108,7 @@
           <div
             *ngFor="let accessory of accesories"
             class="section__button button "
+            (click)="onUpdateAccessory(accessory)"
             [ngClass]="{
               'bg-pink text-yellow': accessory.accessoryType === 'Tv',
               ' bg-yellow text-viollet':
@@ -133,7 +134,7 @@
                 'icon-power ': accessory.accessoryType === 'Socket'
               }"
             >
-              {{ accessory.accessoryName }}
+              {{ accessory.accessoryName | titlecase }}
             </p>
             <p
               class="button__status"
