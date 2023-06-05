@@ -78,6 +78,10 @@ module.exports.delete = async (accessoryId) => {
 module.exports.findByRoom = async (roomId) => {
 	return await Accesories.findAll({ where: { roomId } })
 }
+// return one record by room and name
+module.exports.findByRoomAndName = async ({roomId,accessoryName}) => {
+	return await Accesories.findOne({ where: { roomId,accessoryName } })
+}
 
 // return one by id
 module.exports.findOneByID = async (accessoryId) => {
