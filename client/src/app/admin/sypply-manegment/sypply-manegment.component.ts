@@ -16,8 +16,8 @@ export class SypplyManegmentComponent {
 
   loading = false
   loadType = false
-  types!: Type[]
-
+  sypplyId: number = 0
+  houseId: number = 0
   sypplies: Sypply[] = []
 
   typeSub$!: Subscription
@@ -41,16 +41,8 @@ export class SypplyManegmentComponent {
       sypplyAccount: new FormControl(null, [Validators.required, Validators.pattern(/^\d{10}$/)])
     })
 
-    this.sypplyForm.disable()
-    //fetch all types
-    this.typeSub$ = this.typeService.fetchAll().subscribe(
-      Types => {
-        this.sypplyForm.enable()
-        this.types = Types
-      },
-      error => this.toast.error(error.error.massege)
-    )
-    //fetch all rooms
+
+    //fetch all sypplies
     this.fetchSypplies()
 
 
@@ -70,22 +62,26 @@ export class SypplyManegmentComponent {
     )
   }
   // function take rooms and type from list 
-  public takeRoom(roomName: string, typeName: string): void {
-    if (this.sypplyForm.value.newRoomName !== '') {
-      this.sypplyForm.setValue({ roomName, typeName, newRoomName: this.sypplyForm.value.newRoomName })
-    } else {
-      this.sypplyForm.setValue({ roomName, typeName, newRoomName: roomName })
-    }
+  public takeSypply(sypply: Sypply): void {
+    this.sypplyId = sypply.sypplyId
+    this.houseId = sypply.houseId
+    this.sypplyForm.setValue({
+      sypplyName: sypply.sypplyName,
+      sypplyType: sypply.sypplyType,
+      status: sypply.status ? 'Enabled' : 'Disabled',
+      tarif: sypply.tarif,
+      sypplyAccount: sypply.sypplyAccount
+    })
+
   }
   // function create new room
   public createSypply(): void {
- 
-    
+
+
     //disable form
     this.sypplyForm.disable()
     const newSypply = this.sypplyForm.value
-    newSypply.status = this.sypplyForm.value==='Enabled'?true:false
-    console.log(newSypply);
+    newSypply.status = this.sypplyForm.value === 'Enabled' ? true : false
     // create new sub on creating new room
     this.createSub$ = this.sypplyService.create(newSypply).subscribe(
       answer => {
@@ -102,74 +98,67 @@ export class SypplyManegmentComponent {
     )
   }
 
-  /*   // update room
-    public updateRoom(): void {
-      // form disable
-      this.sypplyForm.disable()
-      // take type by name
-      const type = this.takeTypeByName(this.sypplyForm.value.typeName)
-      // take room by name
-      const room = this.rooms.find(room => {
-        return room.roomName === this.sypplyForm.value.roomName
-      })
-      // create new var
-      let newRoom!: Room
-      if(type &&room){
-        newRoom={
-          roomId:room.roomId,
-          roomName: this.sypplyForm.value.roomName,
-          typeId: type.typeId,
-          newRoomName: this.sypplyForm.value.newRoomName
-        }
-      } 
-      // update on subsrubing   
-      this.updateSub$ = this.roomService.update(newRoom).subscribe(
-      message=>{
+  // update sypply
+  public updateSypply(): void {
+    // form disable
+    this.sypplyForm.disable()
+    
+    const newSypply: Sypply ={
+      sypplyId:this.sypplyId,
+      sypplyName: this.sypplyForm.value.sypplyName,
+      sypplyType: this.sypplyForm.value.sypplyType,
+      status: this.sypplyForm.value.status=== 'Enabled' ? true : false,
+      tarif: this.sypplyForm.value.tarif,
+      sypplyAccount: this.sypplyForm.value.sypplyAccount,
+      houseId: this.houseId
+    }
+    if (this.sypplyId===0) {
+      this.toast.error("Update error please take sypply from list")
+    }else{
+  // update on subsrubing   
+  this.updateSub$ = this.sypplyService.update(newSypply).subscribe(
+    message => {
       //update element into array
-      this.rooms=[]
-      this.fetchRooms()
+      this.sypplies = []
+      this.fetchSypplies()
+      this.toast.success(message.message)
+    },
+    error => {
+      this.sypplyForm.enable()
+      this.toast.error(error.error.message)
+    },
+    () => {
+      this.sypplyForm.enable()
+    }
+  )
+    }
+  
+  }
+  
+  //delete sypply
+  public deleteSypply(): void {
+    if (this.sypplyId===0) {
+      this.toast.error("Delete error please take sypply from list")
+    }else{
+      this.deleteSub$ = this.sypplyService.delete(this.sypplyId).subscribe(
+      message=>{
+        //delete element from array
+      this.sypplies = this.sypplies.filter(item => item['sypplyId'] !== this.sypplyId);
       this.toast.success(message.message)
       },
       error=>{
       this.sypplyForm.enable()
-       this.toast.error(error.error.message)
+      this.toast.error(error.error.message)
       },
       ()=>{
       this.sypplyForm.enable()
       }
       )
     }
-    //delete room
-    public deleteRoom(): void {
-      this.sypplyForm.disable()
-      const room = this.rooms.find(room => {
-        return room.roomName === this.sypplyForm.value.roomName
-      })
-      if (room) {
-        this.deleteSub$ = this.roomService.delete(room.roomId).subscribe(
-        message=>{
-          //delete element from array
-        this.rooms = this.rooms.filter(item => item['roomId'] !== room.roomId);
-        this.toast.success(message.message)
-        },
-        error=>{
-        this.sypplyForm.enable()
-        this.toast.error(error.error.message)
-        },
-        ()=>{
-        this.sypplyForm.enable()
-        }
-        )
-      }
-      
-    } */
-  // take type by name from array
-  private takeTypeByName(typeName: string): Type | undefined {
-    const type = this.types.find(type => {
-      return type.typeName === typeName
-    })
-    return type
-  }
+  
+    
+  } 
+
   //unsubscribing all 
   ngOnDestroy(): void {
     if (this.createSub$) {

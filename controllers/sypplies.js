@@ -34,3 +34,28 @@ try {
 	errorHandler(error)
 }
 }
+
+//update sypply
+module.exports.updateById = async(req,res)=>{
+try {
+	await sypplies.updateById(req.params.sypplyId,req.body).then(
+		()=>{
+			res.status(200).json({message:'Sypply successfully updated'})
+		}
+	)
+} catch (error) {
+	errorHandler(error)
+}
+}
+//delete sypply
+module.exports.deleteById = async(req,res)=>{
+try {
+	await sypplies.deleteById(req.params.sypplyId,req.user.houseId).then(
+		()=>{
+			res.status(200).json({message:'Sypply successfully deleted'})
+		}
+	)
+} catch (error) {
+	errorHandler(error)
+}
+}

@@ -7,10 +7,10 @@ const sequelize = new Sequelize(
 	connectDB.nameDB,
 	connectDB.loginDB,
 	connectDB.passwordDB, {
-		dialect: connectDB.typeDB,
-	}
+	dialect: connectDB.typeDB,
+}
 )
-class Sypplys extends Sequelize.Model {}
+class Sypplys extends Sequelize.Model { }
 
 
 module.exports.initialization = async () => {
@@ -56,36 +56,58 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async(houseId,{sypplyName,sypplyType,status,tarif,sypplyAccount})=>{
-await Sypplys.create({
-	houseId,
-	sypplyName,
-	sypplyType,
-	status,
-	tarif,
-	sypplyAccount
-})
-.catch(error => {
-	return error
-})
+module.exports.create = async (houseId, { sypplyName, sypplyType, status, tarif, sypplyAccount }) => {
+	await Sypplys.create({
+		houseId,
+		sypplyName,
+		sypplyType,
+		status,
+		tarif,
+		sypplyAccount
+	})
+		.catch(error => {
+			return error
+		})
 }
 
-module.exports.findByName = async(houseId,{sypplyName})=>{
-return await Sypplys.findOne(
-	{
-		where:{
-			houseId,
-			sypplyName
+module.exports.findByName = async (houseId, { sypplyName }) => {
+	return await Sypplys.findOne(
+		{
+			where: {
+				houseId,
+				sypplyName
+			}
 		}
-	}
-)
+	)
 }
-module.exports.findAll = async(houseId)=>{
-return await Sypplys.findAll(
-	{
-		where:{
-			houseId
+module.exports.findAll = async (houseId) => {
+	return await Sypplys.findAll(
+		{
+			where: {
+				houseId
+			}
 		}
-	}
-)
+	)
+}
+
+module.exports.updateById = async (sypplyId, { houseId, sypplyName, sypplyType, status, tarif, sypplyAccount }) => {
+	await Sypplys.update(
+		{
+			sypplyName,
+			sypplyType,
+			status,
+			tarif,
+			sypplyAccount
+		},
+		{
+			where:
+			{
+				sypplyId,
+				houseId
+			}
+		}
+	)
+}
+module.exports.deleteById = async(sypplyId,houseId)=>{
+await Sypplys.destroy({where:{sypplyId,houseId}})
 }
