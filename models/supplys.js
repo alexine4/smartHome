@@ -21,23 +21,15 @@ module.exports.initialization = async () => {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		limitId: {
-			type: Sequelize.BIGINT,
-			allowNull: true
-		},
-		usingId: {
-			type: Sequelize.BIGINT,
-			allowNull: true
-		},
-		calcId: {
-			type: Sequelize.BIGINT,
-			allowNull: true
-		},
 		houseId: {
 			type: Sequelize.BIGINT,
 			allowNull: false
 		},
 		sypplyName: {
+			type: Sequelize.STRING,
+			allowNull: false
+		},
+		sypplyType: {
 			type: Sequelize.STRING,
 			allowNull: false
 		},
@@ -64,13 +56,11 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async({limitId,usingId,calcId,houseId,sypplyName,status,tarif,sypplyAccount})=>{
+module.exports.create = async(houseId,{sypplyName,sypplyType,status,tarif,sypplyAccount})=>{
 await Sypplys.create({
-	limitId,
-	usingId,
 	houseId,
-	calcId,
 	sypplyName,
+	sypplyType,
 	status,
 	tarif,
 	sypplyAccount
@@ -78,4 +68,24 @@ await Sypplys.create({
 .catch(error => {
 	return error
 })
+}
+
+module.exports.findByName = async(houseId,{sypplyName})=>{
+return await Sypplys.findOne(
+	{
+		where:{
+			houseId,
+			sypplyName
+		}
+	}
+)
+}
+module.exports.findAll = async(houseId)=>{
+return await Sypplys.findAll(
+	{
+		where:{
+			houseId
+		}
+	}
+)
 }

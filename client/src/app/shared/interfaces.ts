@@ -57,3 +57,32 @@ export interface Accessory{
 	volume?:number
 	ventilationRate?:number
 }
+
+export interface Sypply{
+	sypplyId: number
+	houseId: number
+	sypplyName: string
+	sypplyType: string
+	status: boolean
+	tarif: number
+	sypplyAccount: number
+}
+
+export interface Limit{
+	sypplyId: number
+	perDay: number
+	perMonth: number
+}
+
+export interface Calculation{
+	sypplyId: number
+	amount:number
+	cost: number
+	createdAt:string
+}
+
+export interface Using {
+	sypplyId:number
+	amount:number
+	createdAt:string
+}

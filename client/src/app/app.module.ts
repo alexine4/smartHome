@@ -32,6 +32,9 @@ import { AuthGuard } from './shared/classes/auth.guard';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { TemperatureReguletedComponent } from './shared/modules/temperature-reguleted/temperature-reguleted.component';
 import { AccessoryManegmentComponent } from './shared/modules/accessory-manegment/accessory-manegment.component';
+import { SypplyComponent } from './sypply/sypply.component';
+import { SypplyManegmentComponent } from './admin/sypply-manegment/sypply-manegment.component';
+import { SypplyMenuComponent } from './sypply-menu/sypply-menu.component';
 
 
 
@@ -58,6 +61,9 @@ import { AccessoryManegmentComponent } from './shared/modules/accessory-manegmen
     ScenarioTempComponent,
     TemperatureReguletedComponent,
     AccessoryManegmentComponent,
+    SypplyComponent,
+    SypplyManegmentComponent,
+    SypplyMenuComponent,
   ],
   imports: [
     AppRoutingModule,

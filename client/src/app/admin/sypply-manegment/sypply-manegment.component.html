@@ -1,0 +1,280 @@
+<div class="container animation-show custom-scrollbar">
+	<section *ngIf="loading; else loader" class="form animation-show">
+	  <div class="form__title">Sypplies Management</div>
+	  <ul class="form__list">
+		 <div
+			*ngIf="sypplies; else loader"
+			class="list-container"
+			[ngClass]="{ 'scroll custom-scrollbar': sypplies.length > 8}"
+		 >
+			<li *ngIf="sypplies.length > 0; else loader" class="positions">
+			  <div *ngFor="let sypply of sypplies" class="position">
+				 <label class="position__title">sypply:</label>
+				 <div
+					class="position__name"
+					
+					[ngClass]="{
+					  'icon-fire': sypply.sypplyType == 'Gas',
+					  'icon-power': sypply.sypplyType == 'Electricity',
+					  'icon-sun': sypply.sypplyType == 'Heat',
+					  'icon-droplet': sypply.sypplyType == 'Water',
+					  'icon-youtube': sypply.sypplyType == 'Internet'
+					}"
+				 >
+					{{ sypply.sypplyName | titlecase }}
+				 </div>
+			  </div>
+			</li>
+		 </div>
+	  </ul>
+	  <form [formGroup]="sypplyForm" class="form__fields">
+		<!-- name -->
+		 <div class="form__field field ">
+			<label class="field__title">Sypply name</label>
+			<input
+			  formControlName="sypplyName"
+			  
+			  type="text"
+			  class="field__input"
+			  placeholder="Enter sypply name"
+			  [ngClass]="{
+				 'border-red':
+					this.sypplyForm.get('sypplyName')?.invalid &&
+					this.sypplyForm.get('sypplyName')?.touched
+			  }"
+			/>
+			<p
+			  class="form__error"
+			  *ngIf="
+				 this.sypplyForm.get('sypplyName')?.invalid &&
+				 this.sypplyForm.get('sypplyName')?.touched
+			  "
+			>
+			  <small
+				 *ngIf="this.sypplyForm.get('sypplyName')?.value === ''"
+				 class="form-error animation-show"
+			  >
+				 Form must not been empty!
+			  </small>
+			  <small
+				 *ngIf="this.sypplyForm.get('sypplyName')?.invalid"
+				 class="form-error animation-show"
+			  >
+				 Min length name 3 symbols
+			  </small>
+			</p>
+		 </div>
+		 <!-- type -->
+		 <div class="form__field field">
+			<label class="field__title">Sypply Type</label>
+			<input
+			  formControlName="sypplyType"
+			  list="types"
+			  class="field__input"
+			  placeholder="Enter type"
+			  [ngClass]="{
+				 'border-red':
+					this.sypplyForm.get('sypplyType')?.invalid &&
+					this.sypplyForm.get('sypplyType')?.touched
+			  }"
+			/>
+			<datalist id="types" class="field__input-list">
+				<option class="option" value="Gas "></option>
+				<option class="option" value="Electricity"></option>
+				<option class="option" value="Heat"></option>
+				<option class="option" value="Water"></option>
+				<option class="option" value="Internet"></option>
+			 </datalist>
+			<p
+			  class="form__error"
+			  *ngIf="
+				 this.sypplyForm.get('sypplyType')?.invalid &&
+				 this.sypplyForm.get('sypplyType')?.touched
+			  "
+			>
+			  <small
+				 *ngIf="this.sypplyForm.get('sypplyType')?.invalid"
+				 class="form-error animation-show"
+			  >
+			  Select one of list
+			  </small>
+			</p>
+		 </div>
+		<!--  status -->
+		 <div class="form__field field">
+			<label class="field__title">Status</label>
+			<input
+			  formControlName="status"
+			  list="status"
+			  class="field__input"
+			  placeholder="Enter status"
+			  [ngClass]="{
+				 'border-red':
+					this.sypplyForm.get('status')?.value === '' &&
+					this.sypplyForm.get('status')?.touched
+			  }"
+			/>
+			<datalist id="types" class="field__input-list">
+				<option class="option" value="Enabled "></option>
+				<option class="option" value="Disabled"></option>
+			 </datalist>
+			<p
+			  class="form__error"
+			  *ngIf="
+				 this.sypplyForm.get('status')?.invalid &&
+				 this.sypplyForm.get('status')?.touched
+			  "
+			>
+			  <small
+				 *ngIf="this.sypplyForm.get('status')?.value === ''"
+				 class="form-error animation-show"
+			  >
+				 Select one of list
+			  </small>
+			</p>
+		 </div>
+		 <!-- Sypply Account -->
+		 <div class="form__field field">
+			<label class="field__title">Sypply Account</label>
+			<input
+			  formControlName="sypplyAccount"
+			  type="number"
+			  class="field__input"
+			  placeholder="Enter sypply account"
+			  [ngClass]="{
+				 'border-red':
+				 	(this.sypplyForm.get('sypplyAccount')?.invalid||
+					this.sypplyForm.get('sypplyAccount')?.value === null) &&
+					this.sypplyForm.get('sypplyAccount')?.touched
+			  }"
+			/>
+			<p
+			  class="form__error"
+			  *ngIf="
+				 this.sypplyForm.get('sypplyAccount')?.invalid &&
+				 this.sypplyForm.get('sypplyAccount')?.touched
+			  "
+			>
+			  <small
+				 *ngIf="this.sypplyForm.get('sypplyAccount')?.value === null"
+				 class="form-error animation-show"
+			  >
+					The form must been filled out
+			  </small>
+			  <small
+				 *ngIf="this.sypplyForm.get('sypplyAccount')?.invalid"
+				 class="form-error animation-show"
+			  >
+			  The account must have 10 digits
+			  </small>
+			</p>
+		 </div>
+		 <!-- tarif -->
+		 <div class="form__field field">
+			<label class="field__title">Tarif</label>
+			<input
+			  formControlName="tarif"
+			  type="number"
+			  class="field__input"
+			  placeholder="Enter tarif"
+			  [ngClass]="{
+				 'border-red':
+				 	(this.sypplyForm.get('tarif')?.invalid||
+					this.sypplyForm.get('tarif')?.value === null) &&
+					this.sypplyForm.get('tarif')?.touched
+			  }"
+			/>
+			<p
+			  class="form__error"
+			  *ngIf="
+				 this.sypplyForm.get('tarif')?.invalid &&
+				 this.sypplyForm.get('tarif')?.touched
+			  "
+			>
+			  <small
+				 *ngIf="this.sypplyForm.get('tarif')?.value === null"
+				 class="form-error animation-show"
+			  >
+					The form must been filled out
+			  </small>
+			  <small
+				 *ngIf="this.sypplyForm.get('tarif')?.invalid"
+				 class="form-error animation-show"
+			  >
+					Number must been more then 0
+			  </small>
+			</p>
+		 </div>
+	  </form>
+
+	  <div class="form__buttons">
+		 <button
+			[disabled]="
+			  this.sypplyForm.get('sypplyName')?.invalid ||
+			  this.sypplyForm.get('sypplyType')?.invalid ||
+			  this.sypplyForm.get('status')?.invalid ||
+			  this.sypplyForm.get('tarif')?.invalid ||
+			  this.sypplyForm.get('sypplyAccount')?.invalid ||
+			  this.sypplyForm.disabled 
+			"
+			(click)="createSypply()"
+			[ngClass]="{
+			  'hover-color':
+				 !this.sypplyForm.get('sypplyName')?.invalid &&
+				 !this.sypplyForm.disabled &&
+				 this.sypplyForm.get('typeName')?.value !== ''
+			}"
+			
+			class="form__button non-btn-style"
+		 >
+			Create
+		 </button>
+ 
+		 <button
+			[disabled]="
+			this.sypplyForm.get('sypplyName')?.invalid ||
+			this.sypplyForm.get('sypplyType')?.invalid ||
+			this.sypplyForm.get('status')?.invalid ||
+			this.sypplyForm.get('tarif')?.invalid ||
+			this.sypplyForm.get('sypplyAccount')?.invalid ||
+			this.sypplyForm.disabled 
+			"
+			[ngClass]="{
+			  'hover-color':
+				 !this.sypplyForm.get('sypplyName')?.invalid &&
+				 !this.sypplyForm.get('newsypplyName')?.invalid &&
+				 this.sypplyForm.get('typeName')?.value !== '' &&
+				 !this.sypplyForm.disabled
+			}"
+			
+			class="form__button non-btn-style"
+		 >
+			Update
+		 </button>
+ 
+		 <button
+			[disabled]="
+			  this.sypplyForm.get('sypplyName')?.invalid || this.sypplyForm.disabled
+			"
+			[ngClass]="{
+			  'hover-color':
+				 !this.sypplyForm.get('sypplyName')?.invalid && !this.sypplyForm.disabled
+			}"
+			
+			class="form__button non-btn-style"
+		 >
+			Delete
+		 </button>
+	  </div>
+	</section>
+ 
+	<ng-template #loader>
+	  <div class="loader">
+		 <app-loader></app-loader>
+	  </div>
+	</ng-template>
+	<ng-template #empty>
+	  <p class="empty">sypplies not exist`s</p>
+	</ng-template>
+ </div>
+ 

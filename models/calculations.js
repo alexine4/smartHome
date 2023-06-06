@@ -22,7 +22,7 @@ module.exports.initialization = async () => {
 			autoIncrement: false
 		},
 		amount: {
-			type: Sequelize.INTEGER,
+			type: Sequelize.FLOAT,
 			allowNull: false
 		},
 		cost: {

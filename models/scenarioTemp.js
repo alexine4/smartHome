@@ -152,7 +152,7 @@ module.exports.findActive = async (roomId,timeStart) => {
 	})
 }
 // module find one record by room at the table
-module.exports.findByTime = async ({ timeStart, timeStop }) => {
+module.exports.findByTime = async ({roomId, timeStart, timeStop }) => {
 
 	return await ScenarionTemp.findOne({
 		where: {
@@ -162,7 +162,10 @@ module.exports.findByTime = async ({ timeStart, timeStop }) => {
 				}},{
 				timeStart:{
 					[Op.gte]:timeStart
-				}} 
+				}},
+				{
+					roomId
+				} 
 			]
 			
 		}

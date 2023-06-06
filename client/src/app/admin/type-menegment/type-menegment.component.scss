@@ -2,9 +2,12 @@
 
 .container {
   display: flex;
-  width: 80vw;
-  min-height: 93vh;
-  height: auto;
+  width: 79.4vw;
+  min-height: 91vh;
+  max-height: 91vh;
+ overflow-y: scroll;
+ overflow-x: hidden;
+ align-items: flex-start;
   background: linear-gradient(85deg, #fb63f9, #c2e534);
   @media (max-width: $md2) {
     width: 100vw;

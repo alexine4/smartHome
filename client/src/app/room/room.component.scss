@@ -328,6 +328,8 @@
 		font-weight: 400;
 		font-size: 32px;
 		line-height: 42/32 * 100%;
+		display:flex;
+		text-align: center;
 		&::before {
 			padding: 0 15px 0 0;
 		}

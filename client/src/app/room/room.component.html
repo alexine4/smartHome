@@ -140,7 +140,7 @@
               class="button__status"
               [ngClass]="{
                 'text-blue': accessory.status,
-                'text-red': !accessory.status
+                'text-gray': !accessory.status
               }"
             >
               {{ accessory.status ? "Enable" : "Disable" }}

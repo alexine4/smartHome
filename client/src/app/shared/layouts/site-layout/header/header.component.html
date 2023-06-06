@@ -1,100 +1,207 @@
-<nav id="menu" class="menu__container custom-scrollbar" >
-  <div class="overlay"  (click)="this.menuService.menuStatus = false"></div>
-    <div class="menu__sections">
-     <!--  homes -->
-      <ul class="menu__list section">
-        <h2 class="section__title">Homes</h2>
-        <div class="section__list">
-          <li class="section__link">
-            <button class="section__btn icon-home " [disabled]="this.menuService.currentURL ==='/home'"
-              (click)="newcurrentUrl('/home','Home')" [routerLink]="['/home']"
-              [ngClass]="this.menuService.currentURL ==='/home' ? 'active-color' : 'active-btn'">
-              <p>Home</p>
-            </button>
-          </li>
-        </div>
-      </ul>
-      <!-- rooms -->
-      <ul class="menu__list section">
-        <h2 class="section__title " [ngClass]="{'arrow-down': !roomsShow}"
-          (click)="roomsShow=!roomsShow;checkMenuForScroll(roomsShow)">Rooms</h2>
-        <div class="section__list " [ngClass]="{'not-show': !roomsShow}">
-          <li *ngFor="let room of Rooms" class="section__link">
-            <button class="section__btn " [disabled]="this.menuService.currentURL ==='/room/'+room.roomId"
-              (click)="newcurrentUrl('/room/'+room.roomId,room.roomName)"
-              [routerLink]="['/room',room.roomId]" [ngClass]="{
-            'active-color':this.menuService.currentURL ==='/room/'+room.roomId,
-            'active-btn':this.menuService.currentURL !=='/room/'+room.roomId, 
-            'icon-spoon-knife':room.typeName =='Kitchen',
-            'icon-lifebuoy':room.typeName =='Bathroom',
-            'icon-newspaper':room.typeName =='Living room',
-            'icon-bed':room.typeName =='Bedroom',
-            'icon-briefcase':room.typeName =='Cabinet',
-            'icon-lab':room.typeName =='Basement',
-            'icon-smile':room.typeName =='Holl'
-          }">
-              <p>{{room.roomName}}</p>
-            </button>
-          </li>
-        </div>
-      </ul>
-      <!-- Management -->
-      <ul class="menu__list section">
-        <h2 class="section__title" [ngClass]="{'arrow-down': !managementShow}"
-          (click)="managementShow=!managementShow; checkMenuForScroll(managementShow)">Management</h2>
-        <div class="section__list" [ngClass]="{'not-show': !managementShow}">
-          <li class="section__link">
-            <button class="section__btn icon-power" [disabled]="this.menuService.currentURL ==='/electrisity'"
-              (click)="newcurrentUrl('/electrisity','')" [routerLink]="['/electrisity']"
-              [ngClass]="this.menuService.currentURL ==='/electrisity' ? 'active-color' : 'active-btn'">
-              <p>Electrisity</p>
-            </button>
-          </li>
-          <li class="section__link">
-            <button class="section__btn icon-fire" [disabled]="this.menuService.currentURL ==='/gas'" (click)="newcurrentUrl('/gas','')"
-              [routerLink]="['/gas']" [ngClass]="this.menuService.currentURL ==='/gas' ? 'active-color' : 'active-btn'">
-              <p>Gas</p>
-            </button>
-          </li>
-          <li class="section__link">
-            <button class="section__btn icon-droplet" [disabled]="this.menuService.currentURL ==='/water'"
-              (click)="newcurrentUrl('/water','')" [routerLink]="['/water']"
-              [ngClass]="this.menuService.currentURL ==='/water' ? 'active-color' : 'active-btn'">
-              <p>Water</p>
-            </button>
-          </li>
-          <li class="section__link">
-            <button class="section__btn icon-sun" [disabled]="this.menuService.currentURL ==='/heat'" (click)="newcurrentUrl('/heat','')"
-              [routerLink]="['/heat']" [ngClass]="this.menuService.currentURL ==='/heat' ? 'active-color' : 'active-btn'">
-              <p>Heat</p>
-            </button>
-          </li>
-        </div>
-      </ul>
-      <!-- Administration -->
-      <ul class="menu__list section">
-        <h2 class="section__title" [ngClass]="{'arrow-down': !adminShow}"
-          (click)="adminShow=!adminShow; checkMenuForScroll(adminShow)">Administration</h2>
-        <div class="section__list" [ngClass]="{'not-show': !adminShow}">
-
-          <li class="section__link">
-            <button class="section__btn icon-hammer" [disabled]="this.menuService.currentURL ==='/types'"
-              (click)="newcurrentUrl('/types','')" [routerLink]="['/types']"
-              [ngClass]="this.menuService.currentURL ==='/types' ? 'active-color' : 'active-btn'">
-              <p>Types</p>
-            </button>
-          </li>
-          <li class="section__link">
-            <button class="section__btn icon-hammer" [disabled]="this.menuService.currentURL ==='/rooms'"
-              (click)="newcurrentUrl('/rooms','');" [routerLink]="['/rooms']"
-              [ngClass]="this.menuService.currentURL ==='/rooms' ? 'active-color' : 'active-btn'">
-              <p>Rooms</p>
-            </button>
-          </li>
-          
-        </div>
-      </ul>
-
-    </div>
-  
+<nav id="menu" class="menu__container custom-scrollbar">
+  <div class="overlay" (click)="this.menuService.menuStatus = false"></div>
+  <div class="menu__sections">
+    <!--  homes -->
+    <ul class="menu__list section">
+      <h2 class="section__title">Homes</h2>
+      <div class="section__list">
+        <li class="section__link">
+          <button
+            class="section__btn icon-home"
+            [disabled]="this.menuService.currentURL === '/home'"
+            (click)="newcurrentUrl('/home', 'Home')"
+            [routerLink]="['/home']"
+            [ngClass]="
+              this.menuService.currentURL === '/home'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Home</p>
+          </button>
+        </li>
+        <li class="section__link">
+          <button
+            class="section__btn icon-lab"
+            [disabled]="this.menuService.currentURL === '/sypplies'"
+            (click)="newcurrentUrl('/sypplies', 'Sypply')"
+            [routerLink]="['/sypplies']"
+            [ngClass]="
+              this.menuService.currentURL === '/sypplies'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Sypplies</p>
+          </button>
+        </li>
+      </div>
+    </ul>
+    <!-- rooms -->
+    <ul class="menu__list section">
+      <h2
+        class="section__title"
+        [ngClass]="{ 'arrow-down': !roomsShow }"
+        (click)="roomsShow = !roomsShow; checkMenuForScroll(roomsShow)"
+      >
+        Rooms
+      </h2>
+      <div class="section__list" [ngClass]="{ 'not-show': !roomsShow }">
+        <li *ngFor="let room of Rooms" class="section__link">
+          <button
+            class="section__btn"
+            [disabled]="this.menuService.currentURL === '/room/' + room.roomId"
+            (click)="newcurrentUrl('/room/' + room.roomId, room.roomName)"
+            [routerLink]="['/room', room.roomId]"
+            [ngClass]="{
+              'active-color':
+                this.menuService.currentURL === '/room/' + room.roomId,
+              'active-btn':
+                this.menuService.currentURL !== '/room/' + room.roomId,
+              'icon-spoon-knife': room.typeName == 'Kitchen',
+              'icon-lifebuoy': room.typeName == 'Bathroom',
+              'icon-newspaper': room.typeName == 'Living room',
+              'icon-bed': room.typeName == 'Bedroom',
+              'icon-briefcase': room.typeName == 'Cabinet',
+              'icon-lab': room.typeName == 'Basement',
+              'icon-smile': room.typeName == 'Holl'
+            }"
+          >
+            <p>{{ room.roomName }}</p>
+          </button>
+        </li>
+      </div>
+    </ul>
+    <!-- Management -->
+    <ul class="menu__list section">
+      <h2
+        class="section__title"
+        [ngClass]="{ 'arrow-down': !managementShow }"
+        (click)="
+          managementShow = !managementShow; checkMenuForScroll(managementShow)
+        "
+      >
+        Management
+      </h2>
+      <div class="section__list" [ngClass]="{ 'not-show': !managementShow }">
+        <li class="section__link">
+          <button
+            class="section__btn icon-power"
+            [disabled]="this.menuService.currentURL === '/electrisity'"
+            (click)="newcurrentUrl('/electrisity', '')"
+            [routerLink]="['/electrisity']"
+            [ngClass]="
+              this.menuService.currentURL === '/electrisity'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Electrisity</p>
+          </button>
+        </li>
+        <li class="section__link">
+          <button
+            class="section__btn icon-fire"
+            [disabled]="this.menuService.currentURL === '/gas'"
+            (click)="newcurrentUrl('/gas', '')"
+            [routerLink]="['/gas']"
+            [ngClass]="
+              this.menuService.currentURL === '/gas'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Gas</p>
+          </button>
+        </li>
+        <li class="section__link">
+          <button
+            class="section__btn icon-droplet"
+            [disabled]="this.menuService.currentURL === '/water'"
+            (click)="newcurrentUrl('/water', '')"
+            [routerLink]="['/water']"
+            [ngClass]="
+              this.menuService.currentURL === '/water'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Water</p>
+          </button>
+        </li>
+        <li class="section__link">
+          <button
+            class="section__btn icon-sun"
+            [disabled]="this.menuService.currentURL === '/heat'"
+            (click)="newcurrentUrl('/heat', '')"
+            [routerLink]="['/heat']"
+            [ngClass]="
+              this.menuService.currentURL === '/heat'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Heat</p>
+          </button>
+        </li>
+      </div>
+    </ul>
+    <!-- Administration -->
+    <ul class="menu__list section">
+      <h2
+        class="section__title"
+        [ngClass]="{ 'arrow-down': !adminShow }"
+        (click)="adminShow = !adminShow; checkMenuForScroll(adminShow)"
+      >
+        Administration
+      </h2>
+      <div class="section__list" [ngClass]="{ 'not-show': !adminShow }">
+        <li class="section__link">
+          <button
+            class="section__btn icon-hammer"
+            [disabled]="this.menuService.currentURL === '/types'"
+            (click)="newcurrentUrl('/types', '')"
+            [routerLink]="['/types']"
+            [ngClass]="
+              this.menuService.currentURL === '/types'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Types</p>
+          </button>
+        </li>
+        <li class="section__link">
+          <button
+            class="section__btn icon-hammer"
+            [disabled]="this.menuService.currentURL === '/rooms'"
+            (click)="newcurrentUrl('/rooms', '')"
+            [routerLink]="['/rooms']"
+            [ngClass]="
+              this.menuService.currentURL === '/rooms'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Rooms</p>
+          </button>
+        </li>
+        <li class="section__link">
+          <button
+            class="section__btn icon-hammer"
+            [disabled]="this.menuService.currentURL === '/sypply'"
+            (click)="newcurrentUrl('/sypply', '')"
+            [routerLink]="['/sypply']"
+            [ngClass]="
+              this.menuService.currentURL === '/sypply'
+                ? 'active-color'
+                : 'active-btn'
+            "
+          >
+            <p>Sypply</p>
+          </button>
+        </li>
+      </div>
+    </ul>
+  </div>
 </nav>

@@ -17,6 +17,7 @@ const typeRoutes = require('./routes/type')
 const tempRoutes = require('./routes/temperature')
 const roomRoutes = require('./routes/rooms')
 const scenarioTempRoutes = require('./routes/scenarioTemp')
+const supplyRoutes = require('./routes/sypplies')
 
 const app = express()
 //connection to DB
@@ -48,6 +49,7 @@ app.use('/api/types', typeRoutes)
 app.use('/api/rooms', roomRoutes)
 app.use('/api/temps', tempRoutes)
 app.use('/api/scenarioTemp', scenarioTempRoutes)
+app.use('/api/sypplies', supplyRoutes)
 //app.use('/uploads', express.static('uploads')) 
 
 
