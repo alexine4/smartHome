@@ -64,10 +64,10 @@
     </section>
     <section class="page__section">
       <ul class="section__list">
-        <li class="section__item">Using in a day: 234</li>
-        <li class="section__item">Used in the current month:</li>
-        <li class="section__item">Using in a past month:</li>
-        <li class="section__item">Average consumption per month:</li>
+        <li class="section__item">Using in a day: {{usingByDay}} </li>
+        <li class="section__item">Used in the current month: {{usingByCurrentMonth}}</li>
+        <li class="section__item">Using in a past month: {{usingByPastMonth}}</li>
+        <li class="section__item">Average consumption per day on past month: {{usingAverageByDayInPastMonth | number:'.1-2' }}</li>
         <li class="section__item">
           Tariff: {{this.sypply?.tarif}} griven/{{this.unitOfMeasurement}}
           <button [disabled]="this.disabled" class="item__button non-btn-style">
@@ -75,7 +75,7 @@
           </button>
         </li>
         <li class="section__item">
-          Current account: 6556566
+          Current account: {{this.sypply?.sypplyAccount}}
           <button [disabled]="this.disabled" class="item__button non-btn-style">
             Change account
           </button>

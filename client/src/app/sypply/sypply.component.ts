@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription, of, switchMap } from 'rxjs';
-import { Limit, Sypply } from '../shared/interfaces';
+import { Observable, Subscription, of, switchMap, using } from 'rxjs';
+import { Limit, Sypply, Using } from '../shared/interfaces';
 import { Title } from '@angular/platform-browser';
 import { SypplyService } from '../shared/services/sypply.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -16,6 +16,7 @@ export class SypplyComponent implements OnInit {
   disabled: boolean = false
   // for syncronizaded loaders
   loading: boolean = false
+  usingLoader: boolean = false
   limitLoading: boolean = false
 
   // for take period button
@@ -30,6 +31,16 @@ export class SypplyComponent implements OnInit {
   limitInput: number | null = null
   limitSub$!: Subscription
   limit!: Limit | null
+
+  //by using
+  usingSub$!: Subscription
+  usings!: Using[]
+  // take actual date
+  currentDate: Date = new Date();
+  usingByDay!: number
+  usingByCurrentMonth!: number
+  usingByPastMonth!: number
+  usingAverageByDayInPastMonth!: number
 
   constructor(
     private route: ActivatedRoute,
@@ -48,9 +59,11 @@ export class SypplyComponent implements OnInit {
           this.takeActiveUnits(Sypply.sypplyType)
         }
         this.sypply = Sypply
-         //take limit
-         this.takeSypplyLimit()
-        
+        //take limit
+        this.takeSypplyLimit()
+        // take using 
+        this.takeDayUsing()
+
       },
       error => {
         this.loading = true
@@ -78,12 +91,12 @@ export class SypplyComponent implements OnInit {
     this.limitSub$ = this.sypplyService.fetchLimit(this.sypplyId).subscribe(
       Limit => {
         this.limit = null
-        this.activeButton  = ''
+        this.activeButton = ''
         this.limitLoading = true
         if (Limit.perDay !== null) { this.activeButton = 'Per day' }
         if (Limit.perMonth !== null) { this.activeButton = 'Per month' }
         this.limit = Limit
-        
+
       },
       error => {
         this.limitLoading = true
@@ -92,6 +105,59 @@ export class SypplyComponent implements OnInit {
 
     )
   }
+  //get limit for sypply
+  private takeDayUsing(): void {
+    this.usingLoader = false
+    this.usingSub$ = this.sypplyService.fetchUsing(this.sypplyId).subscribe(
+      using => {
+        this.usingLoader = true
+        
+        // take using by day
+        const previousDate = new Date(this.currentDate);
+        previousDate.setDate(previousDate.getDay() - 1)
+        this.usingByDay = 0
+        this.usingByDay = this.takeUsingByPeriod(using, this.currentDate,previousDate)[0].amount
+        // take using by current month
+        previousDate.setDate(0o1);
+        this.usingByCurrentMonth = 0
+        this.usings = this.takeUsingByPeriod(using, this.currentDate,previousDate)
+        for (let index = 0; index < this.usings.length; index++) {
+          this.usingByCurrentMonth  =  this.usingByCurrentMonth + this.usings[index].amount;
+        }
+        // take by past month
+        this.currentDate.setMonth(previousDate.getMonth() - 1)
+        this.currentDate.setDate(this.getLastDayOfMonth(this.currentDate))
+        previousDate.setMonth(previousDate.getMonth() - 1);
+        this.usingByPastMonth = 0
+        this.usings = this.takeUsingByPeriod(using, this.currentDate,previousDate)
+        for (let index = 0; index < this.usings.length; index++) {
+          this.usingByPastMonth  =  this.usingByPastMonth + this.usings[index].amount;
+        }
+        this.usingAverageByDayInPastMonth = this.usingByPastMonth / this.getLastDayOfMonth(this.currentDate)
+      },
+      error => {
+        this.limitLoading = true
+        this.toast.error(error.error.message)
+      },
+    )
+  }
+  private takeUsingByPeriod(usings: Using[], currentDate: Date, previousDate: Date): Using[] {
+
+    return usings.filter(item => {
+      const itemDate = new Date(item.createdAt);
+
+      return itemDate < currentDate && itemDate >= previousDate;
+    });
+  }
+
+  // for take last day at month
+  private getLastDayOfMonth(currentDate:Date):number {
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const date = new Date(currentYear, currentMonth + 1, 0);
+    return date.getDate();
+  }
+
   // dinamic change title
   public activeTitle(title: string) {
     this.title.setTitle(title)
@@ -114,7 +180,7 @@ export class SypplyComponent implements OnInit {
       case 'Internet':
         this.unitOfMeasurement = 'Mb'
         break;
-    
+
       default:
         this.unitOfMeasurement = 'unit'
         break;

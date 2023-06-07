@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Limit, Message, Sypply } from '../interfaces';
+import { Limit, Message, Sypply, Using } from '../interfaces';
 import { Observable, delay } from 'rxjs';
 
 @Injectable({
@@ -33,5 +33,8 @@ export class SypplyService {
   }
   public changeLimit(limit:Limit): Observable<Message> {
     return this.httpClient.post<Message>(`/api/sypplies/addNewLimit/${limit.sypplyId}`,limit).pipe(delay(this.delay));
+  }
+  public fetchUsing(sypplyId:number): Observable<Using[]> {
+    return this.httpClient.get<Using[]>(`/api/sypplies/getUsing/${sypplyId}`).pipe(delay(this.delay));
   }
 }

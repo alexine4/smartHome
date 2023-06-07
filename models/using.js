@@ -1,6 +1,6 @@
 // In this file you crate and sync model table Using
 const Sequelize = require('sequelize')
-
+const { Op } = Sequelize;
 // connect to database
 const connectDB = require('../connection/connectionDB')
 const sequelize = new Sequelize(
@@ -66,3 +66,15 @@ await Using.update({
 module.exports.findOne = async(sypplyId,createdAt)=>{
 return await Using.findOne({where:{sypplyId,createdAt}})
 }
+module.exports.findAllBySypply = async(sypplyId,currentDate,previousDate )=>{
+	return await Using.findAll({
+		where:{
+			sypplyId,
+			createdAt: {
+				[Op.lt]: currentDate, 
+				[Op.gte]: previousDate
+			 }
+		}
+	})
+	}
+	
