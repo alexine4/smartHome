@@ -91,3 +91,4 @@ module.exports.findOneByRoom = async (roomId) => {
 module.exports.findAll = async () => {
 	return await Temperature.findAll()
 }
+

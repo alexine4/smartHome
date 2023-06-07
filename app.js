@@ -13,6 +13,9 @@ const initialilazationAll = require('./controllers/initializationDB')
 // init routes
 const accessoryRoutes = require('./routes/accessory')
 const authRoutes = require('./routes/auth')
+//for simulate -----------------
+const deviceRoutes = require('./simulateDevices/routes/device')
+//-----------------------------
 const typeRoutes = require('./routes/type')
 const tempRoutes = require('./routes/temperature')
 const roomRoutes = require('./routes/rooms')
@@ -45,13 +48,23 @@ app.use(bodyParser.json())
 // write path of route and meneger route file
 app.use('/api/accesories', accessoryRoutes)
 app.use('/api/auth', authRoutes)
+// for simulate ----------------
+app.use('/device', deviceRoutes)
+//------------------------------
 app.use('/api/types', typeRoutes)
 app.use('/api/rooms', roomRoutes)
 app.use('/api/temps', tempRoutes)
 app.use('/api/scenarioTemp', scenarioTempRoutes)
 app.use('/api/sypplies', supplyRoutes)
-//app.use('/uploads', express.static('uploads')) 
 
+// simulate device
+//start check temperature by interval in automatic mode
+const meterController = require('./controllers/temperature')
+meterController.getTemperature(1)
+meterController.getTemperature(2)
+meterController.getTemperature(3)
+meterController.getTemperature(5)
 
-
+const deviceController = require('./controllers/device')
+deviceController.getIndicators(2)
 module.exports = app

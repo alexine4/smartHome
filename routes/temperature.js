@@ -13,4 +13,7 @@ router.post('/addNew', passport.authenticate('jwt', { session: false }), control
 router.patch('/update/:roomId', passport.authenticate('jwt', { session: false }), controller.updateByRoom)
 router.delete('/delete/:roomId', passport.authenticate('jwt', { session: false }), controller.deleteByRoom)
  
+
+router.get('/test',  controller.getTemperature)
+
 module.exports = router

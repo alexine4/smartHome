@@ -16,9 +16,14 @@ class Using extends Sequelize.Model {}
 module.exports.initialization = async () => {
 
 	await Using.init({
+		usingId: {
+			type: Sequelize.BIGINT,
+			primaryKey:true,
+			autoIncrement: true
+		},
 		sypplyId: {
 			type: Sequelize.BIGINT,
-			primaryKey: true,
+			allowNull:false,
 			autoIncrement: false
 		},
 		amount: {
@@ -35,11 +40,29 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async({amount})=>{
+module.exports.create = async({sypplyId,amount})=>{
 await Using.create({
+	sypplyId,
 	amount
 })
 .catch(error => {
 	return error
 })
+}
+module.exports.update = async({sypplyId,amount})=>{
+await Using.update({
+	amount
+},
+{
+	where:{
+		sypplyId
+	}
+})
+.catch(error => {
+	return error
+})
+}
+
+module.exports.findOne = async(sypplyId,createdAt)=>{
+return await Using.findOne({where:{sypplyId,createdAt}})
 }
