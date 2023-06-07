@@ -1,1 +1,24 @@
-<p>sypply-menu works!</p>
+<div class="navigation__container animation-show">
+	<div class="navigation__sections" *ngIf="loading; else loader">
+	  <section *ngFor="let sypply of sypplies" class="navigation__section">
+		 <h2
+			class="navigation__title icon-bed"
+			[ngClass]="{
+				'icon-fire': sypply.sypplyType == 'Gas',
+				'icon-power': sypply.sypplyType == 'Electricity',
+				'icon-sun': sypply.sypplyType == 'Heat',
+				'icon-droplet': sypply.sypplyType == 'Water',
+				'icon-youtube': sypply.sypplyType == 'Internet'
+			}"
+			[routerLink]="['/sypply/',sypply.sypplyId]"
+			(click)="newcurrentUrl('/sypply/'+sypply.sypplyId,sypply.sypplyName)"
+		 >
+			{{ sypply.sypplyName}}
+		 </h2>
+	  </section>
+	</div>
+ 
+	<ng-template #loader>
+	  <app-loader></app-loader>
+	</ng-template>
+ </div>

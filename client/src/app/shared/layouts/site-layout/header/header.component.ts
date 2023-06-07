@@ -3,9 +3,10 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RoomService } from 'src/app/shared/services/room.service';
 import { ToastrService } from 'ngx-toastr';
-import { roomAndType } from 'src/app/shared/interfaces';
+import { Sypply, roomAndType } from 'src/app/shared/interfaces';
 import { Title } from '@angular/platform-browser';
 import { MenuService } from 'src/app/shared/services/menu.service';
+import { SypplyService } from 'src/app/shared/services/sypply.service';
 
 
 
@@ -22,13 +23,16 @@ export class HeaderComponent implements OnInit {
   adminShow = true
 
   Rooms: roomAndType[] = []
+  sypplies: Sypply[] = []
 
   roomSub$!: Subscription
+  sypplySub$!: Subscription
 
   constructor(
     private location: Location,
     private toast: ToastrService,
     private roomServise: RoomService,
+    private sypplyServise: SypplyService,
     private title: Title,
     public menuService: MenuService
   ) {
@@ -50,6 +54,15 @@ export class HeaderComponent implements OnInit {
     // run check function
     this.checkMenuForScroll(false)
 
+    //get sypplies
+    this.sypplySub$ = this.sypplyServise.fetchAll().subscribe(
+    Sypplies=>{
+      this.sypplies = Sypplies
+    },
+    error=>{
+     this.toast.error(error.error.message)
+    }
+    )
 
   }
 

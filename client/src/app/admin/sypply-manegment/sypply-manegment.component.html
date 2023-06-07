@@ -9,7 +9,7 @@
       >
         <li *ngIf="sypplies.length > 0; else empty" class="positions">
           <div *ngFor="let sypply of sypplies" class="position">
-            <label class="position__title">Sypply:</label>
+            <label class="position__title ">Sypply:</label>
             <div
               class="position__name"
               (click)="takeSypply(sypply)"
@@ -79,7 +79,7 @@
           }"
         />
         <datalist id="types" class="field__input-list">
-          <option class="option" value="Gas "></option>
+          <option class="option" value="Gas"></option>
           <option class="option" value="Electricity"></option>
           <option class="option" value="Heat"></option>
           <option class="option" value="Water"></option>
@@ -114,7 +114,7 @@
               this.sypplyForm.get('status')?.touched
           }"
         />
-        <datalist id="types" class="field__input-list">
+        <datalist id="status" class="field__input-list">
           <option class="option" value="Enabled "></option>
           <option class="option" value="Disabled"></option>
         </datalist>

@@ -73,7 +73,7 @@
       </div>
     </ul>
     <!-- Management -->
-    <ul class="menu__list section">
+    <ul *ngIf="sypplies.length > 1" class="menu__list section">
       <h2
         class="section__title"
         [ngClass]="{ 'arrow-down': !managementShow }"
@@ -84,64 +84,27 @@
         Management
       </h2>
       <div class="section__list" [ngClass]="{ 'not-show': !managementShow }">
-        <li class="section__link">
+        <li *ngFor="let sypply of sypplies" class="section__link">
           <button
             class="section__btn icon-power"
-            [disabled]="this.menuService.currentURL === '/electrisity'"
-            (click)="newcurrentUrl('/electrisity', '')"
-            [routerLink]="['/electrisity']"
-            [ngClass]="
-              this.menuService.currentURL === '/electrisity'
-                ? 'active-color'
-                : 'active-btn'
+            [disabled]="
+              this.menuService.currentURL === '/sypply/' + sypply.sypplyId
             "
+            (click)="newcurrentUrl('/sypply/' + sypply.sypplyId, '')"
+            [routerLink]="['/sypply', sypply.sypplyId]"
+            [ngClass]="{
+              'active-color':
+                this.menuService.currentURL === '/sypply/' + sypply.sypplyId,
+              'active-btn':
+                this.menuService.currentURL !== '/sypply/' + sypply.sypplyId,
+              'icon-fire': sypply.sypplyType == 'Gas',
+              'icon-power': sypply.sypplyType == 'Electricity',
+              'icon-sun': sypply.sypplyType == 'Heat',
+              'icon-droplet': sypply.sypplyType == 'Water',
+              'icon-youtube': sypply.sypplyType == 'Internet'
+            }"
           >
-            <p>Electrisity</p>
-          </button>
-        </li>
-        <li class="section__link">
-          <button
-            class="section__btn icon-fire"
-            [disabled]="this.menuService.currentURL === '/gas'"
-            (click)="newcurrentUrl('/gas', '')"
-            [routerLink]="['/gas']"
-            [ngClass]="
-              this.menuService.currentURL === '/gas'
-                ? 'active-color'
-                : 'active-btn'
-            "
-          >
-            <p>Gas</p>
-          </button>
-        </li>
-        <li class="section__link">
-          <button
-            class="section__btn icon-droplet"
-            [disabled]="this.menuService.currentURL === '/water'"
-            (click)="newcurrentUrl('/water', '')"
-            [routerLink]="['/water']"
-            [ngClass]="
-              this.menuService.currentURL === '/water'
-                ? 'active-color'
-                : 'active-btn'
-            "
-          >
-            <p>Water</p>
-          </button>
-        </li>
-        <li class="section__link">
-          <button
-            class="section__btn icon-sun"
-            [disabled]="this.menuService.currentURL === '/heat'"
-            (click)="newcurrentUrl('/heat', '')"
-            [routerLink]="['/heat']"
-            [ngClass]="
-              this.menuService.currentURL === '/heat'
-                ? 'active-color'
-                : 'active-btn'
-            "
-          >
-            <p>Heat</p>
+            <p>{{ sypply.sypplyName }}</p>
           </button>
         </li>
       </div>
