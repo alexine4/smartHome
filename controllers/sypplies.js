@@ -1,5 +1,6 @@
 // import modules
 const sypplies = require("../models/supplys");
+const limits = require("../models/limits");
 const errorHandler = require("../utils/errorHandler");
 
 //add new sypplies
@@ -59,3 +60,53 @@ try {
 	errorHandler(error)
 }
 }
+
+// get sypply by id
+module.exports.getByID = async(req,res)=>{
+	try {
+		await sypplies.findByID(req.params.sypplyId).then(
+			sypplies=>{
+				res.status(200).json(sypplies)
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
+}
+// get limit by sypply
+module.exports.getLimit = async(req,res)=>{
+	try {
+		await limits.findBySypply(req.params.sypplyId).then(
+			limit=>{
+				res.status(200).json(limit)
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
+}
+
+//add new sypplies
+module.exports.addNewLimit = async(req,res)=>{
+	try {
+		await limits.findBySypply(req.params.sypplyId).then(
+			limit=>{
+				if (limit===null) {
+					limits.create(req.body).then(
+						()=>{
+							res.status(201).json({message:"New sypply successfully added"})
+						}
+					)
+				}else{
+					limits.update(req.body).then(
+						()=>{
+							res.status(201).json({message:"Sypply successfully updated"})
+						}
+					)
+				}
+			}
+		)
+	} catch (error) {
+		errorHandler(error)
+	}
+	}

@@ -89,6 +89,15 @@ module.exports.findAll = async (houseId) => {
 		}
 	)
 }
+module.exports.findByID = async (sypplyId) => {
+	return await Sypplys.findOne(
+		{
+			where: {
+				sypplyId
+			}
+		}
+	)
+}
 
 module.exports.updateById = async (sypplyId, { houseId, sypplyName, sypplyType, status, tarif, sypplyAccount }) => {
 	await Sypplys.update(

@@ -90,7 +90,7 @@
             [disabled]="
               this.menuService.currentURL === '/sypply/' + sypply.sypplyId
             "
-            (click)="newcurrentUrl('/sypply/' + sypply.sypplyId, '')"
+            (click)="newcurrentUrl('/sypply/' + sypply.sypplyId, sypply.sypplyName )"
             [routerLink]="['/sypply', sypply.sypplyId]"
             [ngClass]="{
               'active-color':

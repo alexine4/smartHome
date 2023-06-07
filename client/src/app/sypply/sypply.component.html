@@ -1,37 +1,84 @@
 <div class="page__container">
-  <div class="page__wrapper">
-    <section class="page__section">
+  <div class="page__wrapper animation-show" *ngIf="loading && limitLoading; else loader">
+    <section *ngIf="this.sypply !== null" class="page__section">
       <div class="status">
-        <label class="status__label">Status:</label>
-        <button class="status__btn non-btn-style">Disable</button>
+        <label class="status__label"
+          >Status: {{ this.sypply.status ? "Enabled" : "Disabled" }}</label
+        >
+        <button
+          [disabled]="this.disabled"
+          [ngClass]="{ 'hover-status-btn': !this.disabled }"
+          class="status__btn non-btn-style"
+          (click)="changeStatus(this.sypply)"
+        >
+          {{ !this.sypply.status ? "Enable" : "Disable" }}
+        </button>
       </div>
       <div class="limit">
         <div class="limit__info">
-          <label class="limit__label">Limit:</label>
-          <input type="number" class="limit__input" placeholder="Enter limit" />
+          <label class="limit__label"
+            >Active limit:
+				{{ this.limit?.perDay !== null || this.limit?.perMonth !== null ? '' : 'non limit' }}
+            {{ this.limit?.perDay !== null ? this.limit?.perDay : "" }}
+            {{ this.limit?.perMonth !== null ? this.limit?.perMonth : "" }}</label
+          >
+          <input
+            [(ngModel)]="limitInput"
+            type="number"
+            class="limit__input"
+            placeholder="Enter limit"
+          />
         </div>
         <div class="limit__buttons">
-          <button class="limit__button non-btn-style active">Per day</button>
-          <button class="limit__button non-btn-style non-active">Per month</button>
-          <button class="limit__button non-btn-style">New limit</button>
+          <button
+            [disabled]="this.disabled"
+				(click)="activeButton ='Per day' "
+				[ngClass]="{
+					'active':  activeButton==='Per day',
+					'non-active': activeButton!=='Per day'
+				}"
+            class="limit__button non-btn-style "
+          >
+            Per day
+          </button>
+          <button
+            [disabled]="this.disabled"
+            class="limit__button non-btn-style "
+				(click)="activeButton ='Per month' "
+				[ngClass]="{
+					'active': activeButton==='Per month',
+					'non-active':  activeButton!=='Per month'
+				}"
+          >
+            Per month
+          </button>
+          <button
+            [disabled]="this.disabled"
+            (click)="limitChange()"
+            class="limit__button non-btn-style"
+          >
+            New limit
+          </button>
         </div>
       </div>
     </section>
     <section class="page__section">
       <ul class="section__list">
-        <li class="section__item">
-          Using in a day:
-          <p>3234</p>
-        </li>
+        <li class="section__item">Using in a day: 234</li>
+        <li class="section__item">Used in the current month:</li>
         <li class="section__item">Using in a past month:</li>
         <li class="section__item">Average consumption per month:</li>
         <li class="section__item">
-          Tariff: 355 griven/kW
-          <button class="item__button non-btn-style">Change tariff</button>
+          Tariff: {{this.sypply?.tarif}} griven/{{this.unitOfMeasurement}}
+          <button [disabled]="this.disabled" class="item__button non-btn-style">
+            Change tariff
+          </button>
         </li>
         <li class="section__item">
           Current account: 6556566
-          <button class="item__button non-btn-style">Change account</button>
+          <button [disabled]="this.disabled" class="item__button non-btn-style">
+            Change account
+          </button>
         </li>
       </ul>
     </section>
@@ -42,14 +89,23 @@
           355 = 355555 griven
         </div>
         <div class="section__buttons">
-          <button class="section__button non-btn-style">
+          <button
+            [disabled]="this.disabled"
+            class="section__button non-btn-style"
+          >
             Record the calculation
           </button>
-          <button class="section__button non-btn-style">
+          <button
+            [disabled]="this.disabled"
+            class="section__button non-btn-style"
+          >
             View data on past calculations
           </button>
         </div>
       </div>
     </section>
   </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
 </div>

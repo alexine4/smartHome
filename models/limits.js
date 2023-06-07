@@ -7,10 +7,10 @@ const sequelize = new Sequelize(
 	connectDB.nameDB,
 	connectDB.loginDB,
 	connectDB.passwordDB, {
-		dialect: connectDB.typeDB,
-	}
+	dialect: connectDB.typeDB,
+}
 )
-class Limits extends Sequelize.Model {}
+class Limits extends Sequelize.Model { }
 
 
 module.exports.initialization = async () => {
@@ -40,13 +40,30 @@ module.exports.initialization = async () => {
 	return true
 }
 
-module.exports.create = async({sypplyId,perDay,perMonth})=>{
-await Limits.create({
-	sypplyId,
-	perDay,
-	perMonth
-})
-.catch(error => {
-	return error
-})
+module.exports.create = async ({ sypplyId, perDay, perMonth }) => {
+	await Limits.create({
+		sypplyId,
+		perDay,
+		perMonth
+	})
+		.catch(error => {
+			return error
+		})
+}
+module.exports.update = async ({ sypplyId, perDay, perMonth }) => {
+	await Limits.update({
+		perDay,
+		perMonth
+	}, {
+		where: {
+			sypplyId
+		}
+	})
+		.catch(error => {
+			return error
+		})
+}
+
+module.exports.findBySypply = async (sypplyId) => {
+	return Limits.findOne({ where: { sypplyId } })
 }

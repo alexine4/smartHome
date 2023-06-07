@@ -70,8 +70,8 @@ export interface Sypply{
 
 export interface Limit{
 	sypplyId: number
-	perDay: number
-	perMonth: number
+	perDay: number | null
+	perMonth: number | null
 }
 
 export interface Calculation{
