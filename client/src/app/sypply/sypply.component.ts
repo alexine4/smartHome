@@ -122,15 +122,20 @@ export class SypplyComponent implements OnInit {
     this.usingSub$ = this.sypplyService.fetchUsing(this.sypplyId).subscribe(
       using => {
         this.usingLoader = true
-
-        // take using by day
+        // nulling function
+        this.usingByDay = 0
+        this.usingByCurrentMonth = 0
+        this.usingByPastMonth = 0
+        this.usingAverageByDayInPastMonth = 0
+        if (using[0]!==undefined) {
+          // take using by day
         const previousDate = new Date(this.currentDate);
         previousDate.setDate(previousDate.getDay() - 1)
-        this.usingByDay = 0
+        
         this.usingByDay = this.takeUsingByPeriod(using, this.currentDate, previousDate)[0].amount
         // take using by current month
         previousDate.setDate(0o1);
-        this.usingByCurrentMonth = 0
+      
         this.usings = this.takeUsingByPeriod(using, this.currentDate, previousDate)
         for (let index = 0; index < this.usings.length; index++) {
           this.usingByCurrentMonth = this.usingByCurrentMonth + this.usings[index].amount;
@@ -139,12 +144,13 @@ export class SypplyComponent implements OnInit {
         this.currentDate.setMonth(previousDate.getMonth() - 1)
         this.currentDate.setDate(this.getLastDayOfMonth(this.currentDate))
         previousDate.setMonth(previousDate.getMonth() - 1);
-        this.usingByPastMonth = 0
         this.usings = this.takeUsingByPeriod(using, this.currentDate, previousDate)
         for (let index = 0; index < this.usings.length; index++) {
           this.usingByPastMonth = this.usingByPastMonth + this.usings[index].amount;
         }
         this.usingAverageByDayInPastMonth = this.usingByPastMonth / this.getLastDayOfMonth(this.currentDate)
+        }
+        
       },
       error => {
         this.limitLoading = true
@@ -312,7 +318,7 @@ export class SypplyComponent implements OnInit {
   }
 
   public viewRecord():void{
-    this.disabled= true
+    
     const dialogRef = this.dialog.open(CheckListComponent, {
       data: {
         sypplyId:this.sypplyId,

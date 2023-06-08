@@ -26,7 +26,8 @@
 		width: 78vw;
 		min-height: 88vh;
 		flex-direction: column;
-		margin: 20px;
+		overflow: hidden;
+		
 		@media (max-width: $md2) {
 			width: 98vw;
 		}
@@ -245,17 +246,20 @@
 		padding: 0 20px;
 		color: #0868d6;
 		background: linear-gradient(60deg,#08d635,#c1d608,#d66b08,#8a08d6);
-		@media (min-width: $md3){
+		
+		@media (max-width: $md4){
+		font-size: 20px;
+		}
+	}
+}
+.hover-section-btn{
+	@media (min-width: $md3){
 		&:hover{
 		scale: 1.1;
 		color: #08bed6;
 		background: linear-gradient(60deg,#196ad4,#ad08d6,#ff5100,#d608b4);
 		}
 		}
-		@media (max-width: $md4){
-		font-size: 20px;
-		}
-	}
 }
 .item {
 	// .item__button
@@ -272,13 +276,7 @@
 		height: 50px;
 		scale: 1;
 		border-radius: 1000px;
-		@media (min-width: $md3){
-		&:hover{
-			scale: 1.1;
-			color: #082ed6;
-			background: linear-gradient(60deg,#2fd7f5,#d738ff,#f36f31,#fc67e3);
-		}
-		}
+	
 		@media (max-width: $md2){
 			margin: 10px 0;
 			width: 70vw;
@@ -288,6 +286,15 @@
 			}
 	}
 	
+}
+.hover-item-btn{
+	@media (min-width: $md3){
+		&:hover{
+			scale: 1.1;
+			color: #082ed6;
+			background: linear-gradient(60deg,#2fd7f5,#d738ff,#f36f31,#fc67e3);
+		}
+		}
 }
 
 .active{

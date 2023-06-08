@@ -2,7 +2,7 @@
   <h2 class="container__title">All calculations</h2>
   <ul
     *ngIf="calculations$ | async as calculations; else subLoader"
-    class="container__list list animation-show"
+    class="container__list list animation-show custom-scrollbar"
   >
     <li *ngFor="let calculation of calculations" class="list__item">
       Amount: <p>{{ calculation.amount }}</p> Cost: <p>{{ calculation.cost }} </p> Date:

@@ -93,6 +93,7 @@
           Tariff: {{ this.sypply?.tarif }} griven/{{ this.unitOfMeasurement }}
           <button
             [disabled]="this.disabled"
+            [ngClass]="{ 'hover-item-btn': !this.disabled }"
             (click)="
               onChange(this.sypply !== null ? this.sypply.tarif : null, null)
             "
@@ -105,6 +106,7 @@
           Current account: {{ this.sypply?.sypplyAccount }}
           <button
             [disabled]="this.disabled"
+            [ngClass]="{ 'hover-item-btn': !this.disabled }"
             (click)="
               onChange(
                 null,
@@ -123,14 +125,13 @@
         <div class="section__text">
           The final cost for the consumed electricity for the past month:
           {{ this.sypply?.tarif }} * {{ usingByPastMonth }} =
-          {{
-            this.sypply !== null ? this.sypply.tarif * usingByPastMonth : 0
-          }}
+          {{ this.sypply !== null ? this.sypply.tarif * usingByPastMonth : 0 }}
           griven
         </div>
         <div class="section__buttons">
           <button
             [disabled]="this.disabled"
+            [ngClass]="{'hover-section-btn':!this.disabled}"
             (click)="onAddNewRecord()"
             class="section__button non-btn-style"
           >
@@ -138,6 +139,7 @@
           </button>
           <button
             [disabled]="this.disabled"
+            [ngClass]="{'hover-section-btn':!this.disabled}"
             (click)="viewRecord()"
             class="section__button non-btn-style"
           >

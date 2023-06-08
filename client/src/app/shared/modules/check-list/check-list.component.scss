@@ -51,13 +51,17 @@
 }
 
 .list {
-	width: inherit;
+	max-height: 400px;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: start;
 	flex-direction: column;
-	margin: 10px;
+	margin: 10px 20px;
 	padding: 0;
+	
+	overflow-x: hidden;
+	overflow-y: scroll;
+	
 	// .list__item
 
 	&__item {
@@ -66,6 +70,7 @@
 		display: inline-flex;
 		justify-content: center;
 		color: #1404fa;
+		margin: 5px 0 5px 0;
 		border-bottom: 2px dashed #000;
 		p{
 			margin: 0 5px;
