@@ -42,7 +42,7 @@ module.exports.initialization = async () => {
 			allowNull: true
 		},
 		sypplyAccount: {
-			type: Sequelize.INTEGER,
+			type: Sequelize.BIGINT,
 			allowNull: false
 		}
 

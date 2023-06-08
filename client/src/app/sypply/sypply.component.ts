@@ -278,13 +278,11 @@ export class SypplyComponent implements OnInit {
     })
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
       result => {
-        console.log(result);
-        
         if (result!==false && result!== undefined &&this.sypply!==null) {
           if (result.tarif !==null) {
             this.sypply.tarif = result.tarif
           }
-          if (result.tarif !==null) {
+          if (result.sypplyAccount !==null) {
             this.sypply.sypplyAccount = result.sypplyAccount
           }
           
