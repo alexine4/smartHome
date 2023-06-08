@@ -155,7 +155,7 @@ module.exports.register = async function (req, res) {
 			});
 		}
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 
 };

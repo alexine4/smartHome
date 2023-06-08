@@ -12,7 +12,7 @@ module.exports.getAll = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 }
 
@@ -25,7 +25,7 @@ module.exports.getById = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 }
 //create new scenarioTemp
@@ -50,7 +50,7 @@ module.exports.addNew = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 //update scenarioTemp by room
@@ -76,7 +76,7 @@ module.exports.updateById = async (req, res) => {
 
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 //find active scenarioTemp by room
@@ -99,7 +99,7 @@ module.exports.getActual = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 //delete scenarioTemp by room
@@ -113,7 +113,7 @@ module.exports.deleteById = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 

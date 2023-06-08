@@ -16,7 +16,7 @@ module.exports.getAll = async (req, res) => {
 				}
 			})
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 module.exports.getByID = async (req, res) => {
@@ -32,7 +32,7 @@ module.exports.getByID = async (req, res) => {
 				}
 			})
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 
@@ -55,7 +55,7 @@ module.exports.addNew = async (req, res) => {
 		)
 
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 module.exports.updateByName= async (req, res) => {
@@ -89,7 +89,7 @@ module.exports.updateByName= async (req, res) => {
 		 
 		
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 module.exports.deleteByName = async (req, res) => {
@@ -109,6 +109,6 @@ module.exports.deleteByName = async (req, res) => {
 		})
 		
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }

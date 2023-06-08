@@ -27,7 +27,7 @@ module.exports.addNew = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 
@@ -57,7 +57,7 @@ module.exports.getByRoom = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 
@@ -73,7 +73,7 @@ try {
 		}
 	)
 } catch (error) {
-	errorHandler(error)
+	errorHandler(res,error)
 }
 }
 module.exports.deleteByID = async(req,res)=>{
@@ -88,6 +88,6 @@ try {
 		}
 	)
 } catch (error) {
-	errorHandler(error)
+	errorHandler(res,error)
 }
 }

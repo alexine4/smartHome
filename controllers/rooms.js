@@ -13,7 +13,7 @@ module.exports.getAll = async (req, res) => {
 			}
 		});
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 };
 module.exports.getByID = async (req, res) => {
@@ -28,7 +28,7 @@ module.exports.getByID = async (req, res) => {
 			}
 		});
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 };
 
@@ -48,7 +48,7 @@ module.exports.addNew = async (req, res) => {
 			}
 		});
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 };
 module.exports.updateByID = async (req, res) => {
@@ -61,7 +61,7 @@ module.exports.updateByID = async (req, res) => {
 				});
 			});
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 };
 module.exports.deleteByID = async (req, res) => {
@@ -72,6 +72,6 @@ module.exports.deleteByID = async (req, res) => {
 			});
 		});
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 };

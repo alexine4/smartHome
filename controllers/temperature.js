@@ -11,7 +11,7 @@ module.exports.getAll = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 }
 
@@ -24,7 +24,7 @@ module.exports.getByRoom = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error);
+		errorHandler(res,error);
 	}
 }
 //create new temperature
@@ -38,7 +38,7 @@ try {
 		}
 	)
 } catch (error) {
-	errorHandler(error)
+	errorHandler(res,error)
 }
 }
 //update temperature by room
@@ -52,7 +52,7 @@ try {
 		}
 	)
 } catch (error) {
-	errorHandler(error)
+	errorHandler(res,error)
 }
 }
 //delete temperature by room
@@ -66,7 +66,7 @@ try {
 		}
 	)
 } catch (error) {
-	errorHandler(error)
+	errorHandler(res,error)
 }
 }
 

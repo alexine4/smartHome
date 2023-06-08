@@ -35,6 +35,7 @@ import { AccessoryManegmentComponent } from './shared/modules/accessory-manegmen
 import { SypplyComponent } from './sypply/sypply.component';
 import { SypplyManegmentComponent } from './admin/sypply-manegment/sypply-manegment.component';
 import { SypplyMenuComponent } from './sypply-menu/sypply-menu.component';
+import { DataGetSupportComponent } from './shared/modules/data-get-support/data-get-support.component';
 
 
 
@@ -64,6 +65,7 @@ import { SypplyMenuComponent } from './sypply-menu/sypply-menu.component';
     SypplyComponent,
     SypplyManegmentComponent,
     SypplyMenuComponent,
+    DataGetSupportComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -21,7 +21,7 @@ module.exports.addNew = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 // get all by home
@@ -33,7 +33,7 @@ module.exports.getAll = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 
@@ -46,7 +46,7 @@ module.exports.updateById = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 //delete sypply
@@ -58,7 +58,7 @@ module.exports.deleteById = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 
@@ -71,7 +71,7 @@ module.exports.getByID = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 // get limit by sypply
@@ -83,7 +83,7 @@ module.exports.getLimit = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 // get limit by sypply
@@ -101,7 +101,7 @@ module.exports.getUsing = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }
 
@@ -126,6 +126,6 @@ module.exports.addNewLimit = async (req, res) => {
 			}
 		)
 	} catch (error) {
-		errorHandler(error)
+		errorHandler(res,error)
 	}
 }

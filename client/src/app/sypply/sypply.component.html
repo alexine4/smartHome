@@ -1,5 +1,8 @@
 <div class="page__container">
-  <div class="page__wrapper animation-show" *ngIf="loading && limitLoading; else loader">
+  <div
+    class="page__wrapper animation-show"
+    *ngIf="loading && limitLoading; else loader"
+  >
     <section *ngIf="this.sypply !== null" class="page__section">
       <div class="status">
         <label class="status__label"
@@ -18,9 +21,15 @@
         <div class="limit__info">
           <label class="limit__label"
             >Active limit:
-				{{ this.limit?.perDay !== null || this.limit?.perMonth !== null ? '' : 'non limit' }}
+            {{
+              this.limit?.perDay !== null || this.limit?.perMonth !== null
+                ? ""
+                : "non limit"
+            }}
             {{ this.limit?.perDay !== null ? this.limit?.perDay : "" }}
-            {{ this.limit?.perMonth !== null ? this.limit?.perMonth : "" }}</label
+            {{
+              this.limit?.perMonth !== null ? this.limit?.perMonth : ""
+            }}</label
           >
           <input
             [(ngModel)]="limitInput"
@@ -32,23 +41,23 @@
         <div class="limit__buttons">
           <button
             [disabled]="this.disabled"
-				(click)="activeButton ='Per day' "
-				[ngClass]="{
-					'active':  activeButton==='Per day',
-					'non-active': activeButton!=='Per day'
-				}"
-            class="limit__button non-btn-style "
+            (click)="activeButton = 'Per day'"
+            [ngClass]="{
+              active: activeButton === 'Per day',
+              'non-active': activeButton !== 'Per day'
+            }"
+            class="limit__button non-btn-style"
           >
             Per day
           </button>
           <button
             [disabled]="this.disabled"
-            class="limit__button non-btn-style "
-				(click)="activeButton ='Per month' "
-				[ngClass]="{
-					'active': activeButton==='Per month',
-					'non-active':  activeButton!=='Per month'
-				}"
+            class="limit__button non-btn-style"
+            (click)="activeButton = 'Per month'"
+            [ngClass]="{
+              active: activeButton === 'Per month',
+              'non-active': activeButton !== 'Per month'
+            }"
           >
             Per month
           </button>
@@ -64,19 +73,41 @@
     </section>
     <section class="page__section">
       <ul class="section__list">
-        <li class="section__item">Using in a day: {{usingByDay}} </li>
-        <li class="section__item">Used in the current month: {{usingByCurrentMonth}}</li>
-        <li class="section__item">Using in a past month: {{usingByPastMonth}}</li>
-        <li class="section__item">Average consumption per day on past month: {{usingAverageByDayInPastMonth | number:'.1-2' }}</li>
         <li class="section__item">
-          Tariff: {{this.sypply?.tarif}} griven/{{this.unitOfMeasurement}}
-          <button [disabled]="this.disabled" class="item__button non-btn-style">
+          Using in a day: {{ usingByDay }} {{ this.unitOfMeasurement }}
+        </li>
+        <li class="section__item">
+          Used in the current month: {{ usingByCurrentMonth }}
+          {{ this.unitOfMeasurement }}
+        </li>
+        <li class="section__item">
+          Using in a past month: {{ usingByPastMonth }}
+          {{ this.unitOfMeasurement }}
+        </li>
+        <li class="section__item">
+          Average consumption per day on past month:
+          {{ usingAverageByDayInPastMonth | number : ".1-2" }}
+          {{ this.unitOfMeasurement }}
+        </li>
+        <li class="section__item">
+          Tariff: {{ this.sypply?.tarif }} griven/{{ this.unitOfMeasurement }}
+          <button
+            [disabled]="this.disabled"
+            (click)="
+              onChange(this.sypply !== null ? this.sypply.tarif : null, null)
+            "
+            class="item__button non-btn-style"
+          >
             Change tariff
           </button>
         </li>
         <li class="section__item">
-          Current account: {{this.sypply?.sypplyAccount}}
-          <button [disabled]="this.disabled" class="item__button non-btn-style">
+          Current account: {{ this.sypply?.sypplyAccount }}
+          <button [disabled]="this.disabled" 
+          (click)="
+              onChange( null,this.sypply !== null ? this.sypply.sypplyAccount : null)
+            "
+          class="item__button non-btn-style">
             Change account
           </button>
         </li>

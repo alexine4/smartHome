@@ -1,0 +1,31 @@
+<div class="container">
+	<h2 class="container__title">Enter new {{this.mode}}</h2>
+	<section *ngIf="this.mode==='tarif'" class="container__inputs">
+		<label for="input" class="container__label">Enter tarif</label>
+		<input id="input" [(ngModel)]="data.tarif" type="number" class="container__input">
+	</section>
+	<section *ngIf="this.mode==='account'" class="container__inputs">
+		<label for="input" class="container__label">Enter account</label>
+		<input id="input" (change)="this.touched = true" [(ngModel)]="data.sypplyAccount" type="number" class="container__input">
+		<p
+          class="form__error"
+          *ngIf="
+			 this.touched &&
+			 (data.sypplyAccount.toString().length >10 ||
+			 data.sypplyAccount.toString().length <10)
+          "
+        >
+         
+          <small
+            class="form-error animation-show"
+          >
+           	Field must have 10 numbers
+          </small>
+        </p>
+	</section>
+	
+	<div class="container__buttons">
+		<button class="container__button non-btn-style" (click)="dialogRef.close(false)">Close</button>
+		<button  class="container__button non-btn-style" (click)="dialogRef.close(data)">Change</button>
+	</div>
+</div>
