@@ -64,7 +64,7 @@
           <button
             [disabled]="this.disabled"
             (click)="limitChange()"
-            class="limit__button non-btn-style"
+            class="limit__button non-btn-style visible"
           >
             New limit
           </button>
@@ -103,11 +103,16 @@
         </li>
         <li class="section__item">
           Current account: {{ this.sypply?.sypplyAccount }}
-          <button [disabled]="this.disabled" 
-          (click)="
-              onChange( null,this.sypply !== null ? this.sypply.sypplyAccount : null)
+          <button
+            [disabled]="this.disabled"
+            (click)="
+              onChange(
+                null,
+                this.sypply !== null ? this.sypply.sypplyAccount : null
+              )
             "
-          class="item__button non-btn-style">
+            class="item__button non-btn-style"
+          >
             Change account
           </button>
         </li>
@@ -116,18 +121,24 @@
     <section class="page__section">
       <div class="section__wrapper">
         <div class="section__text">
-          The final cost for the consumed electricity for the past month: 350 *
-          355 = 355555 griven
+          The final cost for the consumed electricity for the past month:
+          {{ this.sypply?.tarif }} * {{ usingByPastMonth }} =
+          {{
+            this.sypply !== null ? this.sypply.tarif * usingByPastMonth : 0
+          }}
+          griven
         </div>
         <div class="section__buttons">
           <button
             [disabled]="this.disabled"
+            (click)="onAddNewRecord()"
             class="section__button non-btn-style"
           >
             Record the calculation
           </button>
           <button
             [disabled]="this.disabled"
+            (click)="viewRecord()"
             class="section__button non-btn-style"
           >
             View data on past calculations

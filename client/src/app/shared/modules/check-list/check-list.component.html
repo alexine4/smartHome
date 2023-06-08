@@ -1,0 +1,24 @@
+<div class="container animation-show">
+  <h2 class="container__title">All calculations</h2>
+  <ul
+    *ngIf="calculations$ | async as calculations; else subLoader"
+    class="container__list list animation-show"
+  >
+    <li *ngFor="let calculation of calculations" class="list__item">
+      Amount: <p>{{ calculation.amount }}</p> Cost: <p>{{ calculation.cost }} </p> Date:
+      <p>{{ calculation.createdAt | date : "MMM d, y, HH:mm" }}</p>
+    </li>
+  </ul>
+
+  <div class="container__buttons">
+    <button
+      class="container__button non-btn-style"
+      (click)="dialogRef.close(false)"
+    >
+      Close
+    </button>
+  </div>
+  <ng-template #subLoader>
+    <app-sub-loader></app-sub-loader>
+  </ng-template>
+</div>

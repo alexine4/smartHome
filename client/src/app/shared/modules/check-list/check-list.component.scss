@@ -1,0 +1,75 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 500px;
+	color: #cdf8cdd8;
+	border-radius: 15px;
+	background: linear-gradient(45deg, #f70000fb, #1707f36c, #04fa04d8);
+
+	// .container__title
+
+	&__title {
+		font-family: "Aleo";
+		font-size: 32px;
+		line-height: 38/32 * 100%;
+	}
+
+	// .container__buttons
+
+	&__buttons {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: inherit;
+		flex-direction: row;
+	}
+
+	// .container__button
+
+	&__button {
+		transition: all 1s ease 0s;
+		flex: 0 1 40%;
+		margin: 15px;
+		font-size: 28px;
+		line-height: 34/28 * 100%;
+		color: #0452fa;
+		background: linear-gradient(30deg, #18fa04, #fa047fd8, #fa8f04);
+		border-radius: 1000px;
+		padding: 5px 10px;
+		scale: 1;
+		opacity: 0.8;
+		@media (min-width: 978px) {
+			&:hover {
+				scale: 1.1;
+				opacity: 1;
+				color: #04fae5;
+			}
+		}
+	}
+}
+
+.list {
+	width: inherit;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	flex-direction: column;
+	margin: 10px;
+	padding: 0;
+	// .list__item
+
+	&__item {
+		font-size: 20px;
+		line-height: 30/24*100%;
+		display: inline-flex;
+		justify-content: center;
+		color: #1404fa;
+		border-bottom: 2px dashed #000;
+		p{
+			margin: 0 5px;
+			color: #fa04bc;
+		}
+	}
+}

@@ -2,6 +2,7 @@
 const sypplies = require("../models/supplys");
 const limits = require("../models/limits");
 const usings = require("../models/using");
+const calculations = require("../models/calculations");
 const errorHandler = require("../utils/errorHandler");
 
 //add new sypplies
@@ -86,7 +87,7 @@ module.exports.getLimit = async (req, res) => {
 		errorHandler(res,error)
 	}
 }
-// get limit by sypply
+// get using by sypply
 module.exports.getUsing = async (req, res) => {
 	try {
 		// get date
@@ -98,6 +99,19 @@ module.exports.getUsing = async (req, res) => {
 		await usings.findAllBySypply(req.params.sypplyId,currentDate,previousDate).then(
 			using => {
 				res.status(200).json(using)
+			}
+		)
+	} catch (error) {
+		errorHandler(res,error)
+	}
+}
+// get limit by sypply
+module.exports.getCalc = async (req, res) => {
+	try {
+		//
+		await calculations.getAllBySypply(req.params.sypplyId).then(
+			calc => {
+				res.status(200).json(calc)
 			}
 		)
 	} catch (error) {
@@ -129,3 +143,37 @@ module.exports.addNewLimit = async (req, res) => {
 		errorHandler(res,error)
 	}
 }
+
+
+
+module.exports.addNewCalc = async(req,res)=>{
+try {
+	const currentDate = new Date();
+	const previousDate = new Date();
+   currentDate.setDate(getLastDayOfMonth(currentDate))
+   previousDate.setDate(01);
+	await calculations.getBySypplyAtPeriod(req.body.sypplyId,currentDate,previousDate).then(
+		result=>{
+			if (result[0] ===undefined) {
+				calculations.create(req.body).then(
+					()=>{
+						res.status(201).json({message:'Last month`s calculations have been successfully saved'})
+					}
+				)
+			}else{
+				res.status(409).json({message:'Calculations for the past month have already been recorded'})
+			}
+		}
+	)
+} catch (error) {
+	errorHandler(res,error)
+}
+}
+
+  // for take last day at month
+  function getLastDayOfMonth(currentDate){
+	const currentYear = currentDate.getFullYear();
+	const currentMonth = currentDate.getMonth();
+	const date = new Date(currentYear, currentMonth + 1, 0);
+	return date.getDate();
+ }

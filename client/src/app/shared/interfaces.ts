@@ -78,7 +78,7 @@ export interface Calculation{
 	sypplyId: number
 	amount:number
 	cost: number
-	createdAt:string
+	createdAt:Date
 }
 
 export interface Using {

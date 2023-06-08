@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription, of, switchMap, using } from 'rxjs';
-import { Limit, Sypply, Using } from '../shared/interfaces';
+import { Calculation, Limit, Sypply, Using } from '../shared/interfaces';
 import { Title } from '@angular/platform-browser';
 import { SypplyService } from '../shared/services/sypply.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { DataGetSupportComponent } from '../shared/modules/data-get-support/data-get-support.component';
+import { CheckListComponent } from '../shared/modules/check-list/check-list.component';
 
 @Component({
   selector: 'app-sypply',
@@ -24,6 +25,9 @@ export class SypplyComponent implements OnInit {
   // for take period button
   activeButton: string = ''
   unitOfMeasurement: string = ''
+
+  //by add new calculation on last month
+  calcSub$!:Subscription
 
   // by dialog
   dialogSub$!: Subscription
@@ -56,9 +60,7 @@ export class SypplyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //
- 
-
+  
     //take sypply
     this.sypplySub$ = this.takeSypply().subscribe(
       Sypply => {
@@ -306,6 +308,38 @@ export class SypplyComponent implements OnInit {
         this.disabled = false
         this.toast.error(error.error.message)
       }
+    )
+  }
+
+  public viewRecord():void{
+    this.disabled= true
+    const dialogRef = this.dialog.open(CheckListComponent, {
+      data: {
+        sypplyId:this.sypplyId,
+        sypplyName: this.sypply?.sypplyName
+      },
+      enterAnimationDuration: '1.5s',
+      exitAnimationDuration: '1.5s',
+    })
+  }
+
+  public onAddNewRecord():void{
+    this.disabled = true
+    const newCalc: Calculation={
+      sypplyId: this.sypplyId,
+      amount: this.usingByPastMonth,
+      cost: this.usingByPastMonth * (this.sypply !== null ? this.sypply.tarif:0),
+      createdAt: new Date()
+    }
+    this.calcSub$ = this.sypplyService.createCalc(newCalc).subscribe(
+    answer=>{
+      this.toast.success(answer.message)
+      this.disabled = false
+    },
+    error=>{
+    this.disabled = false
+     this.toast.error(error.error.message)
+    }
     )
   }
 
