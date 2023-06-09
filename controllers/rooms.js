@@ -53,8 +53,7 @@ module.exports.addNew = async (req, res) => {
 };
 module.exports.updateByID = async (req, res) => {
 	try {
-		await rooms
-			.update(req.params.roomId, req.body.typeId, req.body.newRoomName)
+		await rooms.update(req.params.roomId, req.body.typeId, req.body.newRoomName)
 			.then(() => {
 				res.status(200).json({
 					message: "Room updated successfully",
