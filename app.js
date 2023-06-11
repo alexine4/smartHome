@@ -16,6 +16,7 @@ const authRoutes = require('./routes/auth')
 //for simulate -----------------
 const deviceRoutes = require('./simulateDevices/routes/device')
 //-----------------------------
+const logsRoutes = require('./routes/logs')
 const typeRoutes = require('./routes/type')
 const tempRoutes = require('./routes/temperature')
 const roomRoutes = require('./routes/rooms')
@@ -51,6 +52,7 @@ app.use('/api/auth', authRoutes)
 // for simulate ----------------
 app.use('/device', deviceRoutes)
 //------------------------------
+app.use('/api/logs', logsRoutes)
 app.use('/api/types', typeRoutes)
 app.use('/api/rooms', roomRoutes)
 app.use('/api/temps', tempRoutes)

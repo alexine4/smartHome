@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ScenarionTemp } from '../../interfaces';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-temperature-reguleted',
@@ -16,6 +17,7 @@ export class TemperatureReguletedComponent implements OnDestroy {
   changeTempSub$!: Subscription
 constructor(
   private scenarioTempService: ScenarioTempService,
+  private menuService: MenuService,
   private toast: ToastrService,
   public dialogRef: MatDialogRef<TemperatureReguletedComponent>,
   @Inject(MAT_DIALOG_DATA) public data: ScenarionTemp
@@ -50,10 +52,12 @@ constructor(
     this.changeTempSub$ = this.scenarioTempService.update(this.data).subscribe(
     answer=>{
     this.toast.success(answer.message)
+    this.menuService.create(answer.message)
     this.dialogRef.close(true)
     },
     error=>{
      this.toast.error(error.error.message)
+     this.menuService.create(error.error.message)
     }
     )
   }

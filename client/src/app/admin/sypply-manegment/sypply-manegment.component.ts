@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
-import { roomAndType, Room, Type, Sypply } from 'src/app/shared/interfaces';
-import { RoomService } from 'src/app/shared/services/room.service';
+import { Subscription } from 'rxjs';
+import { Sypply } from 'src/app/shared/interfaces';
+import { MenuService } from 'src/app/shared/services/menu.service';
 import { SypplyService } from 'src/app/shared/services/sypply.service';
-import { TypeService } from 'src/app/shared/services/type.service';
 
 @Component({
   selector: 'app-sypply-manegment',
@@ -28,7 +27,7 @@ export class SypplyManegmentComponent {
 
   constructor(
     private sypplyService: SypplyService,
-    private typeService: TypeService,
+    private menuService: MenuService,
     private toast: ToastrService
   ) { }
   ngOnInit(): void {
@@ -58,7 +57,10 @@ export class SypplyManegmentComponent {
         this.sypplies = sypplies
         this.loading = true
       },
-      error => this.toast.error(error.error.massege)
+      error => {
+        this.toast.error(error.error.massege)
+        this.menuService.create(error.error.massege)
+      }
     )
   }
   // function take rooms and type from list 
@@ -87,10 +89,12 @@ export class SypplyManegmentComponent {
       answer => {
         this.sypplies.push(newSypply)
         this.toast.success(answer.message)
+        this.menuService.create(answer.message)
       },
       error => {
         this.sypplyForm.enable()
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.massege)
       },
       () => {
         this.sypplyForm.enable()
@@ -122,10 +126,12 @@ export class SypplyManegmentComponent {
       this.sypplies = []
       this.fetchSypplies()
       this.toast.success(message.message)
+      this.menuService.create(message.message)
     },
     error => {
       this.sypplyForm.enable()
       this.toast.error(error.error.message)
+      this.menuService.create(error.error.massege)
     },
     () => {
       this.sypplyForm.enable()
@@ -145,10 +151,12 @@ export class SypplyManegmentComponent {
         //delete element from array
       this.sypplies = this.sypplies.filter(item => item['sypplyId'] !== this.sypplyId);
       this.toast.success(message.message)
+      this.menuService.create(message.message)
       },
       error=>{
       this.sypplyForm.enable()
       this.toast.error(error.error.message)
+      this.menuService.create(error.error.massege)
       },
       ()=>{
       this.sypplyForm.enable()

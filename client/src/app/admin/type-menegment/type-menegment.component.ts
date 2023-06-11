@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { Type } from 'src/app/shared/interfaces';
+import { MenuService } from 'src/app/shared/services/menu.service';
 import { TypeService } from 'src/app/shared/services/type.service';
 
 
@@ -22,6 +23,7 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
   typeForm!: FormGroup
   constructor(
     private typeService: TypeService,
+    private menuService: MenuService,
     private toast: ToastrService
   ) { }
 
@@ -52,10 +54,12 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
       result => {
         this.fetchTypes()
         this.toast.success(result.message)
+        this.menuService.create(result.message)
       },
       error => {
         this.typeForm.enable()
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       },
       () => {
         this.typeForm.enable()
@@ -74,10 +78,12 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
       result => {
         this.fetchTypes()
         this.toast.success(result.message)
+        this.menuService.create(result.message)
       },
       error => {
         this.typeForm.enable()
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       },
       () => {
         this.typeForm.enable()
@@ -92,10 +98,12 @@ export class TypeMenegmentComponent implements OnInit, OnDestroy {
       result => {
         this.fetchTypes()
         this.toast.success(result.message)
+        this.menuService.create(result.message)
       },
       error => {
         this.typeForm.enable()
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       },
       () => {
         this.typeForm.enable()

@@ -5,6 +5,7 @@ import { ScenarionTemp } from '../../interfaces';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-scenario-temp',
@@ -19,6 +20,7 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
 
   constructor(
     private scenarioTempService: ScenarioTempService,
+    private menuService:MenuService,
     private toast: ToastrService,
     public dialogRef: MatDialogRef<ScenarioTempComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ScenarionTemp
@@ -64,10 +66,13 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
           answer => {
             this.toast.success(answer.message)
             this.dialogRef.close(true)
+            this.menuService.create(answer.message)
           },
           error => {
             this.scenarioForm.enable()
             this.toast.error(error.error.message)
+            this.menuService.create(error.error.message)
+            
           },
           () => {
             this.scenarioForm.enable()
@@ -79,10 +84,12 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
           answer => {
             this.toast.success(answer.message)
             this.dialogRef.close(true)
+            this.menuService.create(answer.message)
           },
           error => {
             this.scenarioForm.enable()
             this.toast.error(error.error.message)
+            this.menuService.create(error.error.message)
           },
           () => {
             this.scenarioForm.enable()
@@ -99,11 +106,13 @@ export class ScenarioTempComponent implements OnInit, OnDestroy {
     this.scenarioSub$ = this.scenarioTempService.delete(this.data.scenarioId).subscribe(
     answer=>{
     this.toast.success(answer.message)
+    this.menuService.create(answer.message)
     this.dialogRef.close(true)
     },
     error=>{
     this.scenarioForm.enable()
      this.toast.error(error.error.message)
+     this.menuService.create(error.error.message)
     },
     ()=>{
     this.scenarioForm.enable()

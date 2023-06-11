@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { DataGetSupportComponent } from '../shared/modules/data-get-support/data-get-support.component';
 import { CheckListComponent } from '../shared/modules/check-list/check-list.component';
+import { MenuService } from '../shared/services/menu.service';
 
 @Component({
   selector: 'app-sypply',
@@ -27,7 +28,7 @@ export class SypplyComponent implements OnInit {
   unitOfMeasurement: string = ''
 
   //by add new calculation on last month
-  calcSub$!:Subscription
+  calcSub$!: Subscription
 
   // by dialog
   dialogSub$!: Subscription
@@ -52,15 +53,16 @@ export class SypplyComponent implements OnInit {
   usingAverageByDayInPastMonth!: number
 
   constructor(
+    private dialog: MatDialog,
+    private menuService: MenuService,
     private route: ActivatedRoute,
     private sypplyService: SypplyService,
     private title: Title,
     private toast: ToastrService,
-    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-  
+
     //take sypply
     this.sypplySub$ = this.takeSypply().subscribe(
       Sypply => {
@@ -79,6 +81,7 @@ export class SypplyComponent implements OnInit {
       error => {
         this.loading = true
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }
@@ -112,6 +115,7 @@ export class SypplyComponent implements OnInit {
       error => {
         this.limitLoading = true
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       },
 
     )
@@ -127,34 +131,35 @@ export class SypplyComponent implements OnInit {
         this.usingByCurrentMonth = 0
         this.usingByPastMonth = 0
         this.usingAverageByDayInPastMonth = 0
-        if (using[0]!==undefined) {
+        if (using[0] !== undefined) {
           // take using by day
-        const previousDate = new Date(this.currentDate);
-        previousDate.setDate(previousDate.getDay() - 1)
-        
-        this.usingByDay = this.takeUsingByPeriod(using, this.currentDate, previousDate)[0].amount
-        // take using by current month
-        previousDate.setDate(0o1);
-      
-        this.usings = this.takeUsingByPeriod(using, this.currentDate, previousDate)
-        for (let index = 0; index < this.usings.length; index++) {
-          this.usingByCurrentMonth = this.usingByCurrentMonth + this.usings[index].amount;
+          const previousDate = new Date(this.currentDate);
+          previousDate.setDate(previousDate.getDay() - 1)
+
+          this.usingByDay = this.takeUsingByPeriod(using, this.currentDate, previousDate)[0].amount
+          // take using by current month
+          previousDate.setDate(0o1);
+
+          this.usings = this.takeUsingByPeriod(using, this.currentDate, previousDate)
+          for (let index = 0; index < this.usings.length; index++) {
+            this.usingByCurrentMonth = this.usingByCurrentMonth + this.usings[index].amount;
+          }
+          // take by past month
+          this.currentDate.setMonth(previousDate.getMonth() - 1)
+          this.currentDate.setDate(this.getLastDayOfMonth(this.currentDate))
+          previousDate.setMonth(previousDate.getMonth() - 1);
+          this.usings = this.takeUsingByPeriod(using, this.currentDate, previousDate)
+          for (let index = 0; index < this.usings.length; index++) {
+            this.usingByPastMonth = this.usingByPastMonth + this.usings[index].amount;
+          }
+          this.usingAverageByDayInPastMonth = this.usingByPastMonth / this.getLastDayOfMonth(this.currentDate)
         }
-        // take by past month
-        this.currentDate.setMonth(previousDate.getMonth() - 1)
-        this.currentDate.setDate(this.getLastDayOfMonth(this.currentDate))
-        previousDate.setMonth(previousDate.getMonth() - 1);
-        this.usings = this.takeUsingByPeriod(using, this.currentDate, previousDate)
-        for (let index = 0; index < this.usings.length; index++) {
-          this.usingByPastMonth = this.usingByPastMonth + this.usings[index].amount;
-        }
-        this.usingAverageByDayInPastMonth = this.usingByPastMonth / this.getLastDayOfMonth(this.currentDate)
-        }
-        
+
       },
       error => {
         this.limitLoading = true
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       },
     )
   }
@@ -210,10 +215,13 @@ export class SypplyComponent implements OnInit {
     this.sypplySub$ = this.sypplyService.update(sypply).subscribe(
       answer => {
         this.toast.success(answer.message)
+        this.menuService.create(answer.message)
+
       },
       error => {
         this.disabled = false
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       },
       () => {
         this.disabled = false
@@ -238,11 +246,13 @@ export class SypplyComponent implements OnInit {
           answer => {
             this.takeSypplyLimit()
             this.toast.success(answer.message)
+            this.menuService.create(answer.message)
             this.disabled = false
           },
           error => {
             this.disabled = false
             this.toast.error(error.error.message)
+            this.menuService.create(error.error.message)
           }
         )
         break;
@@ -257,11 +267,13 @@ export class SypplyComponent implements OnInit {
           answer => {
             this.takeSypplyLimit()
             this.toast.success(answer.message)
+            this.menuService.create(answer.message)
             this.disabled = false
           },
           error => {
             this.disabled = false
             this.toast.error(error.error.message)
+            this.menuService.create(error.error.message)
           }
         )
         break;
@@ -274,7 +286,7 @@ export class SypplyComponent implements OnInit {
 
   }
   // change tarif
-  public onChange(tarif:number|null,sypplyAccount:number|null): void {
+  public onChange(tarif: number | null, sypplyAccount: number | null): void {
     this.disabled = true
     const dialogRef = this.dialog.open(DataGetSupportComponent, {
       data: {
@@ -286,42 +298,45 @@ export class SypplyComponent implements OnInit {
     })
     this.dialogSub$ = dialogRef.afterClosed().subscribe(
       result => {
-        if (result!==false && result!== undefined &&this.sypply!==null) {
-          if (result.tarif !==null) {
+        if (result !== false && result !== undefined && this.sypply !== null) {
+          if (result.tarif !== null) {
             this.sypply.tarif = result.tarif
           }
-          if (result.sypplyAccount !==null) {
+          if (result.sypplyAccount !== null) {
             this.sypply.sypplyAccount = result.sypplyAccount
           }
-          
+
           this.sypplySub$ = this.sypplyService.update(this.sypply).subscribe(
-          answer=>{
-            this.toast.success(answer.message)
-            this.disabled = false
-          },
-          error=>{
-            this.disabled = false
-           this.toast.error(error.error.message)
-          }
+            answer => {
+              this.toast.success(answer.message)
+              this.menuService.create(answer.message)
+              this.disabled = false
+            },
+            error => {
+              this.disabled = false
+              this.toast.error(error.error.message)
+              this.menuService.create(error.error.message)
+            }
           )
         }
-        if (!result||result===undefined) {
+        if (!result || result === undefined) {
           this.disabled = false
         }
-        
+
       },
       error => {
         this.disabled = false
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }
 
-  public viewRecord():void{
-    
+  public viewRecord(): void {
+
     const dialogRef = this.dialog.open(CheckListComponent, {
       data: {
-        sypplyId:this.sypplyId,
+        sypplyId: this.sypplyId,
         sypplyName: this.sypply?.sypplyName
       },
       enterAnimationDuration: '1.5s',
@@ -329,23 +344,25 @@ export class SypplyComponent implements OnInit {
     })
   }
 
-  public onAddNewRecord():void{
+  public onAddNewRecord(): void {
     this.disabled = true
-    const newCalc: Calculation={
+    const newCalc: Calculation = {
       sypplyId: this.sypplyId,
       amount: this.usingByPastMonth,
-      cost: this.usingByPastMonth * (this.sypply !== null ? this.sypply.tarif:0),
+      cost: this.usingByPastMonth * (this.sypply !== null ? this.sypply.tarif : 0),
       createdAt: new Date()
     }
     this.calcSub$ = this.sypplyService.createCalc(newCalc).subscribe(
-    answer=>{
-      this.toast.success(answer.message)
-      this.disabled = false
-    },
-    error=>{
-    this.disabled = false
-     this.toast.error(error.error.message)
-    }
+      answer => {
+        this.toast.success(answer.message)
+        this.menuService.create(answer.message)
+        this.disabled = false
+      },
+      error => {
+        this.disabled = false
+        this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
+      }
     )
   }
 

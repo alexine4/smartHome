@@ -11,6 +11,7 @@ import { ScenarioTempComponent } from '../shared/modules/scenario-temp/scenario-
 import { TemperatureReguletedComponent } from '../shared/modules/temperature-reguleted/temperature-reguleted.component';
 import { AccessoryManegmentComponent } from '../shared/modules/accessory-manegment/accessory-manegment.component';
 import { AccessoryService } from '../shared/services/accessory.service';
+import { MenuService } from '../shared/services/menu.service';
 
 @Component({
   selector: 'app-room',
@@ -50,6 +51,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     private accessoryService: AccessoryService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
+    private menuService: MenuService,
     private scenarioTempService: ScenarioTempService,
     private tempService: TemperatureService,
     private toast: ToastrService
@@ -149,6 +151,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       },
       error => {
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }
@@ -168,6 +171,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       },
       error => {
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }
@@ -187,6 +191,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       },
       error => {
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }
@@ -214,6 +219,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       },
       error => {
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }
@@ -233,6 +239,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       },
       error => {
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
       }
     )
   }

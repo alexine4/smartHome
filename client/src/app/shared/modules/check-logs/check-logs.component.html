@@ -1,0 +1,30 @@
+<div class="container animation-show">
+	<h2 class="container__title">All logs</h2>
+	<ul
+	  *ngIf="this.loading && data.length >0 ; else subLoader"
+	  class="container__list list animation-show custom-scrollbar"
+	>
+	  <li (click)="checked(log.aLogId)" *ngFor="let log of data" class="list__item" [ngClass]="{'unchecked':!log.checked}">
+		 Message: <p>{{ log.message }}</p> Date:
+		 <p>{{ log.createdAt | date : "MMM d, y, HH:mm" }}</p>
+	  </li>
+	</ul>
+ 
+	<div class="container__buttons">
+	  <button
+		 class="container__button non-btn-style"
+		 (click)="dialogRef.close(false)"
+	  >
+		 Close
+	  </button>
+	  <button
+		 class="container__button non-btn-style"
+		 (click)="checkAll()"
+	  >
+		 Check all
+	  </button>
+	</div>
+	<ng-template #subLoader>
+	  <app-sub-loader></app-sub-loader>
+	</ng-template>
+ </div>

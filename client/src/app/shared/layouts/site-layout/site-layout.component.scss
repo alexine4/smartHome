@@ -182,3 +182,29 @@
   top: 50%;
   transform: translate(-50%, 0%) rotate(-45deg);
 }
+.icon-bell{
+  cursor: pointer;
+  color: #fb7b05;
+  font-size: 38px;
+  position: relative;
+  top: 20px;
+  left: 20vw;
+  @media (min-width: $md1){
+  font-size: 45px;
+  }
+  
+}
+.number{
+  color: #03caf7;
+  font-weight: 700;
+position: relative;
+bottom: 50px;
+right: 35px;
+background: #ff0000;
+padding: 5px 15px;
+border-radius: 50%;
+}
+
+.adaptive{
+top: 0;
+}

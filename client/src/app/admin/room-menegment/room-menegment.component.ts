@@ -5,6 +5,7 @@ import {  Subscription, } from 'rxjs';
 import { Room, Type, roomAndType } from 'src/app/shared/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { TypeService } from 'src/app/shared/services/type.service';
+import { MenuService } from 'src/app/shared/services/menu.service';
 
 @Component({
   selector: 'app-room-menegment',
@@ -26,6 +27,7 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
   roomForm!: FormGroup
 
   constructor(
+    private menuService: MenuService,
     private roomService: RoomService,
     private typeService: TypeService,
     private toast: ToastrService
@@ -44,7 +46,10 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
         this.roomForm.enable()
         this.types = Types
       },
-      error => this.toast.error(error.error.massege)
+      error => {
+        this.toast.error(error.error.massege)
+      this.menuService.create(error.error.massege)
+      }
     )
     //fetch all rooms
     this.fetchRooms()
@@ -58,7 +63,11 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
         this.loading = true
         this.rooms.push(room)
       },
-      error => this.toast.error(error.error.massege)
+      error => {
+        this.toast.error(error.error.massege)
+      this.menuService.create(error.error.massege)
+    }
+
     )
   }
   // function take rooms and type from list 
@@ -99,10 +108,14 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
       answer => {
         this.rooms.push(roomPush)
         this.toast.success(answer.message)
+  
+        this.menuService.create(answer.message)
       },
       error => {
         this.roomForm.enable()
         this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
+
       },
       () => {
         this.roomForm.enable()
@@ -137,10 +150,13 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
     this.rooms=[]
     this.fetchRooms()
     this.toast.success(message.message)
-    },
+      this.menuService.create(message.message)
+  },
     error=>{
     this.roomForm.enable()
      this.toast.error(error.error.message)
+      this.menuService.create(error.error.message)
+
     },
     ()=>{
     this.roomForm.enable()
@@ -159,10 +175,14 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
         //delete element from array
       this.rooms = this.rooms.filter(item => item['roomId'] !== room.roomId);
       this.toast.success(message.message)
-      },
+ 
+        this.menuService.create(message.message)
+    },
       error=>{
       this.roomForm.enable()
       this.toast.error(error.error.message)
+        this.menuService.create(error.error.message)
+
       },
       ()=>{
       this.roomForm.enable()

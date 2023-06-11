@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-accessory-manegment',
@@ -53,6 +54,7 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
 
   constructor(
     private accessoryService: AccessoryService,
+    private menuService:MenuService,
     private toast: ToastrService,
     public dialogRef: MatDialogRef<AccessoryManegmentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Accessory
@@ -101,10 +103,14 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
           answer => {
             this.dialogRef.close(true)
             this.toast.success(answer.message)
+            this.menuService.create(answer.message)
+            
           },
           error => {
             this.accesoryForm.enable()
             this.toast.error(error.error.message)
+            this.menuService.create(error.error.message)
+            
           },
           () => {
             this.accesoryForm.enable()
@@ -117,10 +123,12 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
           answer => {
             this.dialogRef.close(true)
             this.toast.success(answer.message)
+            this.menuService.create(answer.message)
           },
           error => {
             this.accesoryForm.enable()
             this.toast.error(error.error.message)
+            this.menuService.create(error.error.message)
           },
           () => {
             this.accesoryForm.enable()
@@ -136,11 +144,13 @@ export class AccessoryManegmentComponent implements OnInit, OnDestroy {
     this.accessorySub$ = this.accessoryService.delete(this.data.accessoryId).subscribe(
     answer=>{
       this.toast.success(answer.message)
+      this.menuService.create(answer.message)
       this.dialogRef.close(true)
     },
     error=>{
     this.accesoryForm.enable()
      this.toast.error(error.error.message)
+     this.menuService.create(error.error.message)
     },
     ()=>{
     this.accesoryForm.enable()

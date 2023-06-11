@@ -37,6 +37,7 @@ import { SypplyManegmentComponent } from './admin/sypply-manegment/sypply-manegm
 import { SypplyMenuComponent } from './sypply-menu/sypply-menu.component';
 import { DataGetSupportComponent } from './shared/modules/data-get-support/data-get-support.component';
 import { CheckListComponent } from './shared/modules/check-list/check-list.component';
+import { CheckLogsComponent } from './shared/modules/check-logs/check-logs.component';
 
 
 
@@ -68,6 +69,7 @@ import { CheckListComponent } from './shared/modules/check-list/check-list.compo
     SypplyMenuComponent,
     DataGetSupportComponent,
     CheckListComponent,
+    CheckLogsComponent,
   ],
   imports: [
     AppRoutingModule,

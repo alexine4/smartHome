@@ -86,3 +86,9 @@ export interface Using {
 	amount:number
 	createdAt:string
 }
+export interface Logs {
+	aLogId:number
+	message:string
+	checked: boolean
+	createdAt:string
+}

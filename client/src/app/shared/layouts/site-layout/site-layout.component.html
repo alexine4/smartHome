@@ -23,7 +23,8 @@
         <span></span>
         <span></span>
       </div>
-      <p>{{ this.title.getTitle() | titlecase }}</p>
+      <p >{{ this.title.getTitle() | titlecase }}  <button (click)="getLog()"  class="icon-bell non-btn-style" [ngClass]="{'adaptive': this.menuService.activeLog <=0}"> <p *ngIf=" this.menuService.activeLog >0" class="number">{{ this.menuService.activeLog}}</p></button> </p>
+     
     </div>
     <div class="page__content animation-show">
       <router-outlet></router-outlet>

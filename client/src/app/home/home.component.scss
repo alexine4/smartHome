@@ -5,14 +5,20 @@
 	// .navigation__container
 
 	&__container {
+		min-height: 93vh;
 		height: 93vh;
 		width: 80vw;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		@media (min-width: $md2){
+			align-items: center;
+		}
 		background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
 		@media (max-width: $md2) {
 			width: 100vw;
+			height:auto;
+			
 		}
 	}
 
@@ -29,6 +35,7 @@
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		@media (max-width: $md2) {
 			grid-template-columns: 1fr 1fr 1fr;
+			
 		}
 		@media (max-width: $md3) {
 			grid-template-columns: 1fr;
