@@ -69,4 +69,8 @@ meterController.getTemperature(5)
 
 const deviceController = require('./controllers/device')
 deviceController.getIndicators(2)
+deviceController.getIndicators(3)
+deviceController.getIndicators(4)
+deviceController.getIndicators(5)
+deviceController.getIndicators(6)
 module.exports = app

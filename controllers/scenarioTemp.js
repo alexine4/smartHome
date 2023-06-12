@@ -1,6 +1,7 @@
 
 // import modules
 const scenarioTemp = require("../models/scenarioTemp");
+const axios = require('axios')
 const errorHandler = require("../utils/errorHandler");
 
 //get all scenarios by rooms
@@ -34,13 +35,36 @@ module.exports.addNew = async (req, res) => {
 		await scenarioTemp.findByTime(req.body).then(
 			Scenario => {
 				if (Scenario === null) {
-					scenarioTemp.create(req.body).then(
-						() => {
-							res.status(201).json({
-								message: 'New scenario of temperature record successfully created'
+
+					// Send request on device
+					const data = req.body;
+					const deviceUrl = `http://localhost:5000/device/${req.body.rooId}/ScenarioTemp/addNew`;
+					console.log("Command send to device...");
+					axios.get(deviceUrl, data)
+						.then(response => {
+							console.log('The command was successfully sent to the device.');
+							console.log('Answer...');
+							console.log(response.data);
+							if (response.data.status === true) {
+								// add to db
+								scenarioTemp.create(req.body).then(
+									() => {
+										res.status(201).json({
+											message: 'New scenario of temperature record successfully created'
+										})
+									}
+								)
+							}
+						})
+						.catch((error) => {
+							console.log('An error occurred while sending the data.');
+							console.error(error);
+							res.status(404).json({
+								message: "Device with this ID does not exist"
 							})
-						}
-					)
+						});
+
+					
 				}
 				else {
 					res.status(409).json({
@@ -59,13 +83,34 @@ module.exports.updateById = async (req, res) => {
 		await scenarioTemp.findByTime(req.body).then(
 			Scenario => {
 				if (Scenario === null || Scenario.dataValues.scenarioId == req.params.scenarioId) {
-					scenarioTemp.updateById(req.params.scenarioId, req.body).then(
-						() => {
-							res.status(201).json({
-								message: 'Scenario of temperature record successfully updated'
+					// Send request on device
+					const data = req.body;
+					const deviceUrl = `http://localhost:5000/device/${req.body.rooId}/ScenarioTemp/${req.body.scenarioId}`;
+					console.log("Command send to device...");
+					axios.patch(deviceUrl, data)
+						.then(response => {
+							console.log('The command was successfully sent to the device.');
+							console.log('Answer...');
+							console.log(response.data);
+							if (response.data.status === true) {
+								// add to db
+								scenarioTemp.updateById(req.params.scenarioId, req.body).then(
+									() => {
+										res.status(201).json({
+											message: 'Scenario of temperature record successfully updated'
+										})
+									}
+								)
+							}
+						})
+						.catch((error) => {
+							console.log('An error occurred while sending the data.');
+							console.error(error);
+							res.status(404).json({
+								message: "Device with this ID does not exist"
 							})
-						}
-					)
+						});
+					
 				}
 				else {
 					res.status(409).json({

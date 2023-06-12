@@ -104,7 +104,7 @@ module.exports.updateScenarioTemp = async (req, res) => {
 				scenario[index] = req.body;
 			}
 		}
-		res.status(200).json({ message: `Temperature scenario ${req.body.name} successfully updated` })
+		res.status(200).json({ message: `Temperature scenario ${req.body.name} successfully updated`,status:true })
 	} catch (error) {
 		res.status(400).json(error)
 	}
@@ -120,7 +120,7 @@ module.exports.addNewScenarioTemp = async (req, res) => {
 		req.body.roomId = req.params.deviceId
 
 		scenario.push(req.body)
-		res.status(200).json({ message: `Temperature scenario ${req.body.name} successfully created` })
+		res.status(200).json({ message: `Temperature scenario ${req.body.name} successfully created`,status:true })
 
 
 	} catch (error) {
@@ -139,7 +139,7 @@ module.exports.deleteScenarioTemp = async (req, res) => {
 
 		scenario = scenario.filter(obj => obj.roomId.toString() !== req.params.roomId &&obj.scenarioId.toString() !== req.params.scenarioId )
 		
-		res.status(200).json({ message: `Temperature scenario  successfully deleted` })
+		res.status(200).json({ message: `Temperature scenario  successfully deleted`,status:true })
 
 
 	} catch (error) {
@@ -182,6 +182,7 @@ module.exports.getProperties = async (req, res) => {
 				res.status(200).json(properties[index])
 			}
 		}
+		res.status(200).json(null)
 	} catch (error) {
 		res.status(400).json(error)
 	}
@@ -194,13 +195,18 @@ module.exports.updateProperties = async (req, res) => {
 		console.log('--------------------------------------------------------');
 		console.log('Update properties...');
 		console.log('--------------------------------------------------------');
+		
 		for (let index = 0; index < properties.length; index++) {
 			if (properties[index].accessoryId.toString() ===req.params.deviceId) {
 				req.body.accessoryId = req.params.deviceId
 				properties[index] = req.body
 				res.status(200).json({message:`Properties ${req.body.accessoryId} successfully updated` })
 			}
+			
 		}
+		properties.push(req.body)
+				res.status(200).json({message:`Properties ${req.body.accessoryId} successfully updated` })
+		
 	} catch (error) {
 		res.status(400).json(error)
 	}
