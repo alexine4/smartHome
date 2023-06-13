@@ -77,10 +77,10 @@ module.exports.findOneByName = async (roomName) => {
 		return error
 	}
 }
-module.exports.findAll = async () => {
+module.exports.findAll = async (houseId) => {
 
 	try {
-		return await Rooms.findAll()
+		return await Rooms.findAll({where:{houseId}})
 	} catch (error) {
 		return error
 	}

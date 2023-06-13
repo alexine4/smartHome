@@ -21,7 +21,6 @@ constructor(
     setTimeout(() => {
       this.loading = true
     }, 4000);
-    console.log(this.data);
     
   }
   public checked(aLogId:number):void{

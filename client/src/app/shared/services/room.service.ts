@@ -16,9 +16,11 @@ export class RoomService {
   public fetchWithType(): Observable<roomAndType> {
     const rooms$: Observable<Room[]> = this.httpClient.get<Room[]>(`/api/rooms/getRooms`)
     const types$: Observable<Type[]> = this.httpClient.get<Type[]>(`/api/types/getTypes`)
+
     const result$: Observable<roomAndType> = types$.pipe(
       mergeMap(types => rooms$.pipe(
-        mergeMap(rooms => of(
+        mergeMap(rooms => 
+          of(
           ...rooms.map(room => ({
             ...room,
             typeId: types[types.findIndex(type => room.typeId === type.typeId) !== undefined ? types.findIndex(type => room.typeId === type.typeId) : 0].typeId,
@@ -26,9 +28,13 @@ export class RoomService {
           }))
         )),
         delay(4000)
-      ))
+      )
+      
+      )
     )
+    
     return result$
+
 
   }
 

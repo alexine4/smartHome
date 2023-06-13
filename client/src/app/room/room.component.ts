@@ -60,7 +60,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     // getting actual temperature
     this.getTemp()
-
   }
 
   //get actual temperature by room
@@ -243,6 +242,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       }
     )
   }
+
 
   public ngOnDestroy(): void {
     if (this.tempSub$) {

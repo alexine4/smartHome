@@ -205,14 +205,14 @@ module.exports.confirmConnectionReq = async (req, res) => {
 		.then((response) => {
 			console.log('The command was successfully sent to the device.');
 			res.status(200).json({
-				message: "Device ID exist "
+				message: "Device IP exist "
 			})
 		})
 		.catch((error) => {
 			console.log('An error occurred while sending the data.');
 			console.error(error);
 			res.status(404).json({
-				message: "Device with this ID does not exist"
+				message: "Device with this IP does not exist"
 			})
 		});
 }

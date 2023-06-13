@@ -3,7 +3,7 @@ const errorHandler = require("../utils/errorHandler");
 
 module.exports.getAll = async (req, res) => {
 	try {
-		await rooms.findAll().then((Rooms) => {
+		await rooms.findAll(req.user.houseId).then((Rooms) => {
 			if (Rooms !== null) {
 				res.status(200).json(Rooms);
 			} else {

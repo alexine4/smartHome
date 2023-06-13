@@ -43,6 +43,7 @@ export class RoomMenegmentComponent implements OnInit, OnDestroy {
     //fetch all types
     this.typeSub$ = this.typeService.fetchAll().subscribe(
       Types => {
+        this.loading = true
         this.roomForm.enable()
         this.types = Types
       },
