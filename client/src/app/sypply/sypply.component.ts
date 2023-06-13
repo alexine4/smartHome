@@ -132,10 +132,10 @@ export class SypplyComponent implements OnInit {
         this.usingByPastMonth = 0
         this.usingAverageByDayInPastMonth = 0
         if (using[0] !== undefined) {
+          this.currentDate = new Date();
           // take using by day
-          const previousDate = new Date(this.currentDate);
-          previousDate.setDate(previousDate.getDay() - 1)
-
+          let previousDate = new Date();      
+          previousDate.setDate(this.currentDate.getDate() -1 )
           this.usingByDay = this.takeUsingByPeriod(using, this.currentDate, previousDate)[0].amount
           // take using by current month
           previousDate.setDate(0o1);
