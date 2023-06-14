@@ -23,8 +23,8 @@ module.exports.getTemperature = async (req, res) => {
 		console.log('--------------------------------------------------------');
 		console.log('Good practice on the device');
 		console.log('--------------------------------------------------------');
-		const minNumber = 10;
-		const maxNumber = 25;
+		const minNumber = 18.1;
+		const maxNumber = 25.9;
 		const randomNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;;
 		res.status(200).json({
 			roomId: `${req.params.deviceId}`,
@@ -111,6 +111,7 @@ module.exports.updateScenarioTemp = async (req, res) => {
 }
 //  create scenario by room and id
 module.exports.addNewScenarioTemp = async (req, res) => {
+	console.log('sdfd');
 	try {
 		console.log('--------------------------------------------------------');
 		console.log('Good practice on the device');

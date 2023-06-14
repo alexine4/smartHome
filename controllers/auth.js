@@ -119,7 +119,7 @@ module.exports.register = async function (req, res) {
 
 											}
 										)
-									}else{
+									} else {
 										user.create(
 											req.body.userName,
 											req.body.email,
@@ -155,7 +155,7 @@ module.exports.register = async function (req, res) {
 			});
 		}
 	} catch (error) {
-		errorHandler(res,error)
+		errorHandler(res, error)
 	}
 
 };
@@ -231,24 +231,33 @@ module.exports.confirmConnectionRes = async (req, res) => {
 
 module.exports.checkUser = async (req, res) => {
 
-	await delay(5000)
 
 	try {
-
-		await user.checkUser(req.body.userName, req.body.email, req.body.homeIp)
-			.then(
-				resulst => {
-					if (resulst !== null) {
-						res.status(200).json({
-							message: 'User with this data exist'
-						})
-					} else {
-						res.status(404).json({
-							message: 'User with this data does not exist'
-						})
-					}
+		console.log(req.body.userName, req.body.email, req.body.homeIp);
+		await house.findByIp(req.body.homeIp).then(
+			house => {
+				if (house !== null) {
+					user.checkUser( req.body ,house.dataValues.houseId)
+						.then(
+							resulst => {
+								if (resulst !== null) {
+									res.status(200).json({
+										message: 'User with this data exist'
+									})
+								} else {
+									res.status(404).json({
+										message: 'User with this data does not exist'
+									})
+								}
+							}
+						)
+				} else {
+					res.status(404).json({
+						message: 'User with this data does not exist'
+					})
 				}
-			)
+			}
+		)
 			.catch(error => {
 				res.status(400).json(error)
 			})

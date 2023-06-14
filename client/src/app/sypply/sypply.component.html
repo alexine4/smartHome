@@ -123,7 +123,7 @@
     <section class="page__section">
       <div class="section__wrapper">
         <div class="section__text">
-          The final cost for the consumed electricity for the past month:
+          The final cost for the consumed {{this.sypply?.sypplyName}} for the past month:
           {{ this.sypply?.tarif }} * {{ usingByPastMonth }} =
           {{ this.sypply !== null ? this.sypply.tarif * usingByPastMonth : 0 }}
           griven

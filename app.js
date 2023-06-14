@@ -62,10 +62,15 @@ app.use('/api/sypplies', supplyRoutes)
 // simulate device
 //start check temperature by interval in automatic mode
 const meterController = require('./controllers/temperature')
-meterController.getTemperature(1)
-meterController.getTemperature(2)
-meterController.getTemperature(3)
-meterController.getTemperature(5)
+meterController.getTemperature(20)
+meterController.getTemperature(21)
+meterController.getTemperature(22)
+meterController.getTemperature(23)
+meterController.getTemperature(24)
+meterController.getTemperature(25)
+meterController.getTemperature(26)
+meterController.getTemperature(27)
+
 
 const deviceController = require('./controllers/device')
 deviceController.getIndicators(2)

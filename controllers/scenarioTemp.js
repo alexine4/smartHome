@@ -38,9 +38,9 @@ module.exports.addNew = async (req, res) => {
 
 					// Send request on device
 					const data = req.body;
-					const deviceUrl = `http://localhost:5000/device/${req.body.rooId}/ScenarioTemp/addNew`;
+					const deviceUrl = `http://localhost:5000/device/${req.body.roomId}/ScenarioTemp/addNew`;
 					console.log("Command send to device...");
-					axios.get(deviceUrl, data)
+					axios.post(deviceUrl, data)
 						.then(response => {
 							console.log('The command was successfully sent to the device.');
 							console.log('Answer...');
