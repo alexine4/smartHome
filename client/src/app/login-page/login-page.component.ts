@@ -44,7 +44,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
       ])
     });
-
   }
 
   public showHidePassword(): void {

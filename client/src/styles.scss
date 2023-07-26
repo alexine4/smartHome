@@ -23,6 +23,10 @@ body,h1,h2,h3,h4, label,input,button,p,small {
 	align-items: center;
 	justify-content: center;
 	padding: 5px;
+	@media (max-width: 976px){
+	width: 100vw;
+	height: 100vh;
+	}
 }
 .phfont-family {
 	&::placeholder {
