@@ -84,6 +84,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
         });
         this.dialogSub$ = dialogRef.afterClosed().subscribe(
           result => {
+            this.signUpForm.enable()
             // check user successufully confirmed code
             if (result !== undefined) {
               // register new user
@@ -102,7 +103,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
                   this.toast.error(error.error.message)
                 },
                 () => {
-                  this.signUpForm.enable()
                   this.toast.success('New user successfully registration')
                 }
               )

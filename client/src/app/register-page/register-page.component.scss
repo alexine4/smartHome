@@ -1,16 +1,18 @@
-
-@import '.././shared/css styles/scssConstants.scss';
+@import ".././shared/css styles/scssConstants.scss";
 
 .form {
-
   // .form__container
 
   &__container {
     flex-direction: column;
-    background-color: #7a36d3;
+    background: linear-gradient(60deg, #068bf7, #f76262, #02fd62);
     border-radius: 50px;
     padding: 20px;
     overflow: hidden;
+    @media (max-width: 976px) {
+      padding: 0;
+      border-radius: 0;
+    }
   }
 
   &__title {
@@ -19,10 +21,15 @@
     line-height: 58px;
     color: #000000;
     margin: 0 0 20px 0;
+    @media (max-width: $md3) {
+      font-size: 40px;
+    }
+    @media (max-width: $md4) {
+      font-size: 32px;
+    }
   }
 
   &__label {
-
     font-weight: 400;
     font-size: 32px;
     align-items: center;
@@ -31,8 +38,7 @@
     max-width: 510px;
     transition: all 2s ease 0s;
     position: relative;
-	color:#aff706
-
+    color: hwb(241 2% 3%);
   }
 
   // .form__fields
@@ -62,6 +68,14 @@
     border-radius: 50px;
     transition: all 0.5s ease 0s;
     color: #fcf7f7;
+    @media (max-width: $md3) {
+      font-size: 26px;
+      width: 350px;
+    }
+    @media (max-width: $md4) {
+      font-size: 22px;
+      width: 275px;
+    }
 
     &::placeholder {
       color: #fcf7f7;
@@ -105,7 +119,14 @@
     font-size: 36px;
     line-height: 43px;
     margin: 10px 0;
-
+    @media (max-width: $md3) {
+      font-size: 26px;
+      width: 350px;
+    }
+    @media (max-width: $md4) {
+      font-size: 22px;
+      width: 275px;
+    }
   }
 
   &__help-ref {
@@ -134,7 +155,10 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
-
+    @media (max-width: $md3) {
+      font-size: 22px;
+      flex-direction: column;
+    }
     a {
       padding: 0 0 0 10px;
       text-decoration: underline;
@@ -149,7 +173,6 @@
 .form-error {
   font-size: 20px;
   color: rgb(0, 195, 255);
-
 }
 
 .info {
@@ -174,7 +197,7 @@
 }
 
 .not-active {
-	animation: notLabelAnimation 2s ease forwards;
+  animation: notLabelAnimation 2s ease forwards;
 }
 
 @keyframes labelAnimation {
@@ -182,28 +205,28 @@
     opacity: 0;
     left: -5000px;
     margin: 0;
-	 line-height: 0px;
+    line-height: 0px;
   }
 
   to {
     opacity: 1;
     left: 0;
-	 margin: 5px 0;
-	 line-height: 38px;
+    margin: 5px 0;
+    line-height: 38px;
   }
 }
 @keyframes notLabelAnimation {
-	from {
-	  opacity: 1;
-	  left: 0;
-	  margin: 5px 0;
-	  line-height: 38px;
-	}
- 
-	to {
-	  opacity: 0;
-	  left: -5000px;
-	  margin: 0;
-	  line-height: 0px;
-	}
- }
+  from {
+    opacity: 1;
+    left: 0;
+    margin: 5px 0;
+    line-height: 38px;
+  }
+
+  to {
+    opacity: 0;
+    left: -5000px;
+    margin: 0;
+    line-height: 0px;
+  }
+}

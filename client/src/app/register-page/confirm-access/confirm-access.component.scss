@@ -8,6 +8,12 @@
 	flex-direction: column;
 	text-align: center;
 	width: 450px;
+	@media (max-width: $md3){
+	width: 300px;
+	}
+	@media (max-width: $md4){
+	width: 200px;
+	}
 
 	// .model-form__title
 
@@ -16,6 +22,9 @@
 		font-size: 26px;
 		margin: 20px 0;
 		color: #000000;
+		@media (max-width: $md4){
+			font-size: 22px;
+			}
 	}
 
 	// .model-form__content
@@ -44,6 +53,12 @@
 	&__input {
 		background: none;
 		width: 420px;
+		@media (max-width: $md3){
+		width: 250px;
+		}
+		@media (max-width: $md4){
+		width: 180px;
+		}
 		height: 70px;
 		border: 3px solid #a70af0;
 		border-radius: 50px;
@@ -68,6 +83,10 @@
 		align-items: center;
 		justify-content: center;
 		width: 80%;
+		@media (max-width: $md4){
+		flex-direction: column;
+		width: 100%;
+		}
 	}
 
 	// .model-form__actions-btn
@@ -78,6 +97,10 @@
 		margin: 10px;
 		font-family: "Aleo";
 		font-size: 24px;
+		@media (max-width: $md4){
+			
+			width: 80%;
+			}
 	}
 }
 .non-btn-style {
