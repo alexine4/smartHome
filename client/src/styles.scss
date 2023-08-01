@@ -25,7 +25,7 @@ body,h1,h2,h3,h4, label,input,button,p,small {
 	padding: 5px;
 	@media (max-width: 976px){
 	width: 100vw;
-	height: 210vh;
+	min-height: 1400px;
 	}
 }
 .phfont-family {

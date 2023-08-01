@@ -78,9 +78,7 @@
       color: #fcf7f7;
     }
 
-    &:focus {
-      border: 5px solid #06f7f7;
-    }
+   
 
     @media (min-width: $md3) {
       &:hover {
@@ -100,9 +98,6 @@
       color: #fcf7f7;
     }
 
-    &:focus {
-      border: 5px solid #06f7f7;
-    }
   }
 
   // .form__btn
