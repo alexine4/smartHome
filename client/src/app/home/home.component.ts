@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     
     this.roomSub$ = this.roomService.fetchWithType().subscribe(
       room=>{
+        console.log(room);
         
         this.loading = true
         this.rooms.push(room)

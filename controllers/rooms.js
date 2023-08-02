@@ -4,13 +4,9 @@ const errorHandler = require("../utils/errorHandler");
 module.exports.getAll = async (req, res) => {
 	try {
 		await rooms.findAll(req.user.houseId).then((Rooms) => {
-			if (Rooms !== null) {
+			
 				res.status(200).json(Rooms);
-			} else {
-				res.status(204).json({
-					message: "No content found",
-				});
-			}
+			
 		});
 	} catch (error) {
 		errorHandler(res,error);
@@ -22,7 +18,7 @@ module.exports.getByID = async (req, res) => {
 			if (Rooms !== null) {
 				res.status(200).json(Rooms);
 			} else {
-				res.status(204).json({
+				res.status(404).json({
 					message: "No content found",
 				});
 			}
