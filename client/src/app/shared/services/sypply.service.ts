@@ -8,7 +8,7 @@ import { Observable, delay } from 'rxjs';
 })
 export class SypplyService {
 
-  delay = 4000
+  delay = 1500
   constructor(
     private httpClient: HttpClient
   ) { }

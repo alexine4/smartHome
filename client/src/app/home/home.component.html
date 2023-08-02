@@ -1,8 +1,9 @@
-<div class="navigation__container animation-show ">
+<div class="navigation__container animation-show">
   <div class="navigation__sections" *ngIf="loading; else loader">
     <section *ngFor="let room of rooms" class="navigation__section">
       <h2
-        class="navigation__title icon-bed"
+        *ngIf="room.roomName !== 'No rooms have been added'; else emptyRooms"
+        class="navigation__title"
         [ngClass]="{
           'icon-spoon-knife': room.typeName == 'Kitchen',
           'icon-lifebuoy': room.typeName == 'Bathroom',
@@ -12,11 +13,18 @@
           'icon-lab': room.typeName == 'Basement',
           'icon-smile': room.typeName == 'Holl'
         }"
-        [routerLink]="['/room/',room.roomId]"
-        (click)="newcurrentUrl('/room/'+room.roomId,room.roomName)"
+        [routerLink]="['/room/', room.roomId]"
+        (click)="newcurrentUrl('/room/' + room.roomId, room.roomName)"
       >
         {{ room.roomName }}
       </h2>
+      <ng-template #emptyRooms>
+        <h2 class="navigation__title" [routerLink]="['/rooms']">
+          {{ room.roomName }}
+          <br>
+          + Add new
+        </h2>
+      </ng-template>
     </section>
   </div>
 

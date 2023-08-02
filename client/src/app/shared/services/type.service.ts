@@ -7,7 +7,7 @@ import { Message, Type } from '../interfaces';
   providedIn: 'root'
 })
 export class TypeService {
-  delay = 5000
+  delay = 1500
   constructor(private httpClient: HttpClient) { }
 
   public fetchAll(): Observable<Type[]> {

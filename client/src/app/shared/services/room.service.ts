@@ -7,7 +7,7 @@ import { Observable, delay, iif, mergeMap, of } from 'rxjs';
   providedIn: 'root',
 })
 export class RoomService {
-  delay = 4000;
+  delay = 1500;
   constructor(private httpClient: HttpClient) { }
 
   public fetchWithType(): Observable<roomAndType> {
@@ -45,17 +45,15 @@ export class RoomService {
               ),
               of(
                 {
-                roomId: 0,
-                roomName: 'No rooms have been added',
-                typeId: 0,
-                typeName: 'none'
-              }
+                  roomId: 0,
+                  roomName: 'No rooms have been added',
+                  typeId: 0,
+                  typeName: 'none'
+                }
               )
             )
-
-
           ),
-          delay(4000)
+          delay(this.delay)
         )
       )
     );

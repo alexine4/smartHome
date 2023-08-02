@@ -8,7 +8,7 @@ import { Accessory, Message } from '../interfaces';
 })
 export class AccessoryService {
 
-  delay = 2000
+  delay = 1500
   constructor(private httpClient: HttpClient) { }
 
   public create(accesory: Accessory):Observable<Message>{
