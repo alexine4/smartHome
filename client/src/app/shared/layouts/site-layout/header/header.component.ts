@@ -7,6 +7,8 @@ import { Sypply, roomAndType } from 'src/app/shared/interfaces';
 import { Title } from '@angular/platform-browser';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { SypplyService } from 'src/app/shared/services/sypply.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -29,9 +31,11 @@ export class HeaderComponent implements OnInit {
   sypplySub$!: Subscription
 
   constructor(
+    private auth: AuthService,
     private location: Location,
     private toast: ToastrService,
     private roomServise: RoomService,
+    private router: Router,
     private sypplyServise: SypplyService,
     private title: Title,
     public menuService: MenuService
@@ -56,17 +60,17 @@ export class HeaderComponent implements OnInit {
 
     //get sypplies
     this.sypplySub$ = this.sypplyServise.fetchAll().subscribe(
-    Sypplies=>{
-      this.sypplies = Sypplies
-    },
-    error=>{
-     this.toast.error(error.error.message)
-    }
+      Sypplies => {
+        this.sypplies = Sypplies
+      },
+      error => {
+        this.toast.error(error.error.message)
+      }
     )
 
   }
 
-  public newcurrentUrl( newcurrentUrl: string, title: string) {
+  public newcurrentUrl(newcurrentUrl: string, title: string) {
     this.menuService.menuStatus = false
     this.menuService.currentURL = newcurrentUrl;
     this.title.setTitle(title)
@@ -93,7 +97,11 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
-  
+  public logout(event: { preventDefault: () => void }): void {
+    event.preventDefault()
+    this.auth.logOut()
+    this.router.navigate(['/login'])
+  }
 
 
 

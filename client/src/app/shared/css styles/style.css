@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ajbyhf');
-  src:  url('fonts/icomoon.eot?ajbyhf#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?ajbyhf') format('truetype'),
-    url('fonts/icomoon.woff?ajbyhf') format('woff'),
-    url('fonts/icomoon.svg?ajbyhf#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ohq242');
+  src:  url('fonts/icomoon.eot?ohq242#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ohq242') format('truetype'),
+    url('fonts/icomoon.woff?ohq242') format('woff'),
+    url('fonts/icomoon.svg?ohq242#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -87,6 +87,9 @@
 }
 .icon-tv:before {
   content: "\e95b";
+}
+.icon-lock:before {
+  content: "\e98f";
 }
 .icon-spoon-knife:before {
   content: "\e9a3";
